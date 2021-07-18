@@ -122,7 +122,7 @@
               ],
               "parameters": {
                 "bucket": {
-                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket. Because bucket resource names are unique across projects, you may omit the project number, `projects/-/buckets/{bucket_id}`.",
+                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket, `projects/{project_number}/buckets/{bucket_id}`.",
                   "location": "path",
                   "pattern": "^projects/[^/]+/buckets/[^/]+$",
                   "required": true,
@@ -151,7 +151,7 @@
               ],
               "parameters": {
                 "name": {
-                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket. Because bucket resource names are unique across projects, you may omit the project number, `projects/-/buckets/{bucket_id}`.",
+                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket, `projects/{project_number}/buckets/{bucket_id}`.",
                   "location": "path",
                   "pattern": "^projects/[^/]+/buckets/[^/]+$",
                   "required": true,
@@ -214,7 +214,7 @@
               ],
               "parameters": {
                 "bucket": {
-                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket. Because bucket resource names are unique across projects, you may omit the project number, `projects/-/buckets/{bucket_id}`.",
+                  "description": "Required. Resource name of the bucket, mirrors the ID of the underlying Google Cloud Storage bucket, `projects/{project_number}/buckets/{bucket_id}`.",
                   "location": "path",
                   "pattern": "^projects/[^/]+/buckets/[^/]+$",
                   "required": true,
@@ -238,7 +238,7 @@
       }
     }
   },
-  "revision": "20210521",
+  "revision": "20210709",
   "rootUrl": "https://firebasestorage.googleapis.com/",
   "schemas": {
     "AddFirebaseRequest": {
@@ -251,6 +251,11 @@
       "description": "A storage bucket and its relation to a parent Firebase project.",
       "id": "Bucket",
       "properties": {
+        "location": {
+          "description": "Output only. Location of the storage bucket.",
+          "readOnly": true,
+          "type": "string"
+        },
         "name": {
           "description": "Resource name of the bucket.",
           "type": "string"
@@ -267,6 +272,100 @@
       "description": "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); } The JSON representation for `Empty` is empty JSON object `{}`.",
       "id": "Empty",
       "properties": {},
+      "type": "object"
+    },
+    "GoogleFirebaseStorageControlplaneV1alphaMigrateLocationDestructivelyMetadata": {
+      "description": "Metadata for MigrateLocationDestructively LRO.",
+      "id": "GoogleFirebaseStorageControlplaneV1alphaMigrateLocationDestructivelyMetadata",
+      "properties": {
+        "createTime": {
+          "description": "The time the LRO was created.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "lastUpdateTime": {
+          "description": "The time the LRO was last updated.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "state": {
+          "description": "The current state of the migration.",
+          "enum": [
+            "STATE_UNSPECIFIED",
+            "PENDING",
+            "CREATING_TEMP_BUCKET",
+            "TRANSFERRING_TO_TEMP",
+            "DELETING_SOURCE_BUCKET",
+            "CREATING_DESTINATION_BUCKET",
+            "TRANSFERRING_TO_DESTINATION",
+            "DELETING_TEMP_BUCKET",
+            "SUCCEEDED",
+            "FAILED",
+            "ROLLING_BACK"
+          ],
+          "enumDescriptions": [
+            "Unspecified state. Should not be used.",
+            "The MigrateLocationDestructively request has passed precondition checks and the bucket migration will begin soon.",
+            "Generating a unique bucket name, storing the source -> temp mapping in Spanner, and actually creating the temporary bucket via Bigstore.",
+            "The first STS transfer to move all objects from the source bucket to the temp bucket is underway.",
+            "The source bucket is being emptied and deleted.",
+            "The source bucket is being recreated in the new location.",
+            "The second STS transfer to move all objects from the temp bucket to the final bucket is underway.",
+            "The temp bucket is being emptied and deleted.",
+            "All stages of the migration have completed and the operation has been marked done and updated with a response.",
+            "The migration failed at some stage and it is not possible to continue retrying that stage. Manual recovery may be needed.",
+            "The migration has encountered a permanent failure and is now being rolled back so that the source bucket is restored to its original state."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoogleFirebaseStorageControlplaneV1betaMigrateLocationDestructivelyMetadata": {
+      "description": "Metadata for MigrateLocationDestructively LRO.",
+      "id": "GoogleFirebaseStorageControlplaneV1betaMigrateLocationDestructivelyMetadata",
+      "properties": {
+        "createTime": {
+          "description": "The time the LRO was created.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "lastUpdateTime": {
+          "description": "The time the LRO was last updated.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "state": {
+          "description": "The current state of the migration.",
+          "enum": [
+            "STATE_UNSPECIFIED",
+            "PENDING",
+            "CREATING_TEMP_BUCKET",
+            "TRANSFERRING_TO_TEMP",
+            "DELETING_SOURCE_BUCKET",
+            "CREATING_DESTINATION_BUCKET",
+            "TRANSFERRING_TO_DESTINATION",
+            "DELETING_TEMP_BUCKET",
+            "SUCCEEDED",
+            "FAILED",
+            "ROLLING_BACK"
+          ],
+          "enumDescriptions": [
+            "Unspecified state. Should not be used.",
+            "The MigrateLocationDestructively request has passed precondition checks and the bucket migration will begin soon.",
+            "Generating a unique bucket name, storing the source -> temp mapping in Spanner, and actually creating the temporary bucket via Bigstore.",
+            "The first STS transfer to move all objects from the source bucket to the temp bucket is underway.",
+            "The source bucket is being emptied and deleted.",
+            "The source bucket is being recreated in the new location.",
+            "The second STS transfer to move all objects from the temp bucket to the final bucket is underway.",
+            "The temp bucket is being emptied and deleted.",
+            "All stages of the migration have completed and the operation has been marked done and updated with a response.",
+            "The migration failed at some stage and it is not possible to continue retrying that stage. Manual recovery may be needed.",
+            "The migration has encountered a permanent failure and is now being rolled back so that the source bucket is restored to its original state."
+          ],
+          "type": "string"
+        }
+      },
       "type": "object"
     },
     "ListBucketsResponse": {
