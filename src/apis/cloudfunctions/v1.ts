@@ -261,6 +261,14 @@ export namespace cloudfunctions_v1 {
      */
     runtime?: string | null;
     /**
+     * Secret environment variables configuration.
+     */
+    secretEnvironmentVariables?: Schema$SecretEnvVar[];
+    /**
+     * Secret volumes configuration.
+     */
+    secretVolumes?: Schema$SecretVolume[];
+    /**
      * The email of the function's service account. If empty, defaults to `{project_id\}@appspot.gserviceaccount.com`.
      */
     serviceAccountEmail?: string | null;
@@ -555,6 +563,61 @@ export namespace cloudfunctions_v1 {
    * Describes the retry policy in case of function's execution failure. A function execution will be retried on any failure. A failed execution will be retried up to 7 days with an exponential backoff (capped at 10 seconds). Retried execution is charged as any other execution.
    */
   export interface Schema$Retry {}
+  /**
+   * Configuration for a secret environment variable. It has the information necessary to fetch the secret value from secret manager and expose it as an environment variable. Secret value is not a part of the configuration. Secret values are only fetched when a new clone starts.
+   */
+  export interface Schema$SecretEnvVar {
+    /**
+     * Name of the environment variable.
+     */
+    key?: string | null;
+    /**
+     * Project whose secret manager data is being referenced. Cross project secrets are not supported.
+     */
+    projectId?: string | null;
+    /**
+     * Name of the secret in secret manager (not the full resource name).
+     */
+    secret?: string | null;
+    /**
+     * Version of the secret (version number or the string 'latest'). It is recommended to use a numeric version for secret environment variables as any updates to the secret value is not reflected until new clones start.
+     */
+    version?: string | null;
+  }
+  /**
+   * Configuration for a single version.
+   */
+  export interface Schema$SecretVersion {
+    /**
+     * Relative path of the file under the mount path where the secret value for this version will be fetched and made available. For example, setting the mount_path as '/etc/secrets' and path as `/secret_foo` would mount the secret value file at `/etc/secrets/secret_foo`.
+     */
+    path?: string | null;
+    /**
+     * Version of the secret (version number or the string 'latest'). It is preferrable to use `latest` version with secret volumes as secret value changes are reflected immediately.
+     */
+    version?: string | null;
+  }
+  /**
+   * Configuration for a secret volume. It has the information necessary to fetch the secret value from secret manager and make it available as files mounted at the requested paths within the application container. Secret value is not a part of the configuration. Every filesystem read operation performs a lookup in secret manager to retrieve the secret value.
+   */
+  export interface Schema$SecretVolume {
+    /**
+     * The path within the container to mount the secret volume. For example, setting the mount_path as `/etc/secrets` would mount the secret value files under the `/etc/secrets` directory. This directory will also be completely shadowed and unavailable to mount any other secrets. Recommended mount paths: /etc/secrets Restricted mount paths: /cloudsql, /dev/log, /pod, /proc, /var/log
+     */
+    mountPath?: string | null;
+    /**
+     * Project whose secret manager data is being referenced. Cross project secrets are not supported.
+     */
+    projectId?: string | null;
+    /**
+     * Name of the secret in secret manager (not the full resource name).
+     */
+    secret?: string | null;
+    /**
+     * List of secret versions to mount for this secret. If empty, the `latest` version of the secret will be made available in a file named after the secret under the mount point.
+     */
+    versions?: Schema$SecretVersion[];
+  }
   /**
    * Request message for `SetIamPolicy` method.
    */
@@ -1294,6 +1357,8 @@ export namespace cloudfunctions_v1 {
      *       //   "name": "my_name",
      *       //   "network": "my_network",
      *       //   "runtime": "my_runtime",
+     *       //   "secretEnvironmentVariables": [],
+     *       //   "secretVolumes": [],
      *       //   "serviceAccountEmail": "my_serviceAccountEmail",
      *       //   "sourceArchiveUrl": "my_sourceArchiveUrl",
      *       //   "sourceRepository": {},
@@ -1883,6 +1948,8 @@ export namespace cloudfunctions_v1 {
      *   //   "name": "my_name",
      *   //   "network": "my_network",
      *   //   "runtime": "my_runtime",
+     *   //   "secretEnvironmentVariables": [],
+     *   //   "secretVolumes": [],
      *   //   "serviceAccountEmail": "my_serviceAccountEmail",
      *   //   "sourceArchiveUrl": "my_sourceArchiveUrl",
      *   //   "sourceRepository": {},
@@ -2314,6 +2381,8 @@ export namespace cloudfunctions_v1 {
      *       //   "name": "my_name",
      *       //   "network": "my_network",
      *       //   "runtime": "my_runtime",
+     *       //   "secretEnvironmentVariables": [],
+     *       //   "secretVolumes": [],
      *       //   "serviceAccountEmail": "my_serviceAccountEmail",
      *       //   "sourceArchiveUrl": "my_sourceArchiveUrl",
      *       //   "sourceRepository": {},
