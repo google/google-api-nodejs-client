@@ -1623,6 +1623,8 @@ export namespace secretmanager_v1 {
      *
      *   // Do the magic
      *   const res = await secretmanager.projects.secrets.list({
+     *     // Optional. Filter string, adhering to the rules in [List-operation filtering](https://cloud.google.com/secret-manager/docs/filtering). List only secrets matching the filter. If filter is empty, all secrets are listed.
+     *     filter: 'placeholder-value',
      *     // Optional. The maximum number of results to be returned in a single page. If set to 0, the server decides the number of results to return. If the number is greater than 25000, it is capped at 25000.
      *     pageSize: 'placeholder-value',
      *     // Optional. Pagination token, returned earlier via ListSecretsResponse.next_page_token.
@@ -2235,6 +2237,10 @@ export namespace secretmanager_v1 {
   }
   export interface Params$Resource$Projects$Secrets$List
     extends StandardParameters {
+    /**
+     * Optional. Filter string, adhering to the rules in [List-operation filtering](https://cloud.google.com/secret-manager/docs/filtering). List only secrets matching the filter. If filter is empty, all secrets are listed.
+     */
+    filter?: string;
     /**
      * Optional. The maximum number of results to be returned in a single page. If set to 0, the server decides the number of results to return. If the number is greater than 25000, it is capped at 25000.
      */
@@ -3015,6 +3021,8 @@ export namespace secretmanager_v1 {
      *
      *   // Do the magic
      *   const res = await secretmanager.projects.secrets.versions.list({
+     *     // Optional. Filter string, adhering to the rules in [List-operation filtering](https://cloud.google.com/secret-manager/docs/filtering). List only secret versions matching the filter. If filter is empty, all secret versions are listed.
+     *     filter: 'placeholder-value',
      *     // Optional. The maximum number of results to be returned in a single page. If set to 0, the server decides the number of results to return. If the number is greater than 25000, it is capped at 25000.
      *     pageSize: 'placeholder-value',
      *     // Optional. Pagination token, returned earlier via ListSecretVersionsResponse.next_page_token][].
@@ -3184,6 +3192,10 @@ export namespace secretmanager_v1 {
   }
   export interface Params$Resource$Projects$Secrets$Versions$List
     extends StandardParameters {
+    /**
+     * Optional. Filter string, adhering to the rules in [List-operation filtering](https://cloud.google.com/secret-manager/docs/filtering). List only secret versions matching the filter. If filter is empty, all secret versions are listed.
+     */
+    filter?: string;
     /**
      * Optional. The maximum number of results to be returned in a single page. If set to 0, the server decides the number of results to return. If the number is greater than 25000, it is capped at 25000.
      */
