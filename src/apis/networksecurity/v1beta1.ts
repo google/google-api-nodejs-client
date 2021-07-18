@@ -479,7 +479,7 @@ export namespace networksecurity_v1beta1 {
    */
   export interface Schema$MTLSPolicy {
     /**
-     * Required. Defines the mechanism to obtain the Certificate Authority certificate to validate the client certificate.
+     *  Defines the mechanism to obtain the Certificate Authority certificate to validate the client certificate.
      */
     clientValidationCa?: Schema$ValidationCA[];
   }
@@ -559,7 +559,7 @@ export namespace networksecurity_v1beta1 {
    */
   export interface Schema$ServerTlsPolicy {
     /**
-     * Optional. Determines if server allows plaintext connections. If set to true, server allows plain text connections. By default, it is set to false. This setting is not exclusive of other encryption modes. For example, if allow_open and mtls_policy are set, server allows both plain text and mTLS connections. See documentation of other encryption modes to confirm compatibility.
+     *  Determines if server allows plaintext connections. If set to true, server allows plain text connections. By default, it is set to false. This setting is not exclusive of other encryption modes. For example, if `allow_open` and `mtls_policy` are set, server allows both plain text and mTLS connections. See documentation of other encryption modes to confirm compatibility.
      */
     allowOpen?: boolean | null;
     /**
@@ -567,15 +567,15 @@ export namespace networksecurity_v1beta1 {
      */
     createTime?: string | null;
     /**
-     * Optional. Free-text description of the resource.
+     * Free-text description of the resource.
      */
     description?: string | null;
     /**
-     * Optional. Set of label tags associated with the resource.
+     * Set of label tags associated with the resource.
      */
     labels?: {[key: string]: string} | null;
     /**
-     * Optional. Defines a mechanism to provision peer validation certificates for peer to peer authentication (Mutual TLS - mTLS). If not specified, client certificate will not be requested. The connection is treated as TLS and not mTLS. If allow_open and mtls_policy are set, server allows both plain text and mTLS connections.
+     *  Defines a mechanism to provision peer validation certificates for peer to peer authentication (Mutual TLS - mTLS). If not specified, client certificate will not be requested. The connection is treated as TLS and not mTLS. If `allow_open` and `mtls_policy` are set, server allows both plain text and mTLS connections.
      */
     mtlsPolicy?: Schema$MTLSPolicy;
     /**
@@ -583,7 +583,7 @@ export namespace networksecurity_v1beta1 {
      */
     name?: string | null;
     /**
-     * Optional. Defines a mechanism to provision server identity (public and private keys). Cannot be combined with allow_open as a permissive mode that allows both plain text and TLS is not supported.
+     *  Defines a mechanism to provision server identity (public and private keys). Cannot be combined with `allow_open` as a permissive mode that allows both plain text and TLS is not supported.
      */
     serverCertificate?: Schema$GoogleCloudNetworksecurityV1beta1CertificateProvider;
     /**
