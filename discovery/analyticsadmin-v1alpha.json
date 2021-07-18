@@ -1561,6 +1561,336 @@
             }
           }
         },
+        "displayVideo360AdvertiserLinkProposals": {
+          "methods": {
+            "approve": {
+              "description": "Approves a DisplayVideo360AdvertiserLinkProposal. The DisplayVideo360AdvertiserLinkProposal will be deleted and a new DisplayVideo360AdvertiserLink will be created.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals/{displayVideo360AdvertiserLinkProposalsId}:approve",
+              "httpMethod": "POST",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.approve",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLinkProposal to approve. Example format: properties/1234/displayVideo360AdvertiserLinkProposals/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinkProposals/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}:approve",
+              "request": {
+                "$ref": "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalRequest"
+              },
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalResponse"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "cancel": {
+              "description": "Cancels a DisplayVideo360AdvertiserLinkProposal. Cancelling can mean either: - Declining a proposal initiated from Display & Video 360 - Withdrawing a proposal initiated from Google Analytics After being cancelled, a proposal will eventually be deleted automatically.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals/{displayVideo360AdvertiserLinkProposalsId}:cancel",
+              "httpMethod": "POST",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.cancel",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLinkProposal to cancel. Example format: properties/1234/displayVideo360AdvertiserLinkProposals/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinkProposals/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}:cancel",
+              "request": {
+                "$ref": "GoogleAnalyticsAdminV1alphaCancelDisplayVideo360AdvertiserLinkProposalRequest"
+              },
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "create": {
+              "description": "Creates a DisplayVideo360AdvertiserLinkProposal.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals",
+              "httpMethod": "POST",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.create",
+              "parameterOrder": [
+                "parent"
+              ],
+              "parameters": {
+                "parent": {
+                  "description": "Required. Example format: properties/1234",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+parent}/displayVideo360AdvertiserLinkProposals",
+              "request": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal"
+              },
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "delete": {
+              "description": "Deletes a DisplayVideo360AdvertiserLinkProposal on a property. This can only be used on cancelled proposals.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals/{displayVideo360AdvertiserLinkProposalsId}",
+              "httpMethod": "DELETE",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.delete",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLinkProposal to delete. Example format: properties/1234/displayVideo360AdvertiserLinkProposals/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinkProposals/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}",
+              "response": {
+                "$ref": "GoogleProtobufEmpty"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "get": {
+              "description": "Lookup for a single DisplayVideo360AdvertiserLinkProposal.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals/{displayVideo360AdvertiserLinkProposalsId}",
+              "httpMethod": "GET",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.get",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLinkProposal to get. Example format: properties/1234/displayVideo360AdvertiserLinkProposals/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinkProposals/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}",
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit",
+                "https://www.googleapis.com/auth/analytics.readonly"
+              ]
+            },
+            "list": {
+              "description": "Lists DisplayVideo360AdvertiserLinkProposals on a property.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinkProposals",
+              "httpMethod": "GET",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinkProposals.list",
+              "parameterOrder": [
+                "parent"
+              ],
+              "parameters": {
+                "pageSize": {
+                  "description": "The maximum number of resources to return. If unspecified, at most 50 resources will be returned. The maximum value is 200 (higher values will be coerced to the maximum).",
+                  "format": "int32",
+                  "location": "query",
+                  "type": "integer"
+                },
+                "pageToken": {
+                  "description": "A page token, received from a previous `ListDisplayVideo360AdvertiserLinkProposals` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListDisplayVideo360AdvertiserLinkProposals` must match the call that provided the page token.",
+                  "location": "query",
+                  "type": "string"
+                },
+                "parent": {
+                  "description": "Required. Example format: properties/1234",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+parent}/displayVideo360AdvertiserLinkProposals",
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinkProposalsResponse"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit",
+                "https://www.googleapis.com/auth/analytics.readonly"
+              ]
+            }
+          }
+        },
+        "displayVideo360AdvertiserLinks": {
+          "methods": {
+            "create": {
+              "description": "Creates a DisplayVideo360AdvertiserLink. This can only be utilized by users who have proper authorization both on the Google Analytics property and on the Display & Video 360 advertiser. Users who do not have access to the Display & Video 360 advertiser should instead seek to create a DisplayVideo360LinkProposal.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinks",
+              "httpMethod": "POST",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinks.create",
+              "parameterOrder": [
+                "parent"
+              ],
+              "parameters": {
+                "parent": {
+                  "description": "Required. Example format: properties/1234",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+parent}/displayVideo360AdvertiserLinks",
+              "request": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
+              },
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "delete": {
+              "description": "Deletes a DisplayVideo360AdvertiserLink on a property.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinks/{displayVideo360AdvertiserLinksId}",
+              "httpMethod": "DELETE",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinks.delete",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLink to delete. Example format: properties/1234/displayVideo360AdvertiserLinks/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinks/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}",
+              "response": {
+                "$ref": "GoogleProtobufEmpty"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            },
+            "get": {
+              "description": "Look up a single DisplayVideo360AdvertiserLink",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinks/{displayVideo360AdvertiserLinksId}",
+              "httpMethod": "GET",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinks.get",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Required. The name of the DisplayVideo360AdvertiserLink to get. Example format: properties/1234/displayVideo360AdvertiserLink/5678",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinks/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}",
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit",
+                "https://www.googleapis.com/auth/analytics.readonly"
+              ]
+            },
+            "list": {
+              "description": "Lists all DisplayVideo360AdvertiserLinks on a property.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinks",
+              "httpMethod": "GET",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinks.list",
+              "parameterOrder": [
+                "parent"
+              ],
+              "parameters": {
+                "pageSize": {
+                  "description": "The maximum number of resources to return. If unspecified, at most 50 resources will be returned. The maximum value is 200 (higher values will be coerced to the maximum).",
+                  "format": "int32",
+                  "location": "query",
+                  "type": "integer"
+                },
+                "pageToken": {
+                  "description": "A page token, received from a previous `ListDisplayVideo360AdvertiserLinks` call. Provide this to retrieve the subsequent page. When paginating, all other parameters provided to `ListDisplayVideo360AdvertiserLinks` must match the call that provided the page token.",
+                  "location": "query",
+                  "type": "string"
+                },
+                "parent": {
+                  "description": "Required. Example format: properties/1234",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+parent}/displayVideo360AdvertiserLinks",
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinksResponse"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit",
+                "https://www.googleapis.com/auth/analytics.readonly"
+              ]
+            },
+            "patch": {
+              "description": "Updates a DisplayVideo360AdvertiserLink on a property.",
+              "flatPath": "v1alpha/properties/{propertiesId}/displayVideo360AdvertiserLinks/{displayVideo360AdvertiserLinksId}",
+              "httpMethod": "PATCH",
+              "id": "analyticsadmin.properties.displayVideo360AdvertiserLinks.patch",
+              "parameterOrder": [
+                "name"
+              ],
+              "parameters": {
+                "name": {
+                  "description": "Output only. The resource name for this DisplayVideo360AdvertiserLink resource. Format: properties/{propertyId}/displayVideo360AdvertiserLinks/{linkId} Note: linkId is not the Display & Video 360 Advertiser ID",
+                  "location": "path",
+                  "pattern": "^properties/[^/]+/displayVideo360AdvertiserLinks/[^/]+$",
+                  "required": true,
+                  "type": "string"
+                },
+                "updateMask": {
+                  "description": "Required. The list of fields to be updated. Omitted fields will not be updated. To replace the entire entity, use one path with the string \"*\" to match all fields.",
+                  "format": "google-fieldmask",
+                  "location": "query",
+                  "type": "string"
+                }
+              },
+              "path": "v1alpha/{+name}",
+              "request": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
+              },
+              "response": {
+                "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/analytics.edit"
+              ]
+            }
+          }
+        },
         "firebaseLinks": {
           "methods": {
             "create": {
@@ -2762,7 +3092,7 @@
       }
     }
   },
-  "revision": "20210624",
+  "revision": "20210714",
   "rootUrl": "https://analyticsadmin.googleapis.com/",
   "schemas": {
     "GoogleAnalyticsAdminV1alphaAccount": {
@@ -2861,6 +3191,23 @@
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalRequest": {
+      "description": "Request message for ApproveDisplayVideo360AdvertiserLinkProposal RPC.",
+      "id": "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalRequest",
+      "properties": {},
+      "type": "object"
+    },
+    "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalResponse": {
+      "description": "Response message for ApproveDisplayVideo360AdvertiserLinkProposal RPC.",
+      "id": "GoogleAnalyticsAdminV1alphaApproveDisplayVideo360AdvertiserLinkProposalResponse",
+      "properties": {
+        "displayVideo360AdvertiserLink": {
+          "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink",
+          "description": "The DisplayVideo360AdvertiserLink created as a result of approving the proposal."
         }
       },
       "type": "object"
@@ -3028,6 +3375,12 @@
       },
       "type": "object"
     },
+    "GoogleAnalyticsAdminV1alphaCancelDisplayVideo360AdvertiserLinkProposalRequest": {
+      "description": "Request message for CancelDisplayVideo360AdvertiserLinkProposal RPC.",
+      "id": "GoogleAnalyticsAdminV1alphaCancelDisplayVideo360AdvertiserLinkProposalRequest",
+      "properties": {},
+      "type": "object"
+    },
     "GoogleAnalyticsAdminV1alphaChangeHistoryChange": {
       "description": "A description of a change to a single Google Analytics resource.",
       "id": "GoogleAnalyticsAdminV1alphaChangeHistoryChange",
@@ -3086,6 +3439,14 @@
         "customMetric": {
           "$ref": "GoogleAnalyticsAdminV1alphaCustomMetric",
           "description": "A snapshot of a CustomMetric resource in change history."
+        },
+        "displayVideo360AdvertiserLink": {
+          "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink",
+          "description": "A snapshot of a DisplayVideo360AdvertiserLink resource in change history."
+        },
+        "displayVideo360AdvertiserLinkProposal": {
+          "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal",
+          "description": "A snapshot of a DisplayVideo360AdvertiserLinkProposal resource in change history."
         },
         "firebaseLink": {
           "$ref": "GoogleAnalyticsAdminV1alphaFirebaseLink",
@@ -3367,6 +3728,81 @@
       },
       "type": "object"
     },
+    "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink": {
+      "description": "A link between a GA4 property and a Display & Video 360 advertiser.",
+      "id": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink",
+      "properties": {
+        "adsPersonalizationEnabled": {
+          "description": "Enables personalized advertising features with this integration. If this field is not set on create/update, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "advertiserDisplayName": {
+          "description": "Output only. The display name of the Display & Video 360 Advertiser.",
+          "readOnly": true,
+          "type": "string"
+        },
+        "advertiserId": {
+          "description": "Immutable. The Display & Video 360 Advertiser's advertiser ID.",
+          "type": "string"
+        },
+        "campaignDataSharingEnabled": {
+          "description": "Immutable. Enables the import of campaign data from Display & Video 360 into the GA4 property. After link creation, this can only be updated from the Display & Video 360 product. If this field is not set on create, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "costDataSharingEnabled": {
+          "description": "Immutable. Enables the import of cost data from Display & Video 360 into the GA4 property. This can only be enabled if campaign_data_import_enabled is enabled. After link creation, this can only be updated from the Display & Video 360 product. If this field is not set on create, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Output only. The resource name for this DisplayVideo360AdvertiserLink resource. Format: properties/{propertyId}/displayVideo360AdvertiserLinks/{linkId} Note: linkId is not the Display & Video 360 Advertiser ID",
+          "readOnly": true,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal": {
+      "description": "A proposal for a link between an GA4 property and a Display & Video 360 advertiser. A proposal is converted to a DisplayVideo360AdvertiserLink once approved. Google Analytics admins approve inbound proposals while Display & Video 360 admins approve outbound proposals.",
+      "id": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal",
+      "properties": {
+        "adsPersonalizationEnabled": {
+          "description": "Immutable. Enables personalized advertising features with this integration. If this field is not set on create, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "advertiserDisplayName": {
+          "description": "Output only. The display name of the Display & Video Advertiser. Only populated for proposals that originated from Display & Video 360.",
+          "readOnly": true,
+          "type": "string"
+        },
+        "advertiserId": {
+          "description": "Immutable. The Display & Video 360 Advertiser's advertiser ID.",
+          "type": "string"
+        },
+        "campaignDataSharingEnabled": {
+          "description": "Immutable. Enables the import of campaign data from Display & Video 360. If this field is not set on create, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "costDataSharingEnabled": {
+          "description": "Immutable. Enables the import of cost data from Display & Video 360. This can only be enabled if campaign_data_import_enabled is enabled. If this field is not set on create, it will be defaulted to true.",
+          "type": "boolean"
+        },
+        "linkProposalStatusDetails": {
+          "$ref": "GoogleAnalyticsAdminV1alphaLinkProposalStatusDetails",
+          "description": "Output only. The status information for this link proposal.",
+          "readOnly": true
+        },
+        "name": {
+          "description": "Output only. The resource name for this DisplayVideo360AdvertiserLinkProposal resource. Format: properties/{propertyId}/displayVideo360AdvertiserLinkProposals/{proposalId} Note: proposalId is not the Display & Video 360 Advertiser ID",
+          "readOnly": true,
+          "type": "string"
+        },
+        "validationEmail": {
+          "description": "Input only. On a proposal being sent to Display & Video 360, this field must be set to the email address of an admin on the target advertiser. This is used to verify that the Google Analytics admin is aware of at least one admin on the Display & Video 360 Advertiser. This does not restrict approval of the proposal to a single user. Any admin on the Display & Video 360 Advertiser may approve the proposal.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "GoogleAnalyticsAdminV1alphaEnhancedMeasurementSettings": {
       "description": "Singleton resource under a WebDataStream, configuring measurement of additional site interactions and content.",
       "id": "GoogleAnalyticsAdminV1alphaEnhancedMeasurementSettings",
@@ -3583,6 +4019,56 @@
       },
       "type": "object"
     },
+    "GoogleAnalyticsAdminV1alphaLinkProposalStatusDetails": {
+      "description": "Status information for a link proposal.",
+      "id": "GoogleAnalyticsAdminV1alphaLinkProposalStatusDetails",
+      "properties": {
+        "linkProposalInitiatingProduct": {
+          "description": "Output only. The source of this proposal.",
+          "enum": [
+            "LINK_PROPOSAL_INITIATING_PRODUCT_UNSPECIFIED",
+            "GOOGLE_ANALYTICS",
+            "LINKED_PRODUCT"
+          ],
+          "enumDescriptions": [
+            "Unspecified product.",
+            "This proposal was created by a user from Google Analytics.",
+            "This proposal was created by a user from a linked product (not Google Analytics)."
+          ],
+          "readOnly": true,
+          "type": "string"
+        },
+        "linkProposalState": {
+          "description": "Output only. The state of this proposal.",
+          "enum": [
+            "LINK_PROPOSAL_STATE_UNSPECIFIED",
+            "AWAITING_REVIEW_FROM_GOOGLE_ANALYTICS",
+            "AWAITING_REVIEW_FROM_LINKED_PRODUCT",
+            "WITHDRAWN",
+            "DECLINED",
+            "EXPIRED",
+            "OBSOLETE"
+          ],
+          "enumDescriptions": [
+            "Unspecified state",
+            "This proposal is awaiting review from a Google Analytics user. This proposal will automatically expire after some time.",
+            "This proposal is awaiting review from a user of a linked product. This proposal will automatically expire after some time.",
+            "This proposal has been withdrawn by an admin on the initiating product. This proposal will be automatically deleted after some time.",
+            "This proposal has been declined by an admin on the receiving product. This proposal will be automatically deleted after some time.",
+            "This proposal expired due to lack of response from an admin on the receiving product. This proposal will be automatically deleted after some time.",
+            "This proposal has become obsolete because a link was directly created to the same external product resource that this proposal specifies. This proposal will be automatically deleted after some time."
+          ],
+          "readOnly": true,
+          "type": "string"
+        },
+        "requestorEmail": {
+          "description": "Output only. The email address of the user that proposed this linkage.",
+          "readOnly": true,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "GoogleAnalyticsAdminV1alphaListAccountSummariesResponse": {
       "description": "Response message for ListAccountSummaries RPC.",
       "id": "GoogleAnalyticsAdminV1alphaListAccountSummariesResponse",
@@ -3681,6 +4167,42 @@
           "description": "List of CustomMetrics.",
           "items": {
             "$ref": "GoogleAnalyticsAdminV1alphaCustomMetric"
+          },
+          "type": "array"
+        },
+        "nextPageToken": {
+          "description": "A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinkProposalsResponse": {
+      "description": "Response message for ListDisplayVideo360AdvertiserLinkProposals RPC.",
+      "id": "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinkProposalsResponse",
+      "properties": {
+        "displayVideo360AdvertiserLinkProposals": {
+          "description": "List of DisplayVideo360AdvertiserLinkProposals.",
+          "items": {
+            "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLinkProposal"
+          },
+          "type": "array"
+        },
+        "nextPageToken": {
+          "description": "A token, which can be sent as `page_token` to retrieve the next page. If this field is omitted, there are no subsequent pages.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinksResponse": {
+      "description": "Response message for ListDisplayVideo360AdvertiserLinks RPC.",
+      "id": "GoogleAnalyticsAdminV1alphaListDisplayVideo360AdvertiserLinksResponse",
+      "properties": {
+        "displayVideo360AdvertiserLinks": {
+          "description": "List of DisplayVideo360AdvertiserLinks.",
+          "items": {
+            "$ref": "GoogleAnalyticsAdminV1alphaDisplayVideo360AdvertiserLink"
           },
           "type": "array"
         },
@@ -3937,6 +4459,21 @@
         },
         "parent": {
           "description": "Immutable. Resource name of this property's logical parent. Note: The Property-Moving UI can be used to change the parent. Format: accounts/{account} Example: \"accounts/100\"",
+          "type": "string"
+        },
+        "serviceLevel": {
+          "description": "Output only. The Google Analytics service level that applies to this property.",
+          "enum": [
+            "SERVICE_LEVEL_UNSPECIFIED",
+            "GOOGLE_ANALYTICS_STANDARD",
+            "GOOGLE_ANALYTICS_360"
+          ],
+          "enumDescriptions": [
+            "Service level not specified or invalid.",
+            "The standard version of Google Analytics.",
+            "The paid, premium version of Google Analytics."
+          ],
+          "readOnly": true,
           "type": "string"
         },
         "timeZone": {
