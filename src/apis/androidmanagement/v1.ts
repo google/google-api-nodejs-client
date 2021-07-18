@@ -782,7 +782,7 @@ export namespace androidmanagement_v1 {
      */
     appAutoApprovalEnabled?: boolean | null;
     /**
-     * This feature is not generally available yet. The enterprise contact info of an EMM owned enterprise
+     * The enterprise contact info of an EMM-managed enterprise.
      */
     contactInfo?: Schema$ContactInfo;
     /**
@@ -1019,15 +1019,15 @@ export namespace androidmanagement_v1 {
     nextPageToken?: string | null;
   }
   /**
-   * This feature is not generally available yet. Response to a request to list enterprises.
+   * Response to a request to list enterprises.
    */
   export interface Schema$ListEnterprisesResponse {
     /**
-     * This feature is not generally available yet. The list of enterprises.
+     * The list of enterprises.
      */
     enterprises?: Schema$Enterprise[];
     /**
-     * This feature is not generally available yet. If there are more results, a token to retrieve next page of results.
+     * If there are more results, a token to retrieve next page of results.
      */
     nextPageToken?: string | null;
   }
@@ -2196,13 +2196,13 @@ export namespace androidmanagement_v1 {
      *
      *   // Do the magic
      *   const res = await androidmanagement.enterprises.create({
-     *     // This feature is not generally available yet. Whether the managed Google Play Agreement is presented and agreed.
+     *     // Whether the enterprise admin has seen and agreed to the managed Google Play Agreement (https://www.android.com/enterprise/terms/). Always set this to true when creating an EMM-managed enterprise. Do not create the enterprise until the admin has viewed and accepted the agreement.
      *     agreementAccepted: 'placeholder-value',
-     *     // The enterprise token appended to the callback URL.
+     *     // The enterprise token appended to the callback URL. Only set this when creating a customer-managed enterprise.
      *     enterpriseToken: 'placeholder-value',
      *     // The ID of the Google Cloud Platform project which will own the enterprise.
      *     projectId: 'placeholder-value',
-     *     // The name of the SignupUrl used to sign up for the enterprise.
+     *     // The name of the SignupUrl used to sign up for the enterprise. Only set this when creating a customer-managed enterprise.
      *     signupUrlName: 'placeholder-value',
      *
      *     // Request body metadata
@@ -2329,7 +2329,7 @@ export namespace androidmanagement_v1 {
     }
 
     /**
-     * This feature is not generally available yet. Deletes an enterprise.
+     * Deletes an enterprise. Only available for EMM-managed enterprises.
      * @example
      * ```js
      * // Before running the sample:
@@ -2355,7 +2355,7 @@ export namespace androidmanagement_v1 {
      *
      *   // Do the magic
      *   const res = await androidmanagement.enterprises.delete({
-     *     // This feature is not generally available yet. The name of the enterprise in the form enterprises/{enterpriseId\}.
+     *     // The name of the enterprise in the form enterprises/{enterpriseId\}.
      *     name: 'enterprises/my-enterprise',
      *   });
      *   console.log(res.data);
@@ -2589,7 +2589,7 @@ export namespace androidmanagement_v1 {
     }
 
     /**
-     * This feature is not generally available yet. Lists enterprises that are managed by an EMM. Only partial views are returned.
+     * Lists EMM-managed enterprises. Only BASIC fields are returned.
      * @example
      * ```js
      * // Before running the sample:
@@ -2615,13 +2615,13 @@ export namespace androidmanagement_v1 {
      *
      *   // Do the magic
      *   const res = await androidmanagement.enterprises.list({
-     *     // This feature is not generally available yet. The requested page size. The actual page size may be fixed to a min or max value.
+     *     // The requested page size. The actual page size may be fixed to a min or max value.
      *     pageSize: 'placeholder-value',
-     *     // This feature is not generally available yet. A token identifying a page of results returned by the server.
+     *     // A token identifying a page of results returned by the server.
      *     pageToken: 'placeholder-value',
-     *     // Required. This feature is not generally available yet. The ID of the Cloud project of the EMM the enterprises belongs to.
+     *     // Required. The Cloud project ID of the EMM managing the enterprises.
      *     projectId: 'placeholder-value',
-     *     // This feature is not generally available yet. View that specify that partial response should be returned.
+     *     // Specifies which Enterprise fields to return. This method only supports BASIC.
      *     view: 'placeholder-value',
      *   });
      *   console.log(res.data);
@@ -2885,11 +2885,11 @@ export namespace androidmanagement_v1 {
   export interface Params$Resource$Enterprises$Create
     extends StandardParameters {
     /**
-     * This feature is not generally available yet. Whether the managed Google Play Agreement is presented and agreed.
+     * Whether the enterprise admin has seen and agreed to the managed Google Play Agreement (https://www.android.com/enterprise/terms/). Always set this to true when creating an EMM-managed enterprise. Do not create the enterprise until the admin has viewed and accepted the agreement.
      */
     agreementAccepted?: boolean;
     /**
-     * The enterprise token appended to the callback URL.
+     * The enterprise token appended to the callback URL. Only set this when creating a customer-managed enterprise.
      */
     enterpriseToken?: string;
     /**
@@ -2897,7 +2897,7 @@ export namespace androidmanagement_v1 {
      */
     projectId?: string;
     /**
-     * The name of the SignupUrl used to sign up for the enterprise.
+     * The name of the SignupUrl used to sign up for the enterprise. Only set this when creating a customer-managed enterprise.
      */
     signupUrlName?: string;
 
@@ -2909,7 +2909,7 @@ export namespace androidmanagement_v1 {
   export interface Params$Resource$Enterprises$Delete
     extends StandardParameters {
     /**
-     * This feature is not generally available yet. The name of the enterprise in the form enterprises/{enterpriseId\}.
+     * The name of the enterprise in the form enterprises/{enterpriseId\}.
      */
     name?: string;
   }
@@ -2921,19 +2921,19 @@ export namespace androidmanagement_v1 {
   }
   export interface Params$Resource$Enterprises$List extends StandardParameters {
     /**
-     * This feature is not generally available yet. The requested page size. The actual page size may be fixed to a min or max value.
+     * The requested page size. The actual page size may be fixed to a min or max value.
      */
     pageSize?: number;
     /**
-     * This feature is not generally available yet. A token identifying a page of results returned by the server.
+     * A token identifying a page of results returned by the server.
      */
     pageToken?: string;
     /**
-     * Required. This feature is not generally available yet. The ID of the Cloud project of the EMM the enterprises belongs to.
+     * Required. The Cloud project ID of the EMM managing the enterprises.
      */
     projectId?: string;
     /**
-     * This feature is not generally available yet. View that specify that partial response should be returned.
+     * Specifies which Enterprise fields to return. This method only supports BASIC.
      */
     view?: string;
   }

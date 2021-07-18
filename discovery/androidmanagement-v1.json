@@ -115,12 +115,12 @@
           "parameterOrder": [],
           "parameters": {
             "agreementAccepted": {
-              "description": "This feature is not generally available yet. Whether the managed Google Play Agreement is presented and agreed.",
+              "description": "Whether the enterprise admin has seen and agreed to the managed Google Play Agreement (https://www.android.com/enterprise/terms/). Always set this to true when creating an EMM-managed enterprise. Do not create the enterprise until the admin has viewed and accepted the agreement.",
               "location": "query",
               "type": "boolean"
             },
             "enterpriseToken": {
-              "description": "The enterprise token appended to the callback URL.",
+              "description": "The enterprise token appended to the callback URL. Only set this when creating a customer-managed enterprise.",
               "location": "query",
               "type": "string"
             },
@@ -130,7 +130,7 @@
               "type": "string"
             },
             "signupUrlName": {
-              "description": "The name of the SignupUrl used to sign up for the enterprise.",
+              "description": "The name of the SignupUrl used to sign up for the enterprise. Only set this when creating a customer-managed enterprise.",
               "location": "query",
               "type": "string"
             }
@@ -147,7 +147,7 @@
           ]
         },
         "delete": {
-          "description": "This feature is not generally available yet. Deletes an enterprise.",
+          "description": "Deletes an enterprise. Only available for EMM-managed enterprises.",
           "flatPath": "v1/enterprises/{enterprisesId}",
           "httpMethod": "DELETE",
           "id": "androidmanagement.enterprises.delete",
@@ -156,7 +156,7 @@
           ],
           "parameters": {
             "name": {
-              "description": "This feature is not generally available yet. The name of the enterprise in the form enterprises/{enterpriseId}.",
+              "description": "The name of the enterprise in the form enterprises/{enterpriseId}.",
               "location": "path",
               "pattern": "^enterprises/[^/]+$",
               "required": true,
@@ -197,37 +197,37 @@
           ]
         },
         "list": {
-          "description": "This feature is not generally available yet. Lists enterprises that are managed by an EMM. Only partial views are returned.",
+          "description": "Lists EMM-managed enterprises. Only BASIC fields are returned.",
           "flatPath": "v1/enterprises",
           "httpMethod": "GET",
           "id": "androidmanagement.enterprises.list",
           "parameterOrder": [],
           "parameters": {
             "pageSize": {
-              "description": "This feature is not generally available yet. The requested page size. The actual page size may be fixed to a min or max value.",
+              "description": "The requested page size. The actual page size may be fixed to a min or max value.",
               "format": "int32",
               "location": "query",
               "type": "integer"
             },
             "pageToken": {
-              "description": "This feature is not generally available yet. A token identifying a page of results returned by the server.",
+              "description": "A token identifying a page of results returned by the server.",
               "location": "query",
               "type": "string"
             },
             "projectId": {
-              "description": "Required. This feature is not generally available yet. The ID of the Cloud project of the EMM the enterprises belongs to.",
+              "description": "Required. The Cloud project ID of the EMM managing the enterprises.",
               "location": "query",
               "type": "string"
             },
             "view": {
-              "description": "This feature is not generally available yet. View that specify that partial response should be returned.",
+              "description": "Specifies which Enterprise fields to return. This method only supports BASIC.",
               "enum": [
                 "ENTERPRISE_VIEW_UNSPECIFIED",
                 "BASIC"
               ],
               "enumDescriptions": [
-                "This feature is not generally available yet. The API will default to the BASIC view for the List method.",
-                "This feature is not generally available yet. Includes name and enterprise_display_name fields."
+                "The API will default to the BASIC view for the List method.",
+                "Includes name and enterprise_display_name fields."
               ],
               "location": "query",
               "type": "string"
@@ -1004,7 +1004,7 @@
       }
     }
   },
-  "revision": "20210607",
+  "revision": "20210713",
   "rootUrl": "https://androidmanagement.googleapis.com/",
   "schemas": {
     "AdvancedSecurityOverrides": {
@@ -2110,7 +2110,7 @@
         },
         "contactInfo": {
           "$ref": "ContactInfo",
-          "description": "This feature is not generally available yet. The enterprise contact info of an EMM owned enterprise"
+          "description": "The enterprise contact info of an EMM-managed enterprise."
         },
         "enabledNotificationTypes": {
           "description": "The types of Google Pub/Sub notifications enabled for the enterprise.",
@@ -2516,18 +2516,18 @@
       "type": "object"
     },
     "ListEnterprisesResponse": {
-      "description": "This feature is not generally available yet. Response to a request to list enterprises.",
+      "description": "Response to a request to list enterprises.",
       "id": "ListEnterprisesResponse",
       "properties": {
         "enterprises": {
-          "description": "This feature is not generally available yet. The list of enterprises.",
+          "description": "The list of enterprises.",
           "items": {
             "$ref": "Enterprise"
           },
           "type": "array"
         },
         "nextPageToken": {
-          "description": "This feature is not generally available yet. If there are more results, a token to retrieve next page of results.",
+          "description": "If there are more results, a token to retrieve next page of results.",
           "type": "string"
         }
       },
