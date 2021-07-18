@@ -1723,7 +1723,7 @@
       }
     }
   },
-  "revision": "20210703",
+  "revision": "20210710",
   "rootUrl": "https://www.googleapis.com/",
   "schemas": {
     "Acl": {
@@ -2204,7 +2204,7 @@
       "id": "ConferenceSolutionKey",
       "properties": {
         "type": {
-          "description": "The conference solution type.\nIf a client encounters an unfamiliar or empty type, it should still be able to display the entry points. However, it should disallow modifications.\nThe possible values are:  \n- \"eventHangout\" for Hangouts for consumers (http://hangouts.google.com)\n- \"eventNamedHangout\" for classic Hangouts for Google Workspace users (http://hangouts.google.com)\n- \"hangoutsMeet\" for Google Meet (http://meet.google.com)\n- \"addOn\" for 3P conference providers",
+          "description": "The conference solution type.\nIf a client encounters an unfamiliar or empty type, it should still be able to display the entry points. However, it should disallow modifications.\nThe possible values are:  \n- \"eventHangout\" for Hangouts for consumers (http://hangouts.google.com)\n- \"eventNamedHangout\" for classic Hangouts for Google Workspace users (deprecated; http://hangouts.google.com)\n- \"hangoutsMeet\" for Google Meet (http://meet.google.com)\n- \"addOn\" for 3P conference providers",
           "type": "string"
         }
       },
