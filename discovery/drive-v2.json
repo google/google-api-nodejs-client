@@ -38,7 +38,7 @@
   "description": "Manages files in Drive including uploading, downloading, searching, detecting changes, and updating sharing permissions.",
   "discoveryVersion": "v1",
   "documentationLink": "https://developers.google.com/drive/",
-  "etag": "\"uWj2hSb4GVjzdDlAnRd2gbM1ZQ8/Dp2bPJMp8Fmx1gY2Dos9-f3_ieQ\"",
+  "etag": "\"uWj2hSb4GVjzdDlAnRd2gbM1ZQ8/wVU03Ppwd5ggXGhnpKZIvZMbgyQ\"",
   "icons": {
     "x16": "https://ssl.gstatic.com/docs/doclist/images/drive_icon_16.png",
     "x32": "https://ssl.gstatic.com/docs/doclist/images/drive_icon_32.png"
@@ -2691,7 +2691,7 @@
             },
             "transferOwnership": {
               "default": "false",
-              "description": "Whether changing a role to 'owner' downgrades the current owners to writers. Does nothing if the specified role is not 'owner'.",
+              "description": "Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. File owners can only transfer ownership of files existing on My Drive. Files existing in a shared drive are owned by the organization that owns that shared drive. Ownership transfers are not supported for files and folders in shared drives. Organizers of a shared drive can move items from that shared drive into their My Drive which transfers the ownership to them.",
               "location": "query",
               "type": "boolean"
             },
@@ -3527,7 +3527,7 @@
       }
     }
   },
-  "revision": "20210628",
+  "revision": "20210711",
   "rootUrl": "https://www.googleapis.com/",
   "schemas": {
     "About": {
