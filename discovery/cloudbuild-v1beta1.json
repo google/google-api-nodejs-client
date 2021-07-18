@@ -317,7 +317,7 @@
       }
     }
   },
-  "revision": "20210701",
+  "revision": "20210709",
   "rootUrl": "https://cloudbuild.googleapis.com/",
   "schemas": {
     "ArtifactObjects": {
@@ -641,7 +641,7 @@
         },
         "pool": {
           "$ref": "PoolOption",
-          "description": "Optional. Specification for execution on a `WorkerPool`. See [running builds in a custom worker pool](https://cloud.google.com/build/docs/custom-workers/run-builds-in-custom-worker-pool) for more information."
+          "description": "Optional. Specification for execution on a `WorkerPool`. See [running builds in a private pool](https://cloud.google.com/build/docs/private-pools/run-builds-in-private-pool) for more information."
         },
         "requestedVerifyOption": {
           "description": "Requested verifiability options.",
@@ -1123,7 +1123,7 @@
       "type": "object"
     },
     "PoolOption": {
-      "description": "Details about how a build should be executed on a `WorkerPool`. See [running builds in a custom worker pool](https://cloud.google.com/build/docs/custom-workers/run-builds-in-custom-worker-pool) for more information.",
+      "description": "Details about how a build should be executed on a `WorkerPool`. See [running builds in a private pool](https://cloud.google.com/build/docs/private-pools/run-builds-in-private-pool) for more information.",
       "id": "PoolOption",
       "properties": {
         "name": {
@@ -1404,7 +1404,7 @@
           "type": "string"
         },
         "object": {
-          "description": "Google Cloud Storage object containing the source. This object must be a gzipped archive file (`.tar.gz`) containing source to build.",
+          "description": "Google Cloud Storage object containing the source. This object must be a zipped (`.zip`) or gzipped archive file (`.tar.gz`) containing source to build.",
           "type": "string"
         }
       },

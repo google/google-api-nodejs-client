@@ -319,7 +319,7 @@ export namespace cloudbuild_v1beta1 {
      */
     machineType?: string | null;
     /**
-     * Optional. Specification for execution on a `WorkerPool`. See [running builds in a custom worker pool](https://cloud.google.com/build/docs/custom-workers/run-builds-in-custom-worker-pool) for more information.
+     * Optional. Specification for execution on a `WorkerPool`. See [running builds in a private pool](https://cloud.google.com/build/docs/private-pools/run-builds-in-private-pool) for more information.
      */
     pool?: Schema$PoolOption;
     /**
@@ -645,7 +645,7 @@ export namespace cloudbuild_v1beta1 {
     response?: {[key: string]: any} | null;
   }
   /**
-   * Details about how a build should be executed on a `WorkerPool`. See [running builds in a custom worker pool](https://cloud.google.com/build/docs/custom-workers/run-builds-in-custom-worker-pool) for more information.
+   * Details about how a build should be executed on a `WorkerPool`. See [running builds in a private pool](https://cloud.google.com/build/docs/private-pools/run-builds-in-private-pool) for more information.
    */
   export interface Schema$PoolOption {
     /**
@@ -864,7 +864,7 @@ export namespace cloudbuild_v1beta1 {
      */
     generation?: string | null;
     /**
-     * Google Cloud Storage object containing the source. This object must be a gzipped archive file (`.tar.gz`) containing source to build.
+     * Google Cloud Storage object containing the source. This object must be a zipped (`.zip`) or gzipped archive file (`.tar.gz`) containing source to build.
      */
     object?: string | null;
   }
