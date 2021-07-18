@@ -2037,7 +2037,7 @@
       }
     }
   },
-  "revision": "20210624",
+  "revision": "20210703",
   "rootUrl": "https://spanner.googleapis.com/",
   "schemas": {
     "Backup": {
@@ -2430,6 +2430,11 @@
         "createTime": {
           "description": "Output only. If exists, the time at which the database creation started.",
           "format": "google-datetime",
+          "readOnly": true,
+          "type": "string"
+        },
+        "defaultLeader": {
+          "description": "Output only. The read-write region which contains the database's leader replicas. This is the same as the value of default_leader database option set using DatabaseAdmin.CreateDatabase or DatabaseAdmin.UpdateDatabaseDdl. If not explicitly set, this is empty.",
           "readOnly": true,
           "type": "string"
         },
@@ -2887,6 +2892,13 @@
         "displayName": {
           "description": "The name of this instance configuration as it appears in UIs.",
           "type": "string"
+        },
+        "leaderOptions": {
+          "description": "Allowed values of the “default_leader” schema option for databases in instances that use this instance configuration.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         },
         "name": {
           "description": "A unique identifier for the instance configuration. Values are of the form `projects//instanceConfigs/a-z*`",
@@ -3859,11 +3871,11 @@
           "type": "string"
         },
         "requestTag": {
-          "description": "A per-request tag which can be applied to queries or reads, used for statistics collection. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. This field is ignored for requests where it's not applicable (e.g. CommitRequest). Legal characters for `request_tag` values are all printable characters (ASCII 32 - 126) and the length of a request_tag is limited to 50 characters. Values that exceed this limit are truncated.",
+          "description": "A per-request tag which can be applied to queries or reads, used for statistics collection. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. This field is ignored for requests where it's not applicable (e.g. CommitRequest). Legal characters for `request_tag` values are all printable characters (ASCII 32 - 126) and the length of a request_tag is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (_) characters will be removed from the string.",
           "type": "string"
         },
         "transactionTag": {
-          "description": "A tag used for statistics collection about this transaction. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. The value of transaction_tag should be the same for all requests belonging to the same transaction. If this request doesn’t belong to any transaction, transaction_tag will be ignored. Legal characters for `transaction_tag` values are all printable characters (ASCII 32 - 126) and the length of a transaction_tag is limited to 50 characters. Values that exceed this limit are truncated.",
+          "description": "A tag used for statistics collection about this transaction. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. The value of transaction_tag should be the same for all requests belonging to the same transaction. If this request doesn’t belong to any transaction, transaction_tag will be ignored. Legal characters for `transaction_tag` values are all printable characters (ASCII 32 - 126) and the length of a transaction_tag is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (_) characters will be removed from the string.",
           "type": "string"
         }
       },

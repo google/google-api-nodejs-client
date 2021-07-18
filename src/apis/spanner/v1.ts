@@ -425,6 +425,10 @@ export namespace spanner_v1 {
      */
     createTime?: string | null;
     /**
+     * Output only. The read-write region which contains the database's leader replicas. This is the same as the value of default_leader database option set using DatabaseAdmin.CreateDatabase or DatabaseAdmin.UpdateDatabaseDdl. If not explicitly set, this is empty.
+     */
+    defaultLeader?: string | null;
+    /**
      * Output only. Earliest timestamp at which older versions of the data can be read. This value is continuously updated by Cloud Spanner and becomes stale the moment it is queried. If you are using this value to recover data, make sure to account for the time from the moment when the value is queried to the moment when you initiate the recovery.
      */
     earliestVersionTime?: string | null;
@@ -737,6 +741,10 @@ export namespace spanner_v1 {
      * The name of this instance configuration as it appears in UIs.
      */
     displayName?: string | null;
+    /**
+     * Allowed values of the “default_leader” schema option for databases in instances that use this instance configuration.
+     */
+    leaderOptions?: string[] | null;
     /**
      * A unique identifier for the instance configuration. Values are of the form `projects//instanceConfigs/a-z*`
      */
@@ -1439,11 +1447,11 @@ export namespace spanner_v1 {
      */
     priority?: string | null;
     /**
-     * A per-request tag which can be applied to queries or reads, used for statistics collection. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. This field is ignored for requests where it's not applicable (e.g. CommitRequest). Legal characters for `request_tag` values are all printable characters (ASCII 32 - 126) and the length of a request_tag is limited to 50 characters. Values that exceed this limit are truncated.
+     * A per-request tag which can be applied to queries or reads, used for statistics collection. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. This field is ignored for requests where it's not applicable (e.g. CommitRequest). Legal characters for `request_tag` values are all printable characters (ASCII 32 - 126) and the length of a request_tag is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (_) characters will be removed from the string.
      */
     requestTag?: string | null;
     /**
-     * A tag used for statistics collection about this transaction. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. The value of transaction_tag should be the same for all requests belonging to the same transaction. If this request doesn’t belong to any transaction, transaction_tag will be ignored. Legal characters for `transaction_tag` values are all printable characters (ASCII 32 - 126) and the length of a transaction_tag is limited to 50 characters. Values that exceed this limit are truncated.
+     * A tag used for statistics collection about this transaction. Both request_tag and transaction_tag can be specified for a read or query that belongs to a transaction. The value of transaction_tag should be the same for all requests belonging to the same transaction. If this request doesn’t belong to any transaction, transaction_tag will be ignored. Legal characters for `transaction_tag` values are all printable characters (ASCII 32 - 126) and the length of a transaction_tag is limited to 50 characters. Values that exceed this limit are truncated. Any leading underscore (_) characters will be removed from the string.
      */
     transactionTag?: string | null;
   }
@@ -1978,6 +1986,7 @@ export namespace spanner_v1 {
      *   // Example response
      *   // {
      *   //   "displayName": "my_displayName",
+     *   //   "leaderOptions": [],
      *   //   "name": "my_name",
      *   //   "replicas": []
      *   // }
@@ -6022,6 +6031,7 @@ export namespace spanner_v1 {
      *   // Example response
      *   // {
      *   //   "createTime": "my_createTime",
+     *   //   "defaultLeader": "my_defaultLeader",
      *   //   "earliestVersionTime": "my_earliestVersionTime",
      *   //   "encryptionConfig": {},
      *   //   "encryptionInfo": [],
