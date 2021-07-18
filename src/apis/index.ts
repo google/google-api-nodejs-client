@@ -232,6 +232,7 @@ import {
   factchecktools,
 } from './factchecktools';
 import {VERSIONS as fcmVersions, fcm} from './fcm';
+import {VERSIONS as fcmdataVersions, fcmdata} from './fcmdata';
 import {VERSIONS as fileVersions, file} from './file';
 import {VERSIONS as firebaseVersions, firebase} from './firebase';
 import {
@@ -331,6 +332,10 @@ import {
   VERSIONS as mybusinesslodgingVersions,
   mybusinesslodging,
 } from './mybusinesslodging';
+import {
+  VERSIONS as mybusinessnotificationsVersions,
+  mybusinessnotifications,
+} from './mybusinessnotifications';
 import {
   VERSIONS as mybusinessplaceactionsVersions,
   mybusinessplaceactions,
@@ -625,6 +630,7 @@ export const APIS: APIList = {
   eventarc: eventarcVersions,
   factchecktools: factchecktoolsVersions,
   fcm: fcmVersions,
+  fcmdata: fcmdataVersions,
   file: fileVersions,
   firebase: firebaseVersions,
   firebaseappcheck: firebaseappcheckVersions,
@@ -670,6 +676,7 @@ export const APIS: APIList = {
   monitoring: monitoringVersions,
   mybusinessaccountmanagement: mybusinessaccountmanagementVersions,
   mybusinesslodging: mybusinesslodgingVersions,
+  mybusinessnotifications: mybusinessnotificationsVersions,
   mybusinessplaceactions: mybusinessplaceactionsVersions,
   networkconnectivity: networkconnectivityVersions,
   networkmanagement: networkmanagementVersions,
@@ -849,6 +856,7 @@ export class GeneratedAPIs {
   eventarc = eventarc;
   factchecktools = factchecktools;
   fcm = fcm;
+  fcmdata = fcmdata;
   file = file;
   firebase = firebase;
   firebaseappcheck = firebaseappcheck;
@@ -894,6 +902,7 @@ export class GeneratedAPIs {
   monitoring = monitoring;
   mybusinessaccountmanagement = mybusinessaccountmanagement;
   mybusinesslodging = mybusinesslodging;
+  mybusinessnotifications = mybusinessnotifications;
   mybusinessplaceactions = mybusinessplaceactions;
   networkconnectivity = networkconnectivity;
   networkmanagement = networkmanagement;
