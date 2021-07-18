@@ -461,19 +461,6 @@ export namespace firebasehosting_v1beta1 {
     uploadUrl?: string | null;
   }
   /**
-   * Deprecated in favor of [site channels](sites.channels).
-   */
-  export interface Schema$PreviewConfig {
-    /**
-     * If true, preview URLs are enabled for this version.
-     */
-    active?: boolean | null;
-    /**
-     * Indicates the expiration time for previewing this version; preview URL requests received after this time will 404.
-     */
-    expireTime?: string | null;
-  }
-  /**
    * A [`Redirect`](https://firebase.google.com/docs/hosting/full-config#redirects) specifies a URL pattern that, if matched to the request URL path, triggers Hosting to respond with a redirect to the specified destination path.
    */
   export interface Schema$Redirect {
@@ -684,10 +671,6 @@ export namespace firebasehosting_v1beta1 {
      * The fully-qualified resource name for the version, in the format: sites/ SITE_ID/versions/VERSION_ID This name is provided in the response body when you call [`CreateVersion`](sites.versions/create).
      */
     name?: string | null;
-    /**
-     * Deprecated in favor of [site channels](sites.channels).
-     */
-    preview?: Schema$PreviewConfig;
     /**
      * The deploy status of the version. For a successful deploy, call [`CreateVersion`](sites.versions/create) to make a new version (`CREATED` status), [upload all desired files](sites.versions/populateFiles) to the version, then [update](sites.versions/patch) the version to the `FINALIZED` status. Note that if you leave the version in the `CREATED` state for more than 12 hours, the system will automatically mark the version as `ABANDONED`. You can also change the status of a version to `DELETED` by calling [`DeleteVersion`](sites.versions/delete).
      */
@@ -4408,7 +4391,6 @@ export namespace firebasehosting_v1beta1 {
      *       //   "finalizeUser": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
-     *       //   "preview": {},
      *       //   "status": "my_status",
      *       //   "versionBytes": "my_versionBytes"
      *       // }
@@ -4428,7 +4410,6 @@ export namespace firebasehosting_v1beta1 {
      *   //   "finalizeUser": {},
      *   //   "labels": {},
      *   //   "name": "my_name",
-     *   //   "preview": {},
      *   //   "status": "my_status",
      *   //   "versionBytes": "my_versionBytes"
      *   // }
@@ -4850,7 +4831,6 @@ export namespace firebasehosting_v1beta1 {
      *       //   "finalizeUser": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
-     *       //   "preview": {},
      *       //   "status": "my_status",
      *       //   "versionBytes": "my_versionBytes"
      *       // }
@@ -4870,7 +4850,6 @@ export namespace firebasehosting_v1beta1 {
      *   //   "finalizeUser": {},
      *   //   "labels": {},
      *   //   "name": "my_name",
-     *   //   "preview": {},
      *   //   "status": "my_status",
      *   //   "versionBytes": "my_versionBytes"
      *   // }
@@ -8138,7 +8117,6 @@ export namespace firebasehosting_v1beta1 {
      *       //   "finalizeUser": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
-     *       //   "preview": {},
      *       //   "status": "my_status",
      *       //   "versionBytes": "my_versionBytes"
      *       // }
@@ -8158,7 +8136,6 @@ export namespace firebasehosting_v1beta1 {
      *   //   "finalizeUser": {},
      *   //   "labels": {},
      *   //   "name": "my_name",
-     *   //   "preview": {},
      *   //   "status": "my_status",
      *   //   "versionBytes": "my_versionBytes"
      *   // }
@@ -8580,7 +8557,6 @@ export namespace firebasehosting_v1beta1 {
      *       //   "finalizeUser": {},
      *       //   "labels": {},
      *       //   "name": "my_name",
-     *       //   "preview": {},
      *       //   "status": "my_status",
      *       //   "versionBytes": "my_versionBytes"
      *       // }
@@ -8600,7 +8576,6 @@ export namespace firebasehosting_v1beta1 {
      *   //   "finalizeUser": {},
      *   //   "labels": {},
      *   //   "name": "my_name",
-     *   //   "preview": {},
      *   //   "status": "my_status",
      *   //   "versionBytes": "my_versionBytes"
      *   // }
