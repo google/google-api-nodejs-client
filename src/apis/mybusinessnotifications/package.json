@@ -1,0 +1,43 @@
+{
+  "name": "@googleapis/mybusinessnotifications",
+  "version": "0.1.0",
+  "description": "mybusinessnotifications",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "keywords": [
+    "google"
+  ],
+  "author": "Google LLC",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/googleapis/google-api-nodejs-client",
+  "bugs": {
+    "url": "https://github.com/googleapis/google-api-nodejs-client/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/googleapis/google-api-nodejs-client.git"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "fix": "gts fix",
+    "lint": "gts check",
+    "compile": "tsc -p .",
+    "prepare": "npm run compile",
+    "webpack": "webpack"
+  },
+  "dependencies": {
+    "googleapis-common": "^5.0.1"
+  },
+  "devDependencies": {
+    "@microsoft/api-documenter": "^7.8.10",
+    "@microsoft/api-extractor": "^7.8.10",
+    "gts": "^2.0.0",
+    "null-loader": "^4.0.0",
+    "ts-loader": "^8.0.0",
+    "typescript": "~3.7.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^4.0.0"
+  }
+}
