@@ -923,6 +923,10 @@ export namespace datacatalog_v1 {
      */
     order?: number | null;
     /**
+     * The value of a tag field with a rich text type. The maximum length is 10 MiB as this value holds HTML descriptions including encoded images. The maximum length of the text without images is 100 KiB.
+     */
+    richtextValue?: string | null;
+    /**
      * The value of a tag field with a string type. The maximum length is 2000 UTF-8 characters.
      */
     stringValue?: string | null;
