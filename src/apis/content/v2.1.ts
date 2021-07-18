@@ -194,6 +194,10 @@ export namespace content_v2_1 {
    */
   export interface Schema$Account {
     /**
+     * How the account is managed. Acceptable values are: - "`manual`" - "`automatic`"
+     */
+    accountManagement?: string | null;
+    /**
      * Linked Ads accounts that are active or pending approval. To create a new link request, add a new link with status `active` to the list. It will remain in a `pending` state until approved or rejected either in the Ads interface or through the AdWords API. To delete an active link, or to cancel a link request, remove it from the list.
      */
     adsLinks?: Schema$AccountAdsLink[];
@@ -578,6 +582,10 @@ export namespace content_v2_1 {
      * A list of account level issues.
      */
     accountLevelIssues?: Schema$AccountStatusAccountLevelIssue[];
+    /**
+     * How the account is managed. Acceptable values are: - "`manual`" - "`automatic`"
+     */
+    accountManagement?: string | null;
     /**
      * Identifies what kind of resource this is. Value: the fixed string "`content#accountStatus`"
      */
@@ -7128,7 +7136,7 @@ export namespace content_v2_1 {
      */
     additionalCharges?: Schema$UnitInvoiceAdditionalCharge[];
     /**
-     * [required] Pre-tax or post-tax price of the unit depending on the locality of the order.
+     * [required] Pre-tax or post-tax price of one unit depending on the locality of the order. *Note:* Invoicing works on a per unit basis. The `unitPrice` is the price of a single unit, and will be multiplied by the number of entries in `shipmentUnitId`.
      */
     unitPrice?: Schema$Price;
     /**
@@ -7138,7 +7146,7 @@ export namespace content_v2_1 {
   }
   export interface Schema$UnitInvoiceAdditionalCharge {
     /**
-     * [required] Amount of the additional charge.
+     * [required] Amount of the additional charge per unit. *Note:* Invoicing works on a per unit bases. The `additionalChargeAmount` is the amount charged per unit, and will be multiplied by the number of entries in `shipmentUnitID`.
      */
     additionalChargeAmount?: Schema$Amount;
     /**
@@ -7822,6 +7830,7 @@ export namespace content_v2_1 {
      *
      *   // Example response
      *   // {
+     *   //   "accountManagement": "my_accountManagement",
      *   //   "adsLinks": [],
      *   //   "adultContent": false,
      *   //   "automaticLabelIds": [],
@@ -7963,6 +7972,7 @@ export namespace content_v2_1 {
      *     requestBody: {
      *       // request body parameters
      *       // {
+     *       //   "accountManagement": "my_accountManagement",
      *       //   "adsLinks": [],
      *       //   "adultContent": false,
      *       //   "automaticLabelIds": [],
@@ -7984,6 +7994,7 @@ export namespace content_v2_1 {
      *
      *   // Example response
      *   // {
+     *   //   "accountManagement": "my_accountManagement",
      *   //   "adsLinks": [],
      *   //   "adultContent": false,
      *   //   "automaticLabelIds": [],
@@ -8272,6 +8283,8 @@ export namespace content_v2_1 {
      *     maxResults: 'placeholder-value',
      *     // The ID of the managing account. This must be a multi-client account.
      *     merchantId: 'placeholder-value',
+     *     // If set, only the accounts with the given name (case sensitive) will be returned.
+     *     name: 'placeholder-value',
      *     // The token returned by the previous request.
      *     pageToken: 'placeholder-value',
      *     // Controls which fields will be populated. Acceptable values are: "merchant" and "css". The default value is "merchant".
@@ -8564,6 +8577,7 @@ export namespace content_v2_1 {
      *     requestBody: {
      *       // request body parameters
      *       // {
+     *       //   "accountManagement": "my_accountManagement",
      *       //   "adsLinks": [],
      *       //   "adultContent": false,
      *       //   "automaticLabelIds": [],
@@ -8585,6 +8599,7 @@ export namespace content_v2_1 {
      *
      *   // Example response
      *   // {
+     *   //   "accountManagement": "my_accountManagement",
      *   //   "adsLinks": [],
      *   //   "adultContent": false,
      *   //   "automaticLabelIds": [],
@@ -8933,6 +8948,10 @@ export namespace content_v2_1 {
      * The ID of the managing account. This must be a multi-client account.
      */
     merchantId?: string;
+    /**
+     * If set, only the accounts with the given name (case sensitive) will be returned.
+     */
+    name?: string;
     /**
      * The token returned by the previous request.
      */
@@ -10583,6 +10602,7 @@ export namespace content_v2_1 {
      *   // {
      *   //   "accountId": "my_accountId",
      *   //   "accountLevelIssues": [],
+     *   //   "accountManagement": "my_accountManagement",
      *   //   "kind": "my_kind",
      *   //   "products": [],
      *   //   "websiteClaimed": false
@@ -10713,6 +10733,8 @@ export namespace content_v2_1 {
      *     maxResults: 'placeholder-value',
      *     // The ID of the managing account. This must be a multi-client account.
      *     merchantId: 'placeholder-value',
+     *     // If set, only the accounts with the given name (case sensitive) will be returned.
+     *     name: 'placeholder-value',
      *     // The token returned by the previous request.
      *     pageToken: 'placeholder-value',
      *   });
@@ -10861,6 +10883,10 @@ export namespace content_v2_1 {
      * The ID of the managing account. This must be a multi-client account.
      */
     merchantId?: string;
+    /**
+     * If set, only the accounts with the given name (case sensitive) will be returned.
+     */
+    name?: string;
     /**
      * The token returned by the previous request.
      */

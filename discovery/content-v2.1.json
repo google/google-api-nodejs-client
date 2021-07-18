@@ -352,6 +352,11 @@
               "required": true,
               "type": "string"
             },
+            "name": {
+              "description": "If set, only the accounts with the given name (case sensitive) will be returned.",
+              "location": "query",
+              "type": "string"
+            },
             "pageToken": {
               "description": "The token returned by the previous request.",
               "location": "query",
@@ -873,6 +878,11 @@
               "format": "uint64",
               "location": "path",
               "required": true,
+              "type": "string"
+            },
+            "name": {
+              "description": "If set, only the accounts with the given name (case sensitive) will be returned.",
+              "location": "query",
               "type": "string"
             },
             "pageToken": {
@@ -5485,13 +5495,17 @@
       }
     }
   },
-  "revision": "20210624",
+  "revision": "20210707",
   "rootUrl": "https://shoppingcontent.googleapis.com/",
   "schemas": {
     "Account": {
       "description": "Account data. After the creation of a new account it may take a few minutes before it is fully operational. The methods delete, insert, and update require the admin role.",
       "id": "Account",
       "properties": {
+        "accountManagement": {
+          "description": "How the account is managed. Acceptable values are: - \"`manual`\" - \"`automatic`\" ",
+          "type": "string"
+        },
         "adsLinks": {
           "description": "Linked Ads accounts that are active or pending approval. To create a new link request, add a new link with status `active` to the list. It will remain in a `pending` state until approved or rejected either in the Ads interface or through the AdWords API. To delete an active link, or to cancel a link request, remove it from the list.",
           "items": {
@@ -5799,6 +5813,10 @@
             "$ref": "AccountStatusAccountLevelIssue"
           },
           "type": "array"
+        },
+        "accountManagement": {
+          "description": "How the account is managed. Acceptable values are: - \"`manual`\" - \"`automatic`\" ",
+          "type": "string"
         },
         "kind": {
           "description": "Identifies what kind of resource this is. Value: the fixed string \"`content#accountStatus`\"",
@@ -14746,7 +14764,7 @@
         },
         "unitPrice": {
           "$ref": "Price",
-          "description": "[required] Pre-tax or post-tax price of the unit depending on the locality of the order."
+          "description": "[required] Pre-tax or post-tax price of one unit depending on the locality of the order. *Note:* Invoicing works on a per unit basis. The `unitPrice` is the price of a single unit, and will be multiplied by the number of entries in `shipmentUnitId`."
         },
         "unitPriceTaxes": {
           "description": "Tax amounts to apply to the unit price.",
@@ -14763,7 +14781,7 @@
       "properties": {
         "additionalChargeAmount": {
           "$ref": "Amount",
-          "description": "[required] Amount of the additional charge."
+          "description": "[required] Amount of the additional charge per unit. *Note:* Invoicing works on a per unit bases. The `additionalChargeAmount` is the amount charged per unit, and will be multiplied by the number of entries in `shipmentUnitID`."
         },
         "type": {
           "description": "[required] Type of the additional charge. Acceptable values are: - \"`shipping`\" ",
