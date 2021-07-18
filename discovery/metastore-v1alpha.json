@@ -986,7 +986,7 @@
       }
     }
   },
-  "revision": "20210622",
+  "revision": "20210715",
   "rootUrl": "https://metastore.googleapis.com/",
   "schemas": {
     "AuditConfig": {
@@ -1073,14 +1073,16 @@
             "CREATING",
             "DELETING",
             "ACTIVE",
-            "FAILED"
+            "FAILED",
+            "RESTORING"
           ],
           "enumDescriptions": [
             "The state of the backup is unknown.",
             "The backup is being created.",
             "The backup is being deleted.",
             "The backup is active and ready to use.",
-            "The backup failed."
+            "The backup failed.",
+            "The backup is being restored."
           ],
           "readOnly": true,
           "type": "string"
@@ -1166,6 +1168,17 @@
       "description": "A generic empty message that you can re-use to avoid defining duplicated empty messages in your APIs. A typical example is to use it as the request or the response type of an API method. For instance: service Foo { rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty); } The JSON representation for Empty is empty JSON object {}.",
       "id": "Empty",
       "properties": {},
+      "type": "object"
+    },
+    "EncryptionConfig": {
+      "description": "Encryption settings for the service.",
+      "id": "EncryptionConfig",
+      "properties": {
+        "kmsKey": {
+          "description": "The fully qualified customer provided Cloud KMS key name to use for customer data encryption, in the following form:projects/{project_number}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}.",
+          "type": "string"
+        }
+      },
       "type": "object"
     },
     "ExportMetadataRequest": {
@@ -1846,6 +1859,10 @@
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"
+        },
+        "encryptionConfig": {
+          "$ref": "EncryptionConfig",
+          "description": "Immutable. Information used to configure the Dataproc Metastore service to encrypt customer data at rest. Cannot be updated."
         },
         "endpointUri": {
           "description": "Output only. The URI of the endpoint used to access the metastore service.",

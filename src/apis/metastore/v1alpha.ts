@@ -232,6 +232,15 @@ export namespace metastore_v1alpha {
    */
   export interface Schema$Empty {}
   /**
+   * Encryption settings for the service.
+   */
+  export interface Schema$EncryptionConfig {
+    /**
+     * The fully qualified customer provided Cloud KMS key name to use for customer data encryption, in the following form:projects/{project_number\}/locations/{location_id\}/keyRings/{key_ring_id\}/cryptoKeys/{crypto_key_id\}.
+     */
+    kmsKey?: string | null;
+  }
+  /**
    * Request message for DataprocMetastore.ExportMetadata.
    */
   export interface Schema$ExportMetadataRequest {
@@ -666,6 +675,10 @@ export namespace metastore_v1alpha {
      * Output only. The time when the metastore service was created.
      */
     createTime?: string | null;
+    /**
+     * Immutable. Information used to configure the Dataproc Metastore service to encrypt customer data at rest. Cannot be updated.
+     */
+    encryptionConfig?: Schema$EncryptionConfig;
     /**
      * Output only. The URI of the endpoint used to access the metastore service.
      */
@@ -1585,6 +1598,7 @@ export namespace metastore_v1alpha {
      *       // {
      *       //   "artifactGcsUri": "my_artifactGcsUri",
      *       //   "createTime": "my_createTime",
+     *       //   "encryptionConfig": {},
      *       //   "endpointUri": "my_endpointUri",
      *       //   "hiveMetastoreConfig": {},
      *       //   "labels": {},
@@ -2018,6 +2032,7 @@ export namespace metastore_v1alpha {
      *   // {
      *   //   "artifactGcsUri": "my_artifactGcsUri",
      *   //   "createTime": "my_createTime",
+     *   //   "encryptionConfig": {},
      *   //   "endpointUri": "my_endpointUri",
      *   //   "hiveMetastoreConfig": {},
      *   //   "labels": {},
@@ -2442,6 +2457,7 @@ export namespace metastore_v1alpha {
      *       // {
      *       //   "artifactGcsUri": "my_artifactGcsUri",
      *       //   "createTime": "my_createTime",
+     *       //   "encryptionConfig": {},
      *       //   "endpointUri": "my_endpointUri",
      *       //   "hiveMetastoreConfig": {},
      *       //   "labels": {},
