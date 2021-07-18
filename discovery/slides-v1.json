@@ -313,7 +313,7 @@
       }
     }
   },
-  "revision": "20210629",
+  "revision": "20210706",
   "rootUrl": "https://slides.googleapis.com/",
   "schemas": {
     "AffineTransform": {
@@ -2823,6 +2823,10 @@
           "$ref": "UpdateShapePropertiesRequest",
           "description": "Updates the properties of a Shape."
         },
+        "updateSlideProperties": {
+          "$ref": "UpdateSlidePropertiesRequest",
+          "description": "Updates the properties of a Slide"
+        },
         "updateSlidesPosition": {
           "$ref": "UpdateSlidesPositionRequest",
           "description": "Updates the position of a set of slides in the presentation."
@@ -4259,6 +4263,26 @@
         "shapeProperties": {
           "$ref": "ShapeProperties",
           "description": "The shape properties to update."
+        }
+      },
+      "type": "object"
+    },
+    "UpdateSlidePropertiesRequest": {
+      "description": "Updates the properties of a Slide.",
+      "id": "UpdateSlidePropertiesRequest",
+      "properties": {
+        "fields": {
+          "description": "The fields that should be updated. At least one field must be specified. The root 'slideProperties' is implied and should not be specified. A single `\"*\"` can be used as short-hand for listing every field. For example to update whether a slide is skipped, set `fields` to `\"isSkipped\"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.",
+          "format": "google-fieldmask",
+          "type": "string"
+        },
+        "objectId": {
+          "description": "The object ID of the slide the update is applied to.",
+          "type": "string"
+        },
+        "slideProperties": {
+          "$ref": "SlideProperties",
+          "description": "The slide properties to update."
         }
       },
       "type": "object"
