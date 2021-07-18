@@ -883,6 +883,10 @@ export namespace dataflow_v1b3 {
      */
     additionalUserLabels?: {[key: string]: string} | null;
     /**
+     * Worker disk size, in gigabytes.
+     */
+    diskSizeGb?: number | null;
+    /**
      * Whether to enable Streaming Engine for the job.
      */
     enableStreamingEngine?: boolean | null;
@@ -902,6 +906,10 @@ export namespace dataflow_v1b3 {
      * The machine type to use for the job. Defaults to the value from the template if not specified.
      */
     machineType?: string | null;
+    /**
+     * The maximum number of workers to cap scaling at.
+     */
+    maxNumWorkers?: number | null;
     /**
      * The maximum number of Google Compute Engine instances to be made available to your pipeline during execution, from 1 to 1000.
      */

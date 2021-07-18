@@ -2225,7 +2225,7 @@
       }
     }
   },
-  "revision": "20210618",
+  "revision": "20210703",
   "rootUrl": "https://dataflow.googleapis.com/",
   "schemas": {
     "ApproximateProgress": {
@@ -3314,6 +3314,11 @@
           "description": "Additional user labels to be specified for the job. Keys and values must follow the restrictions specified in the [labeling restrictions](https://cloud.google.com/compute/docs/labeling-resources#restrictions) page. An object containing a list of \"key\": value pairs. Example: { \"name\": \"wrench\", \"mass\": \"1kg\", \"count\": \"3\" }.",
           "type": "object"
         },
+        "diskSizeGb": {
+          "description": "Worker disk size, in gigabytes.",
+          "format": "int32",
+          "type": "integer"
+        },
         "enableStreamingEngine": {
           "description": "Whether to enable Streaming Engine for the job.",
           "type": "boolean"
@@ -3353,6 +3358,11 @@
         "machineType": {
           "description": "The machine type to use for the job. Defaults to the value from the template if not specified.",
           "type": "string"
+        },
+        "maxNumWorkers": {
+          "description": "The maximum number of workers to cap scaling at.",
+          "format": "int32",
+          "type": "integer"
         },
         "maxWorkers": {
           "description": "The maximum number of Google Compute Engine instances to be made available to your pipeline during execution, from 1 to 1000.",
