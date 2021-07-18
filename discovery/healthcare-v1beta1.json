@@ -4865,7 +4865,7 @@
       }
     }
   },
-  "revision": "20210621",
+  "revision": "20210702",
   "rootUrl": "https://healthcare.googleapis.com/",
   "schemas": {
     "ActivateConsentRequest": {
@@ -5355,7 +5355,7 @@
             "REJECTED"
           ],
           "enumDescriptions": [
-            "No state specified.",
+            "No state specified. Treated as ACTIVE only at the time of resource creation.",
             "The Consent is active and is considered when evaluating a user's consent on resources.",
             "When a Consent is updated, the current version is archived and a new one is created with its state set to the updated Consent's previous state.",
             "A revoked Consent is not considered when evaluating a user's consent on resources.",
@@ -5436,7 +5436,7 @@
           ],
           "enumDescriptions": [
             "No evaluation result specified. This option is invalid.",
-            "The Consent is not applicable to the requested access determination. For example, the Consent does not apply to the user for which the access determination is requested, or it has a `state` of `REVOKED`.",
+            "The Consent is not applicable to the requested access determination. For example, the Consent does not apply to the user for which the access determination is requested, or it has a `state` of `REVOKED`, or it has expired.",
             "The Consent does not have a policy that matches the `resource_attributes` of the evaluated resource.",
             "The Consent has at least one policy that matches the `resource_attributes` of the evaluated resource, but no `authorization_rule` was satisfied.",
             "The Consent has at least one policy that matches the `resource_attributes` of the evaluated resource, and at least one `authorization_rule` was satisfied."
@@ -7251,6 +7251,10 @@
         "pubsubTopic": {
           "description": "The [Pub/Sub](https://cloud.google.com/pubsub/docs/) topic that notifications of changes are published on. Supplied by the client. PubsubMessage.Data contains the resource name. PubsubMessage.MessageId is the ID of this message. It is guaranteed to be unique within the topic. PubsubMessage.PublishTime is the time at which the message was published. Notifications are only sent if the topic is non-empty. [Topic names](https://cloud.google.com/pubsub/docs/overview#names) must be scoped to a project. Cloud Healthcare API service account must have publisher permissions on the given Pub/Sub topic. Not having adequate permissions causes the calls that send notifications to fail. If a notification can't be published to Pub/Sub, errors are logged to Cloud Logging (see [Viewing error logs in Cloud Logging](https://cloud.google.com/healthcare/docs/how-tos/logging)). If the number of errors exceeds a certain rate, some aren't submitted. Note that not all operations trigger notifications, see [Configuring Pub/Sub notifications](https://cloud.google.com/healthcare/docs/how-tos/pubsub) for specific details.",
           "type": "string"
+        },
+        "sendForBulkImport": {
+          "description": "Indicates whether or not to send Pub/Sub notifications on bulk import. Only supported for DICOM imports.",
+          "type": "boolean"
         }
       },
       "type": "object"

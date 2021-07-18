@@ -3920,7 +3920,7 @@
       }
     }
   },
-  "revision": "20210621",
+  "revision": "20210702",
   "rootUrl": "https://healthcare.googleapis.com/",
   "schemas": {
     "ActivateConsentRequest": {
@@ -4215,7 +4215,7 @@
             "REJECTED"
           ],
           "enumDescriptions": [
-            "No state specified.",
+            "No state specified. Treated as ACTIVE only at the time of resource creation.",
             "The Consent is active and is considered when evaluating a user's consent on resources.",
             "When a Consent is updated, the current version is archived and a new one is created with its state set to the updated Consent's previous state.",
             "A revoked Consent is not considered when evaluating a user's consent on resources.",
@@ -4296,7 +4296,7 @@
           ],
           "enumDescriptions": [
             "No evaluation result specified. This option is invalid.",
-            "The Consent is not applicable to the requested access determination. For example, the Consent does not apply to the user for which the access determination is requested, or it has a `state` of `REVOKED`.",
+            "The Consent is not applicable to the requested access determination. For example, the Consent does not apply to the user for which the access determination is requested, or it has a `state` of `REVOKED`, or it has expired.",
             "The Consent does not have a policy that matches the `resource_attributes` of the evaluated resource.",
             "The Consent has at least one policy that matches the `resource_attributes` of the evaluated resource, but no `authorization_rule` was satisfied.",
             "The Consent has at least one policy that matches the `resource_attributes` of the evaluated resource, and at least one `authorization_rule` was satisfied."
