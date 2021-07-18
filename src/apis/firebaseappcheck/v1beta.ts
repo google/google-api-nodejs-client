@@ -141,6 +141,19 @@ export namespace firebaseappcheck_v1beta {
     ttl?: string | null;
   }
   /**
+   * An app's App Attest configuration object. This configuration controls certain properties of the App Check token returned by ExchangeAppAttestAttestation and ExchangeAppAttestAttestation, such as its ttl. Note that the Team ID registered with your app is used as part of the validation process. Please register it via the Firebase Console or programmatically via the [Firebase Management Service](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects.iosApps/patch).
+   */
+  export interface Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig {
+    /**
+     * Required. The relative resource name of the App Attest configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ```
+     */
+    name?: string | null;
+    /**
+     * Specifies the duration for which App Check tokens exchanged from App Attest artifacts will be valid. If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
+     */
+    tokenTtl?: string | null;
+  }
+  /**
    * Encapsulates an *App Check token*, which are used to access Firebase services protected by App Check.
    */
   export interface Schema$GoogleFirebaseAppcheckV1betaAttestationTokenResponse {
@@ -152,6 +165,15 @@ export namespace firebaseappcheck_v1beta {
      * The duration from the time this token is minted until its expiration. This field is intended to ease client-side token management, since the client may have clock skew, but is still able to accurately measure a duration.
      */
     ttl?: string | null;
+  }
+  /**
+   * Response message for the BatchGetAppAttestConfigs method.
+   */
+  export interface Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse {
+    /**
+     * AppAttestConfigs retrieved.
+     */
+    configs?: Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig[];
   }
   /**
    * Response message for the BatchGetDeviceCheckConfigs method.
@@ -170,6 +192,15 @@ export namespace firebaseappcheck_v1beta {
      * RecaptchaConfigs retrieved.
      */
     configs?: Schema$GoogleFirebaseAppcheckV1betaRecaptchaConfig[];
+  }
+  /**
+   * Response message for the BatchGetSafetyNetConfigs method.
+   */
+  export interface Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse {
+    /**
+     * SafetyNetConfigs retrieved.
+     */
+    configs?: Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig[];
   }
   /**
    * Request message for the BatchUpdateServices method.
@@ -230,6 +261,10 @@ export namespace firebaseappcheck_v1beta {
      * Output only. Whether the `private_key` field was previously set. Since we will never return the `private_key` field, this field is the only way to find out whether it was previously set.
      */
     privateKeySet?: boolean | null;
+    /**
+     * Specifies the duration for which App Check tokens exchanged from DeviceCheck tokens will be valid. If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
+     */
+    tokenTtl?: string | null;
   }
   /**
    * Request message for ExchangeAppAttestAssertion
@@ -407,6 +442,23 @@ export namespace firebaseappcheck_v1beta {
      * Output only. Whether the `site_secret` field was previously set. Since we will never return the `site_secret` field, this field is the only way to find out whether it was previously set.
      */
     siteSecretSet?: boolean | null;
+    /**
+     * Specifies the duration for which App Check tokens exchanged from reCAPTCHA tokens will be valid. If unset, a default value of 1 day is assumed. Must be between 30 minutes and 7 days, inclusive.
+     */
+    tokenTtl?: string | null;
+  }
+  /**
+   * An app's SafetyNet configuration object. This configuration controls certain properties of the App Check token returned by ExchangeSafetyNetToken, such as its ttl. Note that your registered SHA-256 certificate fingerprints are used to validate tokens issued by SafetyNet; please register them via the Firebase Console or programmatically via the [Firebase Management Service](https://firebase.google.com/docs/projects/api/reference/rest/v1beta1/projects.androidApps.sha/create).
+   */
+  export interface Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig {
+    /**
+     * Required. The relative resource name of the SafetyNet configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ```
+     */
+    name?: string | null;
+    /**
+     * Specifies the duration for which App Check tokens exchanged from SafetyNet tokens will be valid. If unset, a default value of 1 hour is assumed. Must be between 30 minutes and 7 days, inclusive.
+     */
+    tokenTtl?: string | null;
   }
   /**
    * The enforcement configuration for a Firebase service supported by App Check.
@@ -604,16 +656,24 @@ export namespace firebaseappcheck_v1beta {
 
   export class Resource$Projects$Apps {
     context: APIRequestContext;
+    appAttestConfig: Resource$Projects$Apps$Appattestconfig;
     debugTokens: Resource$Projects$Apps$Debugtokens;
     deviceCheckConfig: Resource$Projects$Apps$Devicecheckconfig;
     recaptchaConfig: Resource$Projects$Apps$Recaptchaconfig;
+    safetyNetConfig: Resource$Projects$Apps$Safetynetconfig;
     constructor(context: APIRequestContext) {
       this.context = context;
+      this.appAttestConfig = new Resource$Projects$Apps$Appattestconfig(
+        this.context
+      );
       this.debugTokens = new Resource$Projects$Apps$Debugtokens(this.context);
       this.deviceCheckConfig = new Resource$Projects$Apps$Devicecheckconfig(
         this.context
       );
       this.recaptchaConfig = new Resource$Projects$Apps$Recaptchaconfig(
+        this.context
+      );
+      this.safetyNetConfig = new Resource$Projects$Apps$Safetynetconfig(
         this.context
       );
     }
@@ -1926,6 +1986,482 @@ export namespace firebaseappcheck_v1beta {
     requestBody?: Schema$GoogleFirebaseAppcheckV1betaGenerateAppAttestChallengeRequest;
   }
 
+  export class Resource$Projects$Apps$Appattestconfig {
+    context: APIRequestContext;
+    constructor(context: APIRequestContext) {
+      this.context = context;
+    }
+
+    /**
+     * Gets the AppAttestConfigs for the specified list of apps atomically.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.appAttestConfig.batchGet({
+     *     // Required. The relative resource names of the AppAttestConfigs to retrieve, in the format ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ``` A maximum of 100 objects can be retrieved in a batch.
+     *     names: 'placeholder-value',
+     *     // Required. The parent project name shared by all AppAttestConfigs being retrieved, in the format ``` projects/{project_number\} ``` The parent collection in the `name` field of any resource being retrieved must match this field, or the entire batch fails.
+     *     parent: 'projects/my-project',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "configs": []
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    batchGet(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Batchget,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    batchGet(
+      params?: Params$Resource$Projects$Apps$Appattestconfig$Batchget,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Batchget,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Batchget,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+    ): void;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Batchget,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+    ): void;
+    batchGet(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+    ): void;
+    batchGet(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Appattestconfig$Batchget
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Appattestconfig$Batchget;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Appattestconfig$Batchget;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (
+              rootUrl + '/v1beta/{+parent}/apps/-/appAttestConfig:batchGet'
+            ).replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['parent'],
+        pathParams: ['parent'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaBatchGetAppAttestConfigsResponse>(
+          parameters
+        );
+      }
+    }
+
+    /**
+     * Gets the AppAttestConfig for the specified app.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.appAttestConfig.get({
+     *     // Required. The relative resource name of the AppAttestConfig, in the format: ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ```
+     *     name: 'projects/my-project/apps/my-app/appAttestConfig',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "name": "my_name",
+     *   //   "tokenTtl": "my_tokenTtl"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    get(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Get,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    get(
+      params?: Params$Resource$Projects$Apps$Appattestconfig$Get,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>;
+    get(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Get,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    get(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Get,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    get(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Get,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    get(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    get(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Appattestconfig$Get
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Appattestconfig$Get;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Appattestconfig$Get;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>(
+          parameters
+        );
+      }
+    }
+
+    /**
+     * Updates the AppAttestConfig for the specified app. While this configuration is incomplete or invalid, the app will be unable to exchange AppAttest tokens for App Check tokens.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.appAttestConfig.patch({
+     *     // Required. The relative resource name of the App Attest configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ```
+     *     name: 'projects/my-project/apps/my-app/appAttestConfig',
+     *     // Required. A comma-separated list of names of fields in the AppAttestConfig Gets to update. Example: `token_ttl`.
+     *     updateMask: 'placeholder-value',
+     *
+     *     // Request body metadata
+     *     requestBody: {
+     *       // request body parameters
+     *       // {
+     *       //   "name": "my_name",
+     *       //   "tokenTtl": "my_tokenTtl"
+     *       // }
+     *     },
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "name": "my_name",
+     *   //   "tokenTtl": "my_tokenTtl"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    patch(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Patch,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    patch(
+      params?: Params$Resource$Projects$Apps$Appattestconfig$Patch,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>;
+    patch(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Patch,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    patch(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Patch,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    patch(
+      params: Params$Resource$Projects$Apps$Appattestconfig$Patch,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    patch(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+    ): void;
+    patch(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Appattestconfig$Patch
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Appattestconfig$Patch;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Appattestconfig$Patch;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'PATCH',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig>(
+          parameters
+        );
+      }
+    }
+  }
+
+  export interface Params$Resource$Projects$Apps$Appattestconfig$Batchget
+    extends StandardParameters {
+    /**
+     * Required. The relative resource names of the AppAttestConfigs to retrieve, in the format ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ``` A maximum of 100 objects can be retrieved in a batch.
+     */
+    names?: string[];
+    /**
+     * Required. The parent project name shared by all AppAttestConfigs being retrieved, in the format ``` projects/{project_number\} ``` The parent collection in the `name` field of any resource being retrieved must match this field, or the entire batch fails.
+     */
+    parent?: string;
+  }
+  export interface Params$Resource$Projects$Apps$Appattestconfig$Get
+    extends StandardParameters {
+    /**
+     * Required. The relative resource name of the AppAttestConfig, in the format: ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ```
+     */
+    name?: string;
+  }
+  export interface Params$Resource$Projects$Apps$Appattestconfig$Patch
+    extends StandardParameters {
+    /**
+     * Required. The relative resource name of the App Attest configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/appAttestConfig ```
+     */
+    name?: string;
+    /**
+     * Required. A comma-separated list of names of fields in the AppAttestConfig Gets to update. Example: `token_ttl`.
+     */
+    updateMask?: string;
+
+    /**
+     * Request body metadata
+     */
+    requestBody?: Schema$GoogleFirebaseAppcheckV1betaAppAttestConfig;
+  }
+
   export class Resource$Projects$Apps$Debugtokens {
     context: APIRequestContext;
     constructor(context: APIRequestContext) {
@@ -2906,7 +3442,8 @@ export namespace firebaseappcheck_v1beta {
      *   //   "keyId": "my_keyId",
      *   //   "name": "my_name",
      *   //   "privateKey": "my_privateKey",
-     *   //   "privateKeySet": false
+     *   //   "privateKeySet": false,
+     *   //   "tokenTtl": "my_tokenTtl"
      *   // }
      * }
      *
@@ -3050,7 +3587,8 @@ export namespace firebaseappcheck_v1beta {
      *       //   "keyId": "my_keyId",
      *       //   "name": "my_name",
      *       //   "privateKey": "my_privateKey",
-     *       //   "privateKeySet": false
+     *       //   "privateKeySet": false,
+     *       //   "tokenTtl": "my_tokenTtl"
      *       // }
      *     },
      *   });
@@ -3061,7 +3599,8 @@ export namespace firebaseappcheck_v1beta {
      *   //   "keyId": "my_keyId",
      *   //   "name": "my_name",
      *   //   "privateKey": "my_privateKey",
-     *   //   "privateKeySet": false
+     *   //   "privateKeySet": false,
+     *   //   "tokenTtl": "my_tokenTtl"
      *   // }
      * }
      *
@@ -3387,7 +3926,8 @@ export namespace firebaseappcheck_v1beta {
      *   // {
      *   //   "name": "my_name",
      *   //   "siteSecret": "my_siteSecret",
-     *   //   "siteSecretSet": false
+     *   //   "siteSecretSet": false,
+     *   //   "tokenTtl": "my_tokenTtl"
      *   // }
      * }
      *
@@ -3530,7 +4070,8 @@ export namespace firebaseappcheck_v1beta {
      *       // {
      *       //   "name": "my_name",
      *       //   "siteSecret": "my_siteSecret",
-     *       //   "siteSecretSet": false
+     *       //   "siteSecretSet": false,
+     *       //   "tokenTtl": "my_tokenTtl"
      *       // }
      *     },
      *   });
@@ -3540,7 +4081,8 @@ export namespace firebaseappcheck_v1beta {
      *   // {
      *   //   "name": "my_name",
      *   //   "siteSecret": "my_siteSecret",
-     *   //   "siteSecretSet": false
+     *   //   "siteSecretSet": false,
+     *   //   "tokenTtl": "my_tokenTtl"
      *   // }
      * }
      *
@@ -3676,6 +4218,482 @@ export namespace firebaseappcheck_v1beta {
      * Request body metadata
      */
     requestBody?: Schema$GoogleFirebaseAppcheckV1betaRecaptchaConfig;
+  }
+
+  export class Resource$Projects$Apps$Safetynetconfig {
+    context: APIRequestContext;
+    constructor(context: APIRequestContext) {
+      this.context = context;
+    }
+
+    /**
+     * Gets the SafetyNetConfigs for the specified list of apps atomically.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.safetyNetConfig.batchGet({
+     *     // Required. The relative resource names of the SafetyNetConfigs to retrieve, in the format ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ``` A maximum of 100 objects can be retrieved in a batch.
+     *     names: 'placeholder-value',
+     *     // Required. The parent project name shared by all SafetyNetConfigs being retrieved, in the format ``` projects/{project_number\} ``` The parent collection in the `name` field of any resource being retrieved must match this field, or the entire batch fails.
+     *     parent: 'projects/my-project',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "configs": []
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    batchGet(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Batchget,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    batchGet(
+      params?: Params$Resource$Projects$Apps$Safetynetconfig$Batchget,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Batchget,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Batchget,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+    ): void;
+    batchGet(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Batchget,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+    ): void;
+    batchGet(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+    ): void;
+    batchGet(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Safetynetconfig$Batchget
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Safetynetconfig$Batchget;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Safetynetconfig$Batchget;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (
+              rootUrl + '/v1beta/{+parent}/apps/-/safetyNetConfig:batchGet'
+            ).replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['parent'],
+        pathParams: ['parent'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaBatchGetSafetyNetConfigsResponse>(
+          parameters
+        );
+      }
+    }
+
+    /**
+     * Gets the SafetyNetConfig for the specified app.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.safetyNetConfig.get({
+     *     // Required. The relative resource name of the SafetyNetConfig, in the format: ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ```
+     *     name: 'projects/my-project/apps/my-app/safetyNetConfig',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "name": "my_name",
+     *   //   "tokenTtl": "my_tokenTtl"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    get(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Get,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    get(
+      params?: Params$Resource$Projects$Apps$Safetynetconfig$Get,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>;
+    get(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Get,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    get(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Get,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    get(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Get,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    get(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    get(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Safetynetconfig$Get
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Safetynetconfig$Get;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Safetynetconfig$Get;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>(
+          parameters
+        );
+      }
+    }
+
+    /**
+     * Updates the SafetyNetConfig for the specified app. While this configuration is incomplete or invalid, the app will be unable to exchange SafetyNet tokens for App Check tokens.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/firebaseappcheck.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const firebaseappcheck = google.firebaseappcheck('v1beta');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/firebase',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await firebaseappcheck.projects.apps.safetyNetConfig.patch({
+     *     // Required. The relative resource name of the SafetyNet configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ```
+     *     name: 'projects/my-project/apps/my-app/safetyNetConfig',
+     *     // Required. A comma-separated list of names of fields in the SafetyNetConfig Gets to update. Example: `token_ttl`.
+     *     updateMask: 'placeholder-value',
+     *
+     *     // Request body metadata
+     *     requestBody: {
+     *       // request body parameters
+     *       // {
+     *       //   "name": "my_name",
+     *       //   "tokenTtl": "my_tokenTtl"
+     *       // }
+     *     },
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "name": "my_name",
+     *   //   "tokenTtl": "my_tokenTtl"
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    patch(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Patch,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    patch(
+      params?: Params$Resource$Projects$Apps$Safetynetconfig$Patch,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>;
+    patch(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Patch,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    patch(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Patch,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    patch(
+      params: Params$Resource$Projects$Apps$Safetynetconfig$Patch,
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    patch(
+      callback: BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+    ): void;
+    patch(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Apps$Safetynetconfig$Patch
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Apps$Safetynetconfig$Patch;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Apps$Safetynetconfig$Patch;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://firebaseappcheck.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1beta/{+name}').replace(/([^:]\/)\/+/g, '$1'),
+            method: 'PATCH',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig>(
+          parameters
+        );
+      }
+    }
+  }
+
+  export interface Params$Resource$Projects$Apps$Safetynetconfig$Batchget
+    extends StandardParameters {
+    /**
+     * Required. The relative resource names of the SafetyNetConfigs to retrieve, in the format ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ``` A maximum of 100 objects can be retrieved in a batch.
+     */
+    names?: string[];
+    /**
+     * Required. The parent project name shared by all SafetyNetConfigs being retrieved, in the format ``` projects/{project_number\} ``` The parent collection in the `name` field of any resource being retrieved must match this field, or the entire batch fails.
+     */
+    parent?: string;
+  }
+  export interface Params$Resource$Projects$Apps$Safetynetconfig$Get
+    extends StandardParameters {
+    /**
+     * Required. The relative resource name of the SafetyNetConfig, in the format: ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ```
+     */
+    name?: string;
+  }
+  export interface Params$Resource$Projects$Apps$Safetynetconfig$Patch
+    extends StandardParameters {
+    /**
+     * Required. The relative resource name of the SafetyNet configuration object, in the format: ``` projects/{project_number\}/apps/{app_id\}/safetyNetConfig ```
+     */
+    name?: string;
+    /**
+     * Required. A comma-separated list of names of fields in the SafetyNetConfig Gets to update. Example: `token_ttl`.
+     */
+    updateMask?: string;
+
+    /**
+     * Request body metadata
+     */
+    requestBody?: Schema$GoogleFirebaseAppcheckV1betaSafetyNetConfig;
   }
 
   export class Resource$Projects$Services {
