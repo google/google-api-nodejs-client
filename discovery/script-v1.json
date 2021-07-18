@@ -18,7 +18,7 @@
           "description": "View and manage the provisioning of users on your domain"
         },
         "https://www.googleapis.com/auth/documents": {
-          "description": "See, create, and edit all Google Docs documents you have access to"
+          "description": "See, edit, create, and delete all your Google Docs documents"
         },
         "https://www.googleapis.com/auth/drive": {
           "description": "See, edit, create, and delete all of your Google Drive files"
@@ -51,7 +51,7 @@
           "description": "View Google Apps Script projects"
         },
         "https://www.googleapis.com/auth/spreadsheets": {
-          "description": "See, edit, create, and delete your spreadsheets in Google Drive"
+          "description": "See, edit, create, and delete all your Google Sheets spreadsheets"
         },
         "https://www.googleapis.com/auth/userinfo.email": {
           "description": "See your primary Google Account email address"
@@ -887,7 +887,7 @@
       }
     }
   },
-  "revision": "20210410",
+  "revision": "20210703",
   "rootUrl": "https://script.googleapis.com/",
   "schemas": {
     "Content": {

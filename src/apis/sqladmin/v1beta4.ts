@@ -114,6 +114,7 @@ export namespace sqladmin_v1beta4 {
   export class Sqladmin {
     context: APIRequestContext;
     backupRuns: Resource$Backupruns;
+    connect: Resource$Connect;
     databases: Resource$Databases;
     flags: Resource$Flags;
     instances: Resource$Instances;
@@ -130,6 +131,7 @@ export namespace sqladmin_v1beta4 {
       };
 
       this.backupRuns = new Resource$Backupruns(this.context);
+      this.connect = new Resource$Connect(this.context);
       this.databases = new Resource$Databases(this.context);
       this.flags = new Resource$Flags(this.context);
       this.instances = new Resource$Instances(this.context);
@@ -204,7 +206,7 @@ export namespace sqladmin_v1beta4 {
      */
     location?: string | null;
     /**
-     * Reserved for future use.
+     * (Postgres only) Whether point in time recovery is enabled.
      */
     pointInTimeRecoveryEnabled?: boolean | null;
     /**
@@ -370,9 +372,34 @@ export namespace sqladmin_v1beta4 {
      */
     pitrTimestampMs?: string | null;
     /**
-     * Reserved for future use.
+     * Timestamp, if specified, identifies the time to which the source instance is cloned.
      */
     pointInTime?: string | null;
+  }
+  /**
+   * Connect settings retrieval response.
+   */
+  export interface Schema$ConnectSettings {
+    /**
+     * **SECOND_GEN**: Cloud SQL database instance. **EXTERNAL**: A database server that is not managed by Google. This property is read-only; use the **tier** property in the **settings** object to determine the database type.
+     */
+    backendType?: string | null;
+    /**
+     * The database engine type and version. The **databaseVersion** field cannot be changed after instance creation. MySQL instances: **MYSQL_8_0**, **MYSQL_5_7** (default), or **MYSQL_5_6**. PostgreSQL instances: **POSTGRES_9_6**, **POSTGRES_10**, **POSTGRES_11** or **POSTGRES_12** (default). SQL Server instances: **SQLSERVER_2017_STANDARD** (default), **SQLSERVER_2017_ENTERPRISE**, **SQLSERVER_2017_EXPRESS**, or **SQLSERVER_2017_WEB**.
+     */
+    databaseVersion?: string | null;
+    /**
+     * The assigned IP addresses for the instance.
+     */
+    ipAddresses?: Schema$IpMapping[];
+    /**
+     * This is always `sql#connectSettings`.
+     */
+    kind?: string | null;
+    /**
+     * SSL configuration.
+     */
+    serverCaCert?: Schema$SslCert;
   }
   /**
    * Represents a SQL database on the Cloud SQL instance.
@@ -784,6 +811,32 @@ export namespace sqladmin_v1beta4 {
      * This is always *sql#flagsList*.
      */
     kind?: string | null;
+  }
+  /**
+   * Ephemeral certificate creation request.
+   */
+  export interface Schema$GenerateEphemeralCertRequest {
+    /**
+     * Optional. Access token to include in the signed certificate.
+     */
+    access_token?: string | null;
+    /**
+     * PEM encoded public key to include in the signed certificate.
+     */
+    public_key?: string | null;
+    /**
+     * Optional. Optional snapshot read timestamp to trade freshness for performance.
+     */
+    readTime?: string | null;
+  }
+  /**
+   * Ephemeral certificate creation request.
+   */
+  export interface Schema$GenerateEphemeralCertResponse {
+    /**
+     * Generated cert
+     */
+    ephemeralCert?: Schema$SslCert;
   }
   /**
    * Database instance import context.
@@ -1475,6 +1528,10 @@ export namespace sqladmin_v1beta4 {
      * If the scheduled maintenance can be rescheduled.
      */
     canReschedule?: boolean | null;
+    /**
+     * Maintenance cannot be rescheduled to start beyond this deadline.
+     */
+    scheduleDeadlineTime?: string | null;
     /**
      * The start time of any upcoming scheduled maintenance for this instance.
      */
@@ -2203,7 +2260,7 @@ export namespace sqladmin_v1beta4 {
     }
 
     /**
-     * Lists all backup runs associated with a given instance and configuration in the reverse chronological order of the backup initiation time.
+     * Lists all backup runs associated with the project or a given instance and configuration in the reverse chronological order of the backup initiation time.
      * @example
      * ```js
      * // Before running the sample:
@@ -2232,7 +2289,7 @@ export namespace sqladmin_v1beta4 {
      *
      *   // Do the magic
      *   const res = await sql.backupRuns.list({
-     *     // Cloud SQL instance ID. This does not include the project ID.
+     *     // Cloud SQL instance ID, or "-" for all instances. This does not include the project ID.
      *     instance: 'placeholder-value',
      *     // Maximum number of backup runs per response.
      *     maxResults: 'placeholder-value',
@@ -2394,7 +2451,7 @@ export namespace sqladmin_v1beta4 {
   }
   export interface Params$Resource$Backupruns$List extends StandardParameters {
     /**
-     * Cloud SQL instance ID. This does not include the project ID.
+     * Cloud SQL instance ID, or "-" for all instances. This does not include the project ID.
      */
     instance?: string;
     /**
@@ -2409,6 +2466,336 @@ export namespace sqladmin_v1beta4 {
      * Project ID of the project that contains the instance.
      */
     project?: string;
+  }
+
+  export class Resource$Connect {
+    context: APIRequestContext;
+    constructor(context: APIRequestContext) {
+      this.context = context;
+    }
+
+    /**
+     * Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use the certificate to authenticate as themselves when connecting to the database.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/sqladmin.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const sqladmin = google.sqladmin('v1beta4');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/sqlservice.admin',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await sql.connect.generateEphemeral({
+     *     // Cloud SQL instance ID. This does not include the project ID.
+     *     instance: 'placeholder-value',
+     *     // Project ID of the project that contains the instance.
+     *     project: 'placeholder-value',
+     *
+     *     // Request body metadata
+     *     requestBody: {
+     *       // request body parameters
+     *       // {
+     *       //   "access_token": "my_access_token",
+     *       //   "public_key": "my_public_key",
+     *       //   "readTime": "my_readTime"
+     *       // }
+     *     },
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "ephemeralCert": {}
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    generateEphemeralCert(
+      params: Params$Resource$Connect$Generateephemeralcert,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    generateEphemeralCert(
+      params?: Params$Resource$Connect$Generateephemeralcert,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$GenerateEphemeralCertResponse>;
+    generateEphemeralCert(
+      params: Params$Resource$Connect$Generateephemeralcert,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    generateEphemeralCert(
+      params: Params$Resource$Connect$Generateephemeralcert,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GenerateEphemeralCertResponse>,
+      callback: BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+    ): void;
+    generateEphemeralCert(
+      params: Params$Resource$Connect$Generateephemeralcert,
+      callback: BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+    ): void;
+    generateEphemeralCert(
+      callback: BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+    ): void;
+    generateEphemeralCert(
+      paramsOrCallback?:
+        | Params$Resource$Connect$Generateephemeralcert
+        | BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GenerateEphemeralCertResponse>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | GaxiosPromise<Schema$GenerateEphemeralCertResponse>
+      | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Connect$Generateephemeralcert;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Connect$Generateephemeralcert;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl = options.rootUrl || 'https://sqladmin.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (
+              rootUrl +
+              '/sql/v1beta4/projects/{project}/instances/{instance}:generateEphemeralCert'
+            ).replace(/([^:]\/)\/+/g, '$1'),
+            method: 'POST',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['project', 'instance'],
+        pathParams: ['instance', 'project'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GenerateEphemeralCertResponse>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GenerateEphemeralCertResponse>(
+          parameters
+        );
+      }
+    }
+
+    /**
+     * Retrieves connect settings about a Cloud SQL instance.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/sqladmin.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const sqladmin = google.sqladmin('v1beta4');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: [
+     *       'https://www.googleapis.com/auth/cloud-platform',
+     *       'https://www.googleapis.com/auth/sqlservice.admin',
+     *     ],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await sql.connect.get({
+     *     // Cloud SQL instance ID. This does not include the project ID.
+     *     instance: 'placeholder-value',
+     *     // Project ID of the project that contains the instance.
+     *     project: 'placeholder-value',
+     *     // Optional. Optional snapshot read timestamp to trade freshness for performance.
+     *     readTime: 'placeholder-value',
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "backendType": "my_backendType",
+     *   //   "databaseVersion": "my_databaseVersion",
+     *   //   "ipAddresses": [],
+     *   //   "kind": "my_kind",
+     *   //   "serverCaCert": {}
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    get(
+      params: Params$Resource$Connect$Get,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    get(
+      params?: Params$Resource$Connect$Get,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$ConnectSettings>;
+    get(
+      params: Params$Resource$Connect$Get,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    get(
+      params: Params$Resource$Connect$Get,
+      options: MethodOptions | BodyResponseCallback<Schema$ConnectSettings>,
+      callback: BodyResponseCallback<Schema$ConnectSettings>
+    ): void;
+    get(
+      params: Params$Resource$Connect$Get,
+      callback: BodyResponseCallback<Schema$ConnectSettings>
+    ): void;
+    get(callback: BodyResponseCallback<Schema$ConnectSettings>): void;
+    get(
+      paramsOrCallback?:
+        | Params$Resource$Connect$Get
+        | BodyResponseCallback<Schema$ConnectSettings>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$ConnectSettings>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$ConnectSettings>
+        | BodyResponseCallback<Readable>
+    ): void | GaxiosPromise<Schema$ConnectSettings> | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback || {}) as Params$Resource$Connect$Get;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Connect$Get;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl = options.rootUrl || 'https://sqladmin.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (
+              rootUrl +
+              '/sql/v1beta4/projects/{project}/instances/{instance}/connectSettings'
+            ).replace(/([^:]\/)\/+/g, '$1'),
+            method: 'GET',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['project', 'instance'],
+        pathParams: ['instance', 'project'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$ConnectSettings>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$ConnectSettings>(parameters);
+      }
+    }
+  }
+
+  export interface Params$Resource$Connect$Generateephemeralcert
+    extends StandardParameters {
+    /**
+     * Cloud SQL instance ID. This does not include the project ID.
+     */
+    instance?: string;
+    /**
+     * Project ID of the project that contains the instance.
+     */
+    project?: string;
+
+    /**
+     * Request body metadata
+     */
+    requestBody?: Schema$GenerateEphemeralCertRequest;
+  }
+  export interface Params$Resource$Connect$Get extends StandardParameters {
+    /**
+     * Cloud SQL instance ID. This does not include the project ID.
+     */
+    instance?: string;
+    /**
+     * Project ID of the project that contains the instance.
+     */
+    project?: string;
+    /**
+     * Optional. Optional snapshot read timestamp to trade freshness for performance.
+     */
+    readTime?: string;
   }
 
   export class Resource$Databases {

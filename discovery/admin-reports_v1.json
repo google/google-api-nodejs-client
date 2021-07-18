@@ -203,7 +203,7 @@
               "type": "string"
             },
             "groupIdFilter": {
-              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e, the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
+              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e. the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
               "location": "query",
               "pattern": "(id:[a-z0-9]+(,id:[a-z0-9]+)*)",
               "type": "string"
@@ -236,7 +236,7 @@
               "type": "string"
             },
             "userKey": {
-              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address.",
+              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address. Must not be a deleted user. For a deleted user, call `users.list` in Directory API with `showDeleted=true`, then use the returned `ID` as the `userKey`.",
               "location": "path",
               "required": true,
               "type": "string"
@@ -342,7 +342,7 @@
               "type": "string"
             },
             "groupIdFilter": {
-              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e, the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
+              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e. the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
               "location": "query",
               "pattern": "(id:[a-z0-9]+(,id:[a-z0-9]+)*)",
               "type": "string"
@@ -375,7 +375,7 @@
               "type": "string"
             },
             "userKey": {
-              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address.",
+              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address. Must not be a deleted user. For a deleted user, call `users.list` in Directory API with `showDeleted=true`, then use the returned `ID` as the `userKey`.",
               "location": "path",
               "required": true,
               "type": "string"
@@ -581,7 +581,7 @@
               "type": "string"
             },
             "groupIdFilter": {
-              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e, the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
+              "description": "Comma separated group ids (obfuscated) on which user activities are filtered, i.e. the response will contain activities for only those users that are a part of at least one of the group ids mentioned here. Format: \"id:abc123,id:xyz456\"",
               "location": "query",
               "pattern": "(id:[a-z0-9]+(,id:[a-z0-9]+)*)",
               "type": "string"
@@ -614,7 +614,7 @@
               "type": "string"
             },
             "userKey": {
-              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address.",
+              "description": "Represents the profile ID or the user email for which the data should be filtered. Can be `all` for all information, or `userKey` for a user's unique Google Workspace profile ID or their primary email address. Must not be a deleted user. For a deleted user, call `users.list` in Directory API with `showDeleted=true`, then use the returned `ID` as the `userKey`.",
               "location": "path",
               "required": true,
               "type": "string"
@@ -631,7 +631,7 @@
       }
     }
   },
-  "revision": "20210413",
+  "revision": "20210713",
   "rootUrl": "https://admin.googleapis.com/",
   "schemas": {
     "Activities": {

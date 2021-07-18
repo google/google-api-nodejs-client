@@ -664,7 +664,7 @@
       }
     }
   },
-  "revision": "20210625",
+  "revision": "20210709",
   "rootUrl": "https://documentai.googleapis.com/",
   "schemas": {
     "GoogleCloudDocumentaiUiv1beta3CommonOperationMetadata": {
@@ -839,7 +839,12 @@
     "GoogleCloudDocumentaiUiv1beta3ExportProcessorVersionResponse": {
       "description": "Response message associated with the ExportProcessorVersion operation.",
       "id": "GoogleCloudDocumentaiUiv1beta3ExportProcessorVersionResponse",
-      "properties": {},
+      "properties": {
+        "gcsUri": {
+          "description": "The Cloud Storage URI containing the output artifacts.",
+          "type": "string"
+        }
+      },
       "type": "object"
     },
     "GoogleCloudDocumentaiUiv1beta3SetDefaultProcessorVersionMetadata": {

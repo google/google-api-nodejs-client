@@ -242,7 +242,7 @@ export namespace file_v1beta1 {
      */
     capacityGb?: string | null;
     /**
-     * The name of the file share (must be 16 characters or less).
+     * The name of the file share (must be 32 characters or less for High Scale SSD tier, 16 characters or less for all other tiers).
      */
     name?: string | null;
     /**
@@ -378,6 +378,10 @@ export namespace file_v1beta1 {
      * The id of the node. This should be equal to SaasInstanceNode.node_id.
      */
     nodeId?: string | null;
+    /**
+     * If present, this will override eligibility for the node coming from instance or exclusions for specified SLIs.
+     */
+    perSliEligibility?: Schema$GoogleCloudSaasacceleratorManagementProvidersV1PerSliSloEligibility;
   }
   /**
    * PerSliSloEligibility is a mapping from an SLI name to eligibility.
@@ -645,6 +649,10 @@ export namespace file_v1beta1 {
    */
   export interface Schema$NetworkConfig {
     /**
+     * The network connect mode of the Filestore instance. If not provided, the connect mode defaults to DIRECT_PEERING.
+     */
+    connectMode?: string | null;
+    /**
      * Output only. IPv4 addresses in the format {octet 1\}.{octet 2\}.{octet 3\}.{octet 4\} or IPv6 addresses in the format {block 1\}:{block 2\}:{block 3\}:{block 4\}:{block 5\}:{block 6\}:{block 7\}:{block 8\}.
      */
     ipAddresses?: string[] | null;
@@ -716,31 +724,31 @@ export namespace file_v1beta1 {
    */
   export interface Schema$OperationMetadata {
     /**
-     * [Output only] API version used to start the operation.
+     * Output only. API version used to start the operation.
      */
     apiVersion?: string | null;
     /**
-     * [Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+     * Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
      */
     cancelRequested?: boolean | null;
     /**
-     * [Output only] The time the operation was created.
+     * Output only. The time the operation was created.
      */
     createTime?: string | null;
     /**
-     * [Output only] The time the operation finished running.
+     * Output only. The time the operation finished running.
      */
     endTime?: string | null;
     /**
-     * [Output only] Human-readable status of the operation, if any.
+     * Output only. Human-readable status of the operation, if any.
      */
     statusDetail?: string | null;
     /**
-     * [Output only] Server-defined resource path for the target of the operation.
+     * Output only. Server-defined resource path for the target of the operation.
      */
     target?: string | null;
     /**
-     * [Output only] Name of the verb executed by the operation.
+     * Output only. Name of the verb executed by the operation.
      */
     verb?: string | null;
   }

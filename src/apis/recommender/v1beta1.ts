@@ -427,6 +427,10 @@ export namespace recommender_v1beta1 {
      * Operations to one or more Google Cloud resources grouped in such a way that, all operations within one group are expected to be performed atomically and in an order.
      */
     operationGroups?: Schema$GoogleCloudRecommenderV1beta1OperationGroup[];
+    /**
+     * Condensed overview information about the recommendation.
+     */
+    overview?: {[key: string]: any} | null;
   }
   /**
    * Reference to an associated insight.

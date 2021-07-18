@@ -103,7 +103,7 @@ export namespace notebooks_v1 {
   /**
    * Notebooks API
    *
-   * AI Platform Notebooks API is used to manage notebook resources in Google Cloud.
+   * Notebooks API is used to manage notebook resources in Google Cloud.
    *
    * @example
    * ```js
@@ -272,6 +272,19 @@ export namespace notebooks_v1 {
     vmImage?: Schema$VmImage;
   }
   /**
+   * The definition of an Event for a managed / semi-managed notebook instance.
+   */
+  export interface Schema$Event {
+    /**
+     * Event report time.
+     */
+    reportTime?: string | null;
+    /**
+     * Event type.
+     */
+    type?: string | null;
+  }
+  /**
    * The definition of a single executed notebook.
    */
   export interface Schema$Execution {
@@ -291,6 +304,10 @@ export namespace notebooks_v1 {
      * execute metadata including name, hardware spec, region, labels, etc.
      */
     executionTemplate?: Schema$ExecutionTemplate;
+    /**
+     * Output only. The URI of the external job used to execute the notebook.
+     */
+    jobUri?: string | null;
     /**
      * Output only. The resource name of the execute. Format: `projects/{project_id\}/locations/{location\}/execution/{execution_id\}
      */
@@ -345,7 +362,7 @@ export namespace notebooks_v1 {
      */
     paramsYamlFile?: string | null;
     /**
-     * Required. Scale tier of the hardware used for notebook execution.
+     * Required. Scale tier of the hardware used for notebook execution. DEPRECATED Will be discontinued. As right now only CUSTOM is supported.
      */
     scaleTier?: string | null;
     /**
@@ -496,6 +513,10 @@ export namespace notebooks_v1 {
      * Output only. The proxy endpoint that is used to access the Jupyter notebook.
      */
     proxyUri?: string | null;
+    /**
+     * Optional. The optional reservation affinity. Setting this field will apply the specified [Zonal Compute Reservation](https://cloud.google.com/compute/docs/instances/reserving-zonal-resources) to this notebook instance.
+     */
+    reservationAffinity?: Schema$ReservationAffinity;
     /**
      * The service account on this instance, giving access to other Google Cloud services. You can use any service account within the same project, but you must have the service account user permission to use the instance. If not specified, the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account) is used.
      */
@@ -883,6 +904,36 @@ export namespace notebooks_v1 {
     vmId?: string | null;
   }
   /**
+   * Request for reporting a Managed Notebook Event.
+   */
+  export interface Schema$ReportRuntimeEventRequest {
+    /**
+     * Required. The Event to be reported.
+     */
+    event?: Schema$Event;
+    /**
+     * Required. The VM hardware token for authenticating the VM. https://cloud.google.com/compute/docs/instances/verifying-instance-identity
+     */
+    vmId?: string | null;
+  }
+  /**
+   * Reservation Affinity for consuming Zonal reservation.
+   */
+  export interface Schema$ReservationAffinity {
+    /**
+     * Optional. Type of reservation to consume
+     */
+    consumeReservationType?: string | null;
+    /**
+     * Optional. Corresponds to the label key of reservation resource.
+     */
+    key?: string | null;
+    /**
+     * Optional. Corresponds to the label values of reservation resource.
+     */
+    values?: string[] | null;
+  }
+  /**
    * Request for reseting a notebook instance
    */
   export interface Schema$ResetInstanceRequest {}
@@ -1018,11 +1069,11 @@ export namespace notebooks_v1 {
      */
     enableHealthMonitoring?: boolean | null;
     /**
-     * Runtime will automatically shutdown after idle_shutdown_time. Default: False
+     * Runtime will automatically shutdown after idle_shutdown_time. Default: True
      */
     idleShutdown?: boolean | null;
     /**
-     * Time in minutes to wait before shuting down runtime. Default: 90 minutes
+     * Time in minutes to wait before shuting down runtime. Default: 180 minutes
      */
     idleShutdownTimeout?: number | null;
     /**
@@ -2376,6 +2427,7 @@ export namespace notebooks_v1 {
      *       //   "description": "my_description",
      *       //   "displayName": "my_displayName",
      *       //   "executionTemplate": {},
+     *       //   "jobUri": "my_jobUri",
      *       //   "name": "my_name",
      *       //   "outputNotebookFile": "my_outputNotebookFile",
      *       //   "state": "my_state",
@@ -2654,6 +2706,7 @@ export namespace notebooks_v1 {
      *   //   "description": "my_description",
      *   //   "displayName": "my_displayName",
      *   //   "executionTemplate": {},
+     *   //   "jobUri": "my_jobUri",
      *   //   "name": "my_name",
      *   //   "outputNotebookFile": "my_outputNotebookFile",
      *   //   "state": "my_state",
@@ -3014,6 +3067,7 @@ export namespace notebooks_v1 {
      *       //   "noRemoveDataDisk": false,
      *       //   "postStartupScript": "my_postStartupScript",
      *       //   "proxyUri": "my_proxyUri",
+     *       //   "reservationAffinity": {},
      *       //   "serviceAccount": "my_serviceAccount",
      *       //   "serviceAccountScopes": [],
      *       //   "shieldedInstanceConfig": {},
@@ -3317,6 +3371,7 @@ export namespace notebooks_v1 {
      *   //   "noRemoveDataDisk": false,
      *   //   "postStartupScript": "my_postStartupScript",
      *   //   "proxyUri": "my_proxyUri",
+     *   //   "reservationAffinity": {},
      *   //   "serviceAccount": "my_serviceAccount",
      *   //   "serviceAccountScopes": [],
      *   //   "shieldedInstanceConfig": {},
@@ -7472,6 +7527,148 @@ export namespace notebooks_v1 {
     }
 
     /**
+     * Report and process a runtime event.
+     * @example
+     * ```js
+     * // Before running the sample:
+     * // - Enable the API at:
+     * //   https://console.developers.google.com/apis/api/notebooks.googleapis.com
+     * // - Login into gcloud by running:
+     * //   `$ gcloud auth application-default login`
+     * // - Install the npm module by running:
+     * //   `$ npm install googleapis`
+     *
+     * const {google} = require('googleapis');
+     * const notebooks = google.notebooks('v1');
+     *
+     * async function main() {
+     *   const auth = new google.auth.GoogleAuth({
+     *     // Scopes can be specified either as an array or as a single, space-delimited string.
+     *     scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+     *   });
+     *
+     *   // Acquire an auth client, and bind it to all future calls
+     *   const authClient = await auth.getClient();
+     *   google.options({auth: authClient});
+     *
+     *   // Do the magic
+     *   const res = await notebooks.projects.locations.runtimes.reportEvent({
+     *     // Required. Format: `projects/{project_id\}/locations/{location\}/runtimes/{runtime_id\}`
+     *     name: 'projects/my-project/locations/my-location/runtimes/my-runtime',
+     *
+     *     // Request body metadata
+     *     requestBody: {
+     *       // request body parameters
+     *       // {
+     *       //   "event": {},
+     *       //   "vmId": "my_vmId"
+     *       // }
+     *     },
+     *   });
+     *   console.log(res.data);
+     *
+     *   // Example response
+     *   // {
+     *   //   "done": false,
+     *   //   "error": {},
+     *   //   "metadata": {},
+     *   //   "name": "my_name",
+     *   //   "response": {}
+     *   // }
+     * }
+     *
+     * main().catch(e => {
+     *   console.error(e);
+     *   throw e;
+     * });
+     *
+     * ```
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    reportEvent(
+      params: Params$Resource$Projects$Locations$Runtimes$Reportevent,
+      options: StreamMethodOptions
+    ): GaxiosPromise<Readable>;
+    reportEvent(
+      params?: Params$Resource$Projects$Locations$Runtimes$Reportevent,
+      options?: MethodOptions
+    ): GaxiosPromise<Schema$Operation>;
+    reportEvent(
+      params: Params$Resource$Projects$Locations$Runtimes$Reportevent,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    reportEvent(
+      params: Params$Resource$Projects$Locations$Runtimes$Reportevent,
+      options: MethodOptions | BodyResponseCallback<Schema$Operation>,
+      callback: BodyResponseCallback<Schema$Operation>
+    ): void;
+    reportEvent(
+      params: Params$Resource$Projects$Locations$Runtimes$Reportevent,
+      callback: BodyResponseCallback<Schema$Operation>
+    ): void;
+    reportEvent(callback: BodyResponseCallback<Schema$Operation>): void;
+    reportEvent(
+      paramsOrCallback?:
+        | Params$Resource$Projects$Locations$Runtimes$Reportevent
+        | BodyResponseCallback<Schema$Operation>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$Operation>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$Operation>
+        | BodyResponseCallback<Readable>
+    ): void | GaxiosPromise<Schema$Operation> | GaxiosPromise<Readable> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Projects$Locations$Runtimes$Reportevent;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Projects$Locations$Runtimes$Reportevent;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl = options.rootUrl || 'https://notebooks.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1/{+name}:reportEvent').replace(
+              /([^:]\/)\/+/g,
+              '$1'
+            ),
+            method: 'POST',
+          },
+          options
+        ),
+        params,
+        requiredParams: ['name'],
+        pathParams: ['name'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$Operation>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$Operation>(parameters);
+      }
+    }
+
+    /**
      * Resets a Managed Notebook Runtime.
      * @example
      * ```js
@@ -8063,6 +8260,18 @@ export namespace notebooks_v1 {
      * Required. Format: `parent=projects/{project_id\}/locations/{location\}`
      */
     parent?: string;
+  }
+  export interface Params$Resource$Projects$Locations$Runtimes$Reportevent
+    extends StandardParameters {
+    /**
+     * Required. Format: `projects/{project_id\}/locations/{location\}/runtimes/{runtime_id\}`
+     */
+    name?: string;
+
+    /**
+     * Request body metadata
+     */
+    requestBody?: Schema$ReportRuntimeEventRequest;
   }
   export interface Params$Resource$Projects$Locations$Runtimes$Reset
     extends StandardParameters {

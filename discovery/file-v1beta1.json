@@ -672,7 +672,7 @@
       }
     }
   },
-  "revision": "20210524",
+  "revision": "20210708",
   "rootUrl": "https://file.googleapis.com/",
   "schemas": {
     "Backup": {
@@ -734,7 +734,8 @@
             "PREMIUM",
             "BASIC_HDD",
             "BASIC_SSD",
-            "HIGH_SCALE_SSD"
+            "HIGH_SCALE_SSD",
+            "ENTERPRISE"
           ],
           "enumDescriptions": [
             "Not set.",
@@ -742,7 +743,8 @@
             "PREMIUM tier. BASIC_SSD is the preferred term for this tier.",
             "BASIC instances offer a maximum capacity of 63.9 TB. BASIC_HDD is an alias for STANDARD Tier, offering economical performance backed by HDD.",
             "BASIC instances offer a maximum capacity of 63.9 TB. BASIC_SSD is an alias for PREMIUM Tier, and offers improved performance backed by SSD.",
-            "HIGH_SCALE instances offer expanded capacity and performance scaling capabilities."
+            "HIGH_SCALE instances offer expanded capacity and performance scaling capabilities.",
+            "ENTERPRISE instances offer the features and availability needed for mission-critical workloads."
           ],
           "readOnly": true,
           "type": "string"
@@ -854,7 +856,7 @@
           "type": "string"
         },
         "name": {
-          "description": "The name of the file share (must be 16 characters or less).",
+          "description": "The name of the file share (must be 32 characters or less for High Scale SSD tier, 16 characters or less for all other tiers).",
           "type": "string"
         },
         "nfsExportOptions": {
@@ -1052,6 +1054,10 @@
         "nodeId": {
           "description": "The id of the node. This should be equal to SaasInstanceNode.node_id.",
           "type": "string"
+        },
+        "perSliEligibility": {
+          "$ref": "GoogleCloudSaasacceleratorManagementProvidersV1PerSliSloEligibility",
+          "description": "If present, this will override eligibility for the node coming from instance or exclusions for specified SLIs."
         }
       },
       "type": "object"
@@ -1239,7 +1245,8 @@
             "PREMIUM",
             "BASIC_HDD",
             "BASIC_SSD",
-            "HIGH_SCALE_SSD"
+            "HIGH_SCALE_SSD",
+            "ENTERPRISE"
           ],
           "enumDescriptions": [
             "Not set.",
@@ -1247,7 +1254,8 @@
             "PREMIUM tier. BASIC_SSD is the preferred term for this tier.",
             "BASIC instances offer a maximum capacity of 63.9 TB. BASIC_HDD is an alias for STANDARD Tier, offering economical performance backed by HDD.",
             "BASIC instances offer a maximum capacity of 63.9 TB. BASIC_SSD is an alias for PREMIUM Tier, and offers improved performance backed by SSD.",
-            "HIGH_SCALE instances offer expanded capacity and performance scaling capabilities."
+            "HIGH_SCALE instances offer expanded capacity and performance scaling capabilities.",
+            "ENTERPRISE instances offer the features and availability needed for mission-critical workloads."
           ],
           "type": "string"
         }
@@ -1443,6 +1451,20 @@
       "description": "Network configuration for the instance.",
       "id": "NetworkConfig",
       "properties": {
+        "connectMode": {
+          "description": "The network connect mode of the Filestore instance. If not provided, the connect mode defaults to DIRECT_PEERING.",
+          "enum": [
+            "CONNECT_MODE_UNSPECIFIED",
+            "DIRECT_PEERING",
+            "PRIVATE_SERVICE_ACCESS"
+          ],
+          "enumDescriptions": [
+            "ConnectMode not set.",
+            "Connect via direct peering to the Filestore service.",
+            "Connect to your Filestore instance using Private Service Access. Private services access provides an IP address range for multiple Google Cloud services, including Filestore."
+          ],
+          "type": "string"
+        },
         "ipAddresses": {
           "description": "Output only. IPv4 addresses in the format {octet 1}.{octet 2}.{octet 3}.{octet 4} or IPv6 addresses in the format {block 1}:{block 2}:{block 3}:{block 4}:{block 5}:{block 6}:{block 7}:{block 8}.",
           "items": {
@@ -1569,33 +1591,40 @@
       "id": "OperationMetadata",
       "properties": {
         "apiVersion": {
-          "description": "[Output only] API version used to start the operation.",
+          "description": "Output only. API version used to start the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "cancelRequested": {
-          "description": "[Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "description": "Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "readOnly": true,
           "type": "boolean"
         },
         "createTime": {
-          "description": "[Output only] The time the operation was created.",
+          "description": "Output only. The time the operation was created.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "endTime": {
-          "description": "[Output only] The time the operation finished running.",
+          "description": "Output only. The time the operation finished running.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "statusDetail": {
-          "description": "[Output only] Human-readable status of the operation, if any.",
+          "description": "Output only. Human-readable status of the operation, if any.",
+          "readOnly": true,
           "type": "string"
         },
         "target": {
-          "description": "[Output only] Server-defined resource path for the target of the operation.",
+          "description": "Output only. Server-defined resource path for the target of the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "verb": {
-          "description": "[Output only] Name of the verb executed by the operation.",
+          "description": "Output only. Name of the verb executed by the operation.",
+          "readOnly": true,
           "type": "string"
         }
       },

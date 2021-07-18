@@ -546,7 +546,7 @@
       }
     }
   },
-  "revision": "20210409",
+  "revision": "20210708",
   "rootUrl": "https://cloudfunctions.googleapis.com/",
   "schemas": {
     "AuditConfig": {
@@ -736,6 +736,20 @@
         "runtime": {
           "description": "The runtime in which to run the function. Required when deploying a new function, optional when updating an existing function. For a complete list of possible choices, see the [`gcloud` command reference](/sdk/gcloud/reference/functions/deploy#--runtime).",
           "type": "string"
+        },
+        "secretEnvironmentVariables": {
+          "description": "Secret environment variables configuration.",
+          "items": {
+            "$ref": "SecretEnvVar"
+          },
+          "type": "array"
+        },
+        "secretVolumes": {
+          "description": "Secret volumes configuration.",
+          "items": {
+            "$ref": "SecretVolume"
+          },
+          "type": "array"
         },
         "serviceAccountEmail": {
           "description": "The email of the function's service account. If empty, defaults to `{project_id}@appspot.gserviceaccount.com`.",
@@ -1161,6 +1175,70 @@
       "description": "Describes the retry policy in case of function's execution failure. A function execution will be retried on any failure. A failed execution will be retried up to 7 days with an exponential backoff (capped at 10 seconds). Retried execution is charged as any other execution.",
       "id": "Retry",
       "properties": {},
+      "type": "object"
+    },
+    "SecretEnvVar": {
+      "description": "Configuration for a secret environment variable. It has the information necessary to fetch the secret value from secret manager and expose it as an environment variable. Secret value is not a part of the configuration. Secret values are only fetched when a new clone starts.",
+      "id": "SecretEnvVar",
+      "properties": {
+        "key": {
+          "description": "Name of the environment variable.",
+          "type": "string"
+        },
+        "projectId": {
+          "description": "Project whose secret manager data is being referenced. Cross project secrets are not supported.",
+          "type": "string"
+        },
+        "secret": {
+          "description": "Name of the secret in secret manager (not the full resource name).",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version of the secret (version number or the string 'latest'). It is recommended to use a numeric version for secret environment variables as any updates to the secret value is not reflected until new clones start.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SecretVersion": {
+      "description": "Configuration for a single version.",
+      "id": "SecretVersion",
+      "properties": {
+        "path": {
+          "description": "Relative path of the file under the mount path where the secret value for this version will be fetched and made available. For example, setting the mount_path as '/etc/secrets' and path as `/secret_foo` would mount the secret value file at `/etc/secrets/secret_foo`.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version of the secret (version number or the string 'latest'). It is preferrable to use `latest` version with secret volumes as secret value changes are reflected immediately.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SecretVolume": {
+      "description": "Configuration for a secret volume. It has the information necessary to fetch the secret value from secret manager and make it available as files mounted at the requested paths within the application container. Secret value is not a part of the configuration. Every filesystem read operation performs a lookup in secret manager to retrieve the secret value.",
+      "id": "SecretVolume",
+      "properties": {
+        "mountPath": {
+          "description": "The path within the container to mount the secret volume. For example, setting the mount_path as `/etc/secrets` would mount the secret value files under the `/etc/secrets` directory. This directory will also be completely shadowed and unavailable to mount any other secrets. Recommended mount paths: /etc/secrets Restricted mount paths: /cloudsql, /dev/log, /pod, /proc, /var/log",
+          "type": "string"
+        },
+        "projectId": {
+          "description": "Project whose secret manager data is being referenced. Cross project secrets are not supported.",
+          "type": "string"
+        },
+        "secret": {
+          "description": "Name of the secret in secret manager (not the full resource name).",
+          "type": "string"
+        },
+        "versions": {
+          "description": "List of secret versions to mount for this secret. If empty, the `latest` version of the secret will be made available in a file named after the secret under the mount point.",
+          "items": {
+            "$ref": "SecretVersion"
+          },
+          "type": "array"
+        }
+      },
       "type": "object"
     },
     "SetIamPolicyRequest": {

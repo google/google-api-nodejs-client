@@ -1,4 +1,16 @@
 {
+  "auth": {
+    "oauth2": {
+      "scopes": {
+        "https://www.googleapis.com/auth/cloud-platform": {
+          "description": "See, edit, configure, and delete your Google Cloud Platform data"
+        },
+        "https://www.googleapis.com/auth/sqlservice.admin": {
+          "description": "Manage your Google SQL Service instances"
+        }
+      }
+    }
+  },
   "basePath": "",
   "baseUrl": "https://sqladmin.googleapis.com/",
   "batchPath": "batch",
@@ -95,10 +107,1411 @@
     }
   },
   "protocol": "rest",
-  "resources": {},
-  "revision": "20210608",
+  "resources": {
+    "instances": {
+      "methods": {
+        "list": {
+          "description": "Lists instances under a given project.",
+          "flatPath": "v1/projects/{project}/instances",
+          "httpMethod": "GET",
+          "id": "sqladmin.instances.list",
+          "parameterOrder": [
+            "project"
+          ],
+          "parameters": {
+            "filter": {
+              "description": "A filter expression that filters resources listed in the response. The expression is in the form of field:value. For example, 'instanceType:CLOUD_SQL_INSTANCE'. Fields can be nested as needed as per their JSON representation, such as 'settings.userLabels.auto_start:true'. Multiple filter queries are space-separated. For example. 'state:RUNNABLE instanceType:CLOUD_SQL_INSTANCE'. By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly.",
+              "location": "query",
+              "type": "string"
+            },
+            "maxResults": {
+              "description": "The maximum number of results to return per response.",
+              "format": "uint32",
+              "location": "query",
+              "type": "integer"
+            },
+            "pageToken": {
+              "description": "A previously-returned page token representing part of the larger set of results to view.",
+              "location": "query",
+              "type": "string"
+            },
+            "project": {
+              "description": "Project ID of the project for which to list Cloud SQL instances.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "v1/projects/{project}/instances",
+          "response": {
+            "$ref": "InstancesListResponse"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/cloud-platform",
+            "https://www.googleapis.com/auth/sqlservice.admin"
+          ]
+        }
+      }
+    },
+    "projects": {
+      "resources": {
+        "instances": {
+          "methods": {
+            "generateEphemeralCert": {
+              "description": "Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use the certificate to authenticate as themselves when connecting to the database.",
+              "flatPath": "v1/projects/{project}/instances/{instance}:generateEphemeralCert",
+              "httpMethod": "POST",
+              "id": "sqladmin.projects.instances.generateEphemeralCert",
+              "parameterOrder": [
+                "project",
+                "instance"
+              ],
+              "parameters": {
+                "instance": {
+                  "description": "Cloud SQL instance ID. This does not include the project ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "project": {
+                  "description": "Project ID of the project that contains the instance.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1/projects/{project}/instances/{instance}:generateEphemeralCert",
+              "request": {
+                "$ref": "GenerateEphemeralCertRequest"
+              },
+              "response": {
+                "$ref": "GenerateEphemeralCertResponse"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/cloud-platform",
+                "https://www.googleapis.com/auth/sqlservice.admin"
+              ]
+            },
+            "get": {
+              "description": "Retrieves a resource containing information about a Cloud SQL instance.",
+              "flatPath": "v1/projects/{project}/instances/{instance}",
+              "httpMethod": "GET",
+              "id": "sqladmin.projects.instances.get",
+              "parameterOrder": [
+                "project",
+                "instance"
+              ],
+              "parameters": {
+                "instance": {
+                  "description": "Database instance ID. This does not include the project ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "project": {
+                  "description": "Project ID of the project that contains the instance.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "path": "v1/projects/{project}/instances/{instance}",
+              "response": {
+                "$ref": "DatabaseInstance"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/cloud-platform",
+                "https://www.googleapis.com/auth/sqlservice.admin"
+              ]
+            },
+            "getConnectSettings": {
+              "description": "Retrieves connect settings about a Cloud SQL instance.",
+              "flatPath": "v1/projects/{project}/instances/{instance}/connectSettings",
+              "httpMethod": "GET",
+              "id": "sqladmin.projects.instances.getConnectSettings",
+              "parameterOrder": [
+                "project",
+                "instance"
+              ],
+              "parameters": {
+                "instance": {
+                  "description": "Cloud SQL instance ID. This does not include the project ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "project": {
+                  "description": "Project ID of the project that contains the instance.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "readTime": {
+                  "description": "Optional. Optional snapshot read timestamp to trade freshness for performance.",
+                  "format": "google-datetime",
+                  "location": "query",
+                  "type": "string"
+                }
+              },
+              "path": "v1/projects/{project}/instances/{instance}/connectSettings",
+              "response": {
+                "$ref": "ConnectSettings"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/cloud-platform",
+                "https://www.googleapis.com/auth/sqlservice.admin"
+              ]
+            }
+          },
+          "resources": {
+            "createEphemeral": {
+              "methods": {
+                "create": {
+                  "description": "Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use the certificate to authenticate as themselves when connecting to the database.",
+                  "flatPath": "v1/projects/{project}/instances/{instance}/createEphemeral",
+                  "httpMethod": "POST",
+                  "id": "sqladmin.projects.instances.createEphemeral.create",
+                  "parameterOrder": [
+                    "project",
+                    "instance"
+                  ],
+                  "parameters": {
+                    "instance": {
+                      "description": "Cloud SQL instance ID. This does not include the project ID.",
+                      "location": "path",
+                      "required": true,
+                      "type": "string"
+                    },
+                    "project": {
+                      "description": "Project ID of the Cloud SQL project.",
+                      "location": "path",
+                      "required": true,
+                      "type": "string"
+                    }
+                  },
+                  "path": "v1/projects/{project}/instances/{instance}/createEphemeral",
+                  "request": {
+                    "$ref": "SslCertsCreateEphemeralRequest"
+                  },
+                  "response": {
+                    "$ref": "SslCert"
+                  },
+                  "scopes": [
+                    "https://www.googleapis.com/auth/cloud-platform",
+                    "https://www.googleapis.com/auth/sqlservice.admin"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "revision": "20210627",
   "rootUrl": "https://sqladmin.googleapis.com/",
-  "schemas": {},
+  "schemas": {
+    "AclEntry": {
+      "description": "An entry for an Access Control list.",
+      "id": "AclEntry",
+      "properties": {
+        "expirationTime": {
+          "description": "The time when this access control entry expires in [RFC 3339](https://tools.ietf.org/html/rfc3339) format, for example **2012-11-15T16:19:00.094Z**.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always **sql#aclEntry**.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Optional. A label to identify this entry.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The allowlisted value for the access control list.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ApiWarning": {
+      "description": "An Admin API warning message.",
+      "id": "ApiWarning",
+      "properties": {
+        "code": {
+          "description": "Code to uniquely identify the warning type.",
+          "enum": [
+            "SQL_API_WARNING_CODE_UNSPECIFIED",
+            "REGION_UNREACHABLE"
+          ],
+          "enumDescriptions": [
+            "An unknown or unset warning type from Cloud SQL API.",
+            "Warning when one or more regions are not reachable. The returned result set may be incomplete."
+          ],
+          "type": "string"
+        },
+        "message": {
+          "description": "The warning message.",
+          "type": "string"
+        },
+        "region": {
+          "description": "The region name for REGION_UNREACHABLE warning.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "BackupConfiguration": {
+      "description": "Database instance backup configuration.",
+      "id": "BackupConfiguration",
+      "properties": {
+        "backupRetentionSettings": {
+          "$ref": "BackupRetentionSettings",
+          "description": "Backup retention settings."
+        },
+        "binaryLogEnabled": {
+          "description": "(MySQL only) Whether binary log is enabled. If backup configuration is disabled, binarylog must be disabled as well.",
+          "type": "boolean"
+        },
+        "enabled": {
+          "description": "Whether this configuration is enabled.",
+          "type": "boolean"
+        },
+        "kind": {
+          "description": "This is always **sql#backupConfiguration**.",
+          "type": "string"
+        },
+        "location": {
+          "description": "Location of the backup",
+          "type": "string"
+        },
+        "pointInTimeRecoveryEnabled": {
+          "description": "(Postgres only) Whether point in time recovery is enabled.",
+          "type": "boolean"
+        },
+        "replicationLogArchivingEnabled": {
+          "description": "Reserved for future use.",
+          "type": "boolean"
+        },
+        "startTime": {
+          "description": "Start time for the daily backup configuration in UTC timezone in the 24 hour format - **HH:MM**.",
+          "type": "string"
+        },
+        "transactionLogRetentionDays": {
+          "description": "The number of days of transaction logs we retain for point in time restore, from 1-7.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "BackupRetentionSettings": {
+      "description": "We currently only support backup retention by specifying the number of backups we will retain.",
+      "id": "BackupRetentionSettings",
+      "properties": {
+        "retainedBackups": {
+          "description": "Depending on the value of retention_unit, this is used to determine if a backup needs to be deleted. If retention_unit is 'COUNT', we will retain this many backups.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "retentionUnit": {
+          "description": "The unit that 'retained_backups' represents.",
+          "enum": [
+            "RETENTION_UNIT_UNSPECIFIED",
+            "COUNT"
+          ],
+          "enumDescriptions": [
+            "Backup retention unit is unspecified, will be treated as COUNT.",
+            "Retention will be by count, eg. \"retain the most recent 7 backups\"."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ConnectSettings": {
+      "description": "Connect settings retrieval response.",
+      "id": "ConnectSettings",
+      "properties": {
+        "backendType": {
+          "description": "**SECOND_GEN**: Cloud SQL database instance. **EXTERNAL**: A database server that is not managed by Google. This property is read-only; use the **tier** property in the **settings** object to determine the database type.",
+          "enum": [
+            "SQL_BACKEND_TYPE_UNSPECIFIED",
+            "FIRST_GEN",
+            "SECOND_GEN",
+            "EXTERNAL"
+          ],
+          "enumDescriptions": [
+            "This is an unknown backend type for instance.",
+            "V1 speckle instance.",
+            "V2 speckle instance.",
+            "On premises instance."
+          ],
+          "type": "string"
+        },
+        "databaseVersion": {
+          "description": "The database engine type and version. The **databaseVersion** field cannot be changed after instance creation. MySQL instances: **MYSQL_8_0**, **MYSQL_5_7** (default), or **MYSQL_5_6**. PostgreSQL instances: **POSTGRES_9_6**, **POSTGRES_10**, **POSTGRES_11** or **POSTGRES_12** (default). SQL Server instances: **SQLSERVER_2017_STANDARD** (default), **SQLSERVER_2017_ENTERPRISE**, **SQLSERVER_2017_EXPRESS**, or **SQLSERVER_2017_WEB**.",
+          "enum": [
+            "SQL_DATABASE_VERSION_UNSPECIFIED",
+            "MYSQL_5_1",
+            "MYSQL_5_5",
+            "MYSQL_5_6",
+            "MYSQL_5_7",
+            "POSTGRES_9_6",
+            "POSTGRES_11",
+            "SQLSERVER_2017_STANDARD",
+            "SQLSERVER_2017_ENTERPRISE",
+            "SQLSERVER_2017_EXPRESS",
+            "SQLSERVER_2017_WEB",
+            "POSTGRES_10",
+            "POSTGRES_12",
+            "POSTGRES_13",
+            "SQLSERVER_2019_STANDARD",
+            "SQLSERVER_2019_ENTERPRISE",
+            "SQLSERVER_2019_EXPRESS",
+            "SQLSERVER_2019_WEB"
+          ],
+          "enumDescriptions": [
+            "This is an unknown database version.",
+            "The database version is MySQL 5.1.",
+            "The database version is MySQL 5.5.",
+            "The database version is MySQL 5.6.",
+            "The database version is MySQL 5.7.",
+            "The database version is PostgreSQL 9.6.",
+            "The database version is PostgreSQL 11.",
+            "The database version is SQL Server 2017 Standard.",
+            "The database version is SQL Server 2017 Enterprise.",
+            "The database version is SQL Server 2017 Express.",
+            "The database version is SQL Server 2017 Web.",
+            "The database version is PostgreSQL 10.",
+            "The database version is PostgreSQL 12.",
+            "The database version is PostgreSQL 13.",
+            "The database version is SQL Server 2019 Standard.",
+            "The database version is SQL Server 2019 Enterprise.",
+            "The database version is SQL Server 2019 Express.",
+            "The database version is SQL Server 2019 Web."
+          ],
+          "type": "string"
+        },
+        "ipAddresses": {
+          "description": "The assigned IP addresses for the instance.",
+          "items": {
+            "$ref": "IpMapping"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "This is always `sql#connectSettings`.",
+          "type": "string"
+        },
+        "serverCaCert": {
+          "$ref": "SslCert",
+          "description": "SSL configuration."
+        }
+      },
+      "type": "object"
+    },
+    "DatabaseFlags": {
+      "description": "Database flags for Cloud SQL instances.",
+      "id": "DatabaseFlags",
+      "properties": {
+        "name": {
+          "description": "The name of the flag. These flags are passed at instance startup, so include both server options and system variables for MySQL. Flags are specified with underscores, not hyphens. For more information, see [Configuring Database Flags](/sql/docs/mysql/flags) in the Cloud SQL documentation.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the flag. Booleans are set to **on** for true and **off** for false. This field must be omitted if the flag doesn't take a value.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DatabaseInstance": {
+      "description": "A Cloud SQL instance resource.",
+      "id": "DatabaseInstance",
+      "properties": {
+        "backendType": {
+          "description": " *SECOND_GEN*: Cloud SQL database instance. *EXTERNAL*: A database server that is not managed by Google. This property is read-only; use the *tier* property in the *settings* object to determine the database type.",
+          "enum": [
+            "SQL_BACKEND_TYPE_UNSPECIFIED",
+            "FIRST_GEN",
+            "SECOND_GEN",
+            "EXTERNAL"
+          ],
+          "enumDescriptions": [
+            "This is an unknown backend type for instance.",
+            "V1 speckle instance.",
+            "V2 speckle instance.",
+            "On premises instance."
+          ],
+          "type": "string"
+        },
+        "connectionName": {
+          "description": "Connection name of the Cloud SQL instance used in connection strings.",
+          "type": "string"
+        },
+        "currentDiskSize": {
+          "description": "The current disk usage of the instance in bytes. This property has been deprecated. Use the \"cloudsql.googleapis.com/database/disk/bytes_used\" metric in Cloud Monitoring API instead. Please see this announcement for details.",
+          "format": "int64",
+          "type": "string"
+        },
+        "databaseVersion": {
+          "description": "The database engine type and version. The *databaseVersion* field cannot be changed after instance creation. MySQL instances: *MYSQL_8_0*, *MYSQL_5_7* (default), or *MYSQL_5_6*. PostgreSQL instances: *POSTGRES_9_6*, *POSTGRES_10*, *POSTGRES_11*, *POSTGRES_12*, or *POSTGRES_13* (default). SQL Server instances: *SQLSERVER_2017_STANDARD* (default), *SQLSERVER_2017_ENTERPRISE*, *SQLSERVER_2017_EXPRESS*, or *SQLSERVER_2017_WEB*.",
+          "enum": [
+            "SQL_DATABASE_VERSION_UNSPECIFIED",
+            "MYSQL_5_1",
+            "MYSQL_5_5",
+            "MYSQL_5_6",
+            "MYSQL_5_7",
+            "POSTGRES_9_6",
+            "POSTGRES_11",
+            "SQLSERVER_2017_STANDARD",
+            "SQLSERVER_2017_ENTERPRISE",
+            "SQLSERVER_2017_EXPRESS",
+            "SQLSERVER_2017_WEB",
+            "POSTGRES_10",
+            "POSTGRES_12",
+            "POSTGRES_13",
+            "SQLSERVER_2019_STANDARD",
+            "SQLSERVER_2019_ENTERPRISE",
+            "SQLSERVER_2019_EXPRESS",
+            "SQLSERVER_2019_WEB"
+          ],
+          "enumDescriptions": [
+            "This is an unknown database version.",
+            "The database version is MySQL 5.1.",
+            "The database version is MySQL 5.5.",
+            "The database version is MySQL 5.6.",
+            "The database version is MySQL 5.7.",
+            "The database version is PostgreSQL 9.6.",
+            "The database version is PostgreSQL 11.",
+            "The database version is SQL Server 2017 Standard.",
+            "The database version is SQL Server 2017 Enterprise.",
+            "The database version is SQL Server 2017 Express.",
+            "The database version is SQL Server 2017 Web.",
+            "The database version is PostgreSQL 10.",
+            "The database version is PostgreSQL 12.",
+            "The database version is PostgreSQL 13.",
+            "The database version is SQL Server 2019 Standard.",
+            "The database version is SQL Server 2019 Enterprise.",
+            "The database version is SQL Server 2019 Express.",
+            "The database version is SQL Server 2019 Web."
+          ],
+          "type": "string"
+        },
+        "diskEncryptionConfiguration": {
+          "$ref": "DiskEncryptionConfiguration",
+          "description": "Disk encryption configuration specific to an instance. Applies only to Second Generation instances."
+        },
+        "diskEncryptionStatus": {
+          "$ref": "DiskEncryptionStatus",
+          "description": "Disk encryption status specific to an instance. Applies only to Second Generation instances."
+        },
+        "encryptedRootPassword": {
+          "description": "For internal usage only. The encrypted password.",
+          "format": "byte",
+          "type": "string"
+        },
+        "etag": {
+          "description": "This field is deprecated and will be removed from a future version of the API. Use the *settings.settingsVersion* field instead.",
+          "type": "string"
+        },
+        "failoverReplica": {
+          "description": "The name and status of the failover replica. This property is applicable only to Second Generation instances.",
+          "properties": {
+            "available": {
+              "description": "The availability status of the failover replica. A false status indicates that the failover replica is out of sync. The primary instance can only failover to the failover replica when the status is true.",
+              "type": "boolean"
+            },
+            "failoverInstance": {
+              "$ref": "InstanceReference",
+              "description": "A reference to the failover replica. If specified at instance creation, a failover replica is created for the instance. Currently, the failover replica can only be created in the same region as the primary instance."
+            },
+            "name": {
+              "description": "The name of the failover replica. If specified at instance creation, a failover replica is created for the instance. The name doesn't include the project ID. This property is applicable only to Second Generation instances.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "gceZone": {
+          "description": "The Compute Engine zone that the instance is currently serving from. This value could be different from the zone that was specified when the instance was created if the instance has failed over to its secondary zone.",
+          "type": "string"
+        },
+        "installedVersion": {
+          "description": "installed_version stores the current fully resolved database version including minor version such as MySQL_5.6.50",
+          "enum": [
+            "SQL_DATABASE_VERSION_UNSPECIFIED",
+            "MYSQL_5_1",
+            "MYSQL_5_5",
+            "MYSQL_5_6",
+            "MYSQL_5_7",
+            "POSTGRES_9_6",
+            "POSTGRES_11",
+            "SQLSERVER_2017_STANDARD",
+            "SQLSERVER_2017_ENTERPRISE",
+            "SQLSERVER_2017_EXPRESS",
+            "SQLSERVER_2017_WEB",
+            "POSTGRES_10",
+            "POSTGRES_12",
+            "POSTGRES_13",
+            "SQLSERVER_2019_STANDARD",
+            "SQLSERVER_2019_ENTERPRISE",
+            "SQLSERVER_2019_EXPRESS",
+            "SQLSERVER_2019_WEB"
+          ],
+          "enumDescriptions": [
+            "This is an unknown database version.",
+            "The database version is MySQL 5.1.",
+            "The database version is MySQL 5.5.",
+            "The database version is MySQL 5.6.",
+            "The database version is MySQL 5.7.",
+            "The database version is PostgreSQL 9.6.",
+            "The database version is PostgreSQL 11.",
+            "The database version is SQL Server 2017 Standard.",
+            "The database version is SQL Server 2017 Enterprise.",
+            "The database version is SQL Server 2017 Express.",
+            "The database version is SQL Server 2017 Web.",
+            "The database version is PostgreSQL 10.",
+            "The database version is PostgreSQL 12.",
+            "The database version is PostgreSQL 13.",
+            "The database version is SQL Server 2019 Standard.",
+            "The database version is SQL Server 2019 Enterprise.",
+            "The database version is SQL Server 2019 Express.",
+            "The database version is SQL Server 2019 Web."
+          ],
+          "type": "string"
+        },
+        "instanceType": {
+          "description": "The instance type. This can be one of the following. *CLOUD_SQL_INSTANCE*: A Cloud SQL instance that is not replicating from a primary instance. *ON_PREMISES_INSTANCE*: An instance running on the customer's premises. *READ_REPLICA_INSTANCE*: A Cloud SQL instance configured as a read-replica.",
+          "enum": [
+            "SQL_INSTANCE_TYPE_UNSPECIFIED",
+            "CLOUD_SQL_INSTANCE",
+            "ON_PREMISES_INSTANCE",
+            "READ_REPLICA_INSTANCE"
+          ],
+          "enumDescriptions": [
+            "This is an unknown Cloud SQL instance type.",
+            "A regular Cloud SQL instance.",
+            "An instance running on the customer's premises that is not managed by Cloud SQL.",
+            "A Cloud SQL instance acting as a read-replica."
+          ],
+          "type": "string"
+        },
+        "instanceUid": {
+          "description": "Uid of the Cloud SQL instance. Used by Pantheon to check instance is created",
+          "type": "string"
+        },
+        "ipAddresses": {
+          "description": "The assigned IP addresses for the instance.",
+          "items": {
+            "$ref": "IpMapping"
+          },
+          "type": "array"
+        },
+        "ipv6Address": {
+          "description": "The IPv6 address assigned to the instance. (Deprecated) This property was applicable only to First Generation instances.",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always *sql#instance*.",
+          "type": "string"
+        },
+        "masterInstance": {
+          "$ref": "InstanceReference",
+          "description": "The reference to the instance which will act as primary in the replication setup."
+        },
+        "masterInstanceName": {
+          "description": "The name of the instance which will act as primary in the replication setup.",
+          "type": "string"
+        },
+        "maxDiskSize": {
+          "description": "The maximum disk size of the instance in bytes.",
+          "format": "int64",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the Cloud SQL instance. This does not include the project ID.",
+          "type": "string"
+        },
+        "onPremisesConfiguration": {
+          "$ref": "OnPremisesConfiguration",
+          "description": "Configuration specific to on-premises instances."
+        },
+        "outOfDiskReport": {
+          "$ref": "SqlOutOfDiskReport",
+          "description": "This field represents the report generated by the proactive database wellness job for OutOfDisk issues. Writers: -- the proactive database wellness job for OOD. Readers: -- the Pantheon frontend -- the proactive database wellness job"
+        },
+        "project": {
+          "description": "The project ID of the project containing the Cloud SQL instance. The Google apps domain is prefixed if applicable.",
+          "type": "string"
+        },
+        "region": {
+          "description": "The geographical region. Can be *us-central* (*FIRST_GEN* instances only) *us-central1* (*SECOND_GEN* instances only) *asia-east1* or *europe-west1*. Defaults to *us-central* or *us-central1* depending on the instance type. The region cannot be changed after instance creation.",
+          "type": "string"
+        },
+        "replicaConfiguration": {
+          "$ref": "ReplicaConfiguration",
+          "description": "Configuration specific to failover replicas and read replicas."
+        },
+        "replicaInstances": {
+          "description": "The replicas of the instance.",
+          "items": {
+            "$ref": "InstanceReference"
+          },
+          "type": "array"
+        },
+        "replicaNames": {
+          "description": "The replicas of the instance.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rootPassword": {
+          "description": "Initial root password. Use only on creation.",
+          "type": "string"
+        },
+        "satisfiesPzs": {
+          "description": "The status indicating if instance satisfiesPzs. Reserved for future use.",
+          "type": "boolean"
+        },
+        "scheduledMaintenance": {
+          "$ref": "SqlScheduledMaintenance",
+          "description": "The start time of any upcoming scheduled maintenance for this instance."
+        },
+        "secondaryGceZone": {
+          "description": "The Compute Engine zone that the failover instance is currently serving from for a regional instance. This value could be different from the zone that was specified when the instance was created if the instance has failed over to its secondary/failover zone. Reserved for future use.",
+          "type": "string"
+        },
+        "selfLink": {
+          "description": "The URI of this resource.",
+          "type": "string"
+        },
+        "serverCaCert": {
+          "$ref": "SslCert",
+          "description": "SSL configuration."
+        },
+        "serviceAccountEmailAddress": {
+          "description": "The service account email address assigned to the instance. This property is read-only.",
+          "type": "string"
+        },
+        "settings": {
+          "$ref": "Settings",
+          "description": "The user settings."
+        },
+        "state": {
+          "description": "The current serving state of the Cloud SQL instance. This can be one of the following. *SQL_INSTANCE_STATE_UNSPECIFIED*: The state of the instance is unknown. *RUNNABLE*: The instance is running, or has been stopped by owner. *SUSPENDED*: The instance is not available, for example due to problems with billing. *PENDING_DELETE*: The instance is being deleted. *PENDING_CREATE*: The instance is being created. *MAINTENANCE*: The instance is down for maintenance. *FAILED*: The instance creation failed.",
+          "enum": [
+            "SQL_INSTANCE_STATE_UNSPECIFIED",
+            "RUNNABLE",
+            "SUSPENDED",
+            "PENDING_DELETE",
+            "PENDING_CREATE",
+            "MAINTENANCE",
+            "FAILED"
+          ],
+          "enumDescriptions": [
+            "The state of the instance is unknown.",
+            "The instance is running, or has been stopped by owner.",
+            "The instance is not available, for example due to problems with billing.",
+            "The instance is being deleted.",
+            "The instance is being created.",
+            "The instance is down for maintenance.",
+            "The creation of the instance failed or a fatal error occurred during maintenance."
+          ],
+          "type": "string"
+        },
+        "suspensionReason": {
+          "description": "If the instance state is SUSPENDED, the reason for the suspension.",
+          "items": {
+            "enum": [
+              "SQL_SUSPENSION_REASON_UNSPECIFIED",
+              "BILLING_ISSUE",
+              "LEGAL_ISSUE",
+              "OPERATIONAL_ISSUE",
+              "KMS_KEY_ISSUE"
+            ],
+            "enumDescriptions": [
+              "This is an unknown suspension reason.",
+              "The instance is suspended due to billing issues (for example:, GCP account issue)",
+              "The instance is suspended due to illegal content (for example:, child pornography, copyrighted material, etc.).",
+              "The instance is causing operational issues (for example:, causing the database to crash).",
+              "The KMS key used by the instance is either revoked or denied access to"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DenyMaintenancePeriod": {
+      "description": "Deny maintenance Periods. This specifies a date range during when all CSA rollout will be denied.",
+      "id": "DenyMaintenancePeriod",
+      "properties": {
+        "endDate": {
+          "description": "\"deny maintenance period\" end date. If the year of the end date is empty, the year of the start date also must be empty. In this case, it means the no maintenance interval recurs every year. The date is in format yyyy-mm-dd i.e., 2020-11-01, or mm-dd, i.e., 11-01",
+          "type": "string"
+        },
+        "startDate": {
+          "description": "\"deny maintenance period\" start date. If the year of the start date is empty, the year of the end date also must be empty. In this case, it means the no maintenance interval recurs every year. The date is in format yyyy-mm-dd i.e., 2020-11-01, or mm-dd, i.e., 11-01",
+          "type": "string"
+        },
+        "time": {
+          "description": "Time in UTC when the \"deny maintenance period\" starts on start_date and ends on end_date. The time is in format: HH:mm:SS, i.e., 00:00:00",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DiskEncryptionConfiguration": {
+      "description": "Disk encryption configuration for an instance.",
+      "id": "DiskEncryptionConfiguration",
+      "properties": {
+        "kind": {
+          "description": "This is always **sql#diskEncryptionConfiguration**.",
+          "type": "string"
+        },
+        "kmsKeyName": {
+          "description": "Resource name of KMS key for disk encryption",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DiskEncryptionStatus": {
+      "description": "Disk encryption status for an instance.",
+      "id": "DiskEncryptionStatus",
+      "properties": {
+        "kind": {
+          "description": "This is always **sql#diskEncryptionStatus**.",
+          "type": "string"
+        },
+        "kmsKeyVersionName": {
+          "description": "KMS key version used to encrypt the Cloud SQL instance resource",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenerateEphemeralCertRequest": {
+      "description": "Ephemeral certificate creation request.",
+      "id": "GenerateEphemeralCertRequest",
+      "properties": {
+        "access_token": {
+          "description": "Optional. Access token to include in the signed certificate.",
+          "type": "string"
+        },
+        "public_key": {
+          "description": "PEM encoded public key to include in the signed certificate.",
+          "type": "string"
+        },
+        "readTime": {
+          "description": "Optional. Optional snapshot read timestamp to trade freshness for performance.",
+          "format": "google-datetime",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenerateEphemeralCertResponse": {
+      "description": "Ephemeral certificate creation request.",
+      "id": "GenerateEphemeralCertResponse",
+      "properties": {
+        "ephemeralCert": {
+          "$ref": "SslCert",
+          "description": "Generated cert"
+        }
+      },
+      "type": "object"
+    },
+    "InsightsConfig": {
+      "description": "Insights configuration. This specifies when Cloud SQL Insights feature is enabled and optional configuration.",
+      "id": "InsightsConfig",
+      "properties": {
+        "queryInsightsEnabled": {
+          "description": "Whether Query Insights feature is enabled.",
+          "type": "boolean"
+        },
+        "queryPlansPerMinute": {
+          "description": "Number of query plans generated by Insights per minute. Default is 5. Changing this will restart the database.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "queryStringLength": {
+          "description": "Maximum query length stored in bytes. Default value: 1024 bytes. Range: 256-4500 bytes. Query length more than this field value will be truncated to this value. When unset, query length will be the default value. Changing query length will restart the database.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "recordApplicationTags": {
+          "description": "Whether Query Insights will record application tags from query when enabled.",
+          "type": "boolean"
+        },
+        "recordClientAddress": {
+          "description": "Whether Query Insights will record client address when enabled.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "InstanceReference": {
+      "description": "Reference to another Cloud SQL instance.",
+      "id": "InstanceReference",
+      "properties": {
+        "name": {
+          "description": "The name of the Cloud SQL instance being referenced.",
+          "type": "string"
+        },
+        "region": {
+          "description": "The region of the Cloud SQL instance being referenced.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "InstancesListResponse": {
+      "description": "Database instances list response.",
+      "id": "InstancesListResponse",
+      "properties": {
+        "items": {
+          "description": "List of database instance resources.",
+          "items": {
+            "$ref": "DatabaseInstance"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "This is always *sql#instancesList*.",
+          "type": "string"
+        },
+        "nextPageToken": {
+          "description": "The continuation token, used to page through large result sets. Provide this value in a subsequent request to return the next page of results.",
+          "type": "string"
+        },
+        "warnings": {
+          "description": "List of warnings that occurred while handling the request.",
+          "items": {
+            "$ref": "ApiWarning"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "IpConfiguration": {
+      "description": "IP Management configuration.",
+      "id": "IpConfiguration",
+      "properties": {
+        "authorizedNetworks": {
+          "description": "The list of external networks that are allowed to connect to the instance using the IP. In 'CIDR' notation, also known as 'slash' notation (for example: **192.168.100.0/24**).",
+          "items": {
+            "$ref": "AclEntry"
+          },
+          "type": "array"
+        },
+        "ipv4Enabled": {
+          "description": "Whether the instance is assigned a public IP address or not.",
+          "type": "boolean"
+        },
+        "privateNetwork": {
+          "description": "The resource link for the VPC network from which the Cloud SQL instance is accessible for private IP. For example, **/projects/myProject/global/networks/default**. This setting can be updated, but it cannot be removed after it is set.",
+          "type": "string"
+        },
+        "requireSsl": {
+          "description": "Whether SSL connections over IP are enforced or not.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "IpMapping": {
+      "description": "Database instance IP Mapping.",
+      "id": "IpMapping",
+      "properties": {
+        "ipAddress": {
+          "description": "The IP address assigned.",
+          "type": "string"
+        },
+        "timeToRetire": {
+          "description": "The due time for this IP to be retired in [RFC 3339](https://tools.ietf.org/html/rfc3339) format, for example **2012-11-15T16:19:00.094Z**. This field is only available when the IP is scheduled to be retired.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of this IP address. A **PRIMARY** address is a public address that can accept incoming connections. A **PRIVATE** address is a private address that can accept incoming connections. An **OUTGOING** address is the source address of connections originating from the instance, if supported.",
+          "enum": [
+            "SQL_IP_ADDRESS_TYPE_UNSPECIFIED",
+            "PRIMARY",
+            "OUTGOING",
+            "PRIVATE",
+            "MIGRATED_1ST_GEN"
+          ],
+          "enumDescriptions": [
+            "This is an unknown IP address type.",
+            "IP address the customer is supposed to connect to. Usually this is the load balancer's IP address",
+            "Source IP address of the connection a read replica establishes to its external primary instance. This IP address can be allowlisted by the customer in case it has a firewall that filters incoming connection to its on premises primary instance.",
+            "Private IP used when using private IPs and network peering.",
+            "V1 IP of a migrated instance. We want the user to decommission this IP as soon as the migration is complete. Note: V1 instances with V1 ip addresses will be counted as PRIMARY."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LocationPreference": {
+      "description": "Preferred location. This specifies where a Cloud SQL instance is located. Note that if the preferred location is not available, the instance will be located as close as possible within the region. Only one location may be specified.",
+      "id": "LocationPreference",
+      "properties": {
+        "kind": {
+          "description": "This is always **sql#locationPreference**.",
+          "type": "string"
+        },
+        "secondaryZone": {
+          "description": "The preferred Compute Engine zone for the secondary/failover (for example: us-central1-a, us-central1-b, etc.). Reserved for future use.",
+          "type": "string"
+        },
+        "zone": {
+          "description": "The preferred Compute Engine zone (for example: us-central1-a, us-central1-b, etc.).",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MaintenanceWindow": {
+      "description": "Maintenance window. This specifies when a Cloud SQL instance is restarted for system maintenance purposes.",
+      "id": "MaintenanceWindow",
+      "properties": {
+        "day": {
+          "description": "day of week (1-7), starting on Monday.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "hour": {
+          "description": "hour of day - 0 to 23.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "kind": {
+          "description": "This is always **sql#maintenanceWindow**.",
+          "type": "string"
+        },
+        "updateTrack": {
+          "description": "Maintenance timing setting: **canary** (Earlier) or **stable** (Later). [Learn more] (https://cloud.google.com/sql/docs/mysql/admin-api/rest/v1/instance-settings#maintenance-timing-2ndgen).",
+          "enum": [
+            "SQL_UPDATE_TRACK_UNSPECIFIED",
+            "canary",
+            "stable"
+          ],
+          "enumDescriptions": [
+            "This is an unknown maintenance timing preference.",
+            "For instance update that requires a restart, this update track indicates your instance prefer to restart for new version early in maintenance window.",
+            "For instance update that requires a restart, this update track indicates your instance prefer to let Cloud SQL choose the timing of restart (within its Maintenance window, if applicable)."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MySqlReplicaConfiguration": {
+      "description": "Read-replica configuration specific to MySQL databases.",
+      "id": "MySqlReplicaConfiguration",
+      "properties": {
+        "caCertificate": {
+          "description": "PEM representation of the trusted CA's x509 certificate.",
+          "type": "string"
+        },
+        "clientCertificate": {
+          "description": "PEM representation of the replica's x509 certificate.",
+          "type": "string"
+        },
+        "clientKey": {
+          "description": "PEM representation of the replica's private key. The corresponsing public key is encoded in the client's certificate.",
+          "type": "string"
+        },
+        "connectRetryInterval": {
+          "description": "Seconds to wait between connect retries. MySQL's default is 60 seconds.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "dumpFilePath": {
+          "description": "Path to a SQL dump file in Google Cloud Storage from which the replica instance is to be created. The URI is in the form gs://bucketName/fileName. Compressed gzip files (.gz) are also supported. Dumps have the binlog co-ordinates from which replication begins. This can be accomplished by setting --master-data to 1 when using mysqldump.",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always **sql#mysqlReplicaConfiguration**.",
+          "type": "string"
+        },
+        "masterHeartbeatPeriod": {
+          "description": "Interval in milliseconds between replication heartbeats.",
+          "format": "int64",
+          "type": "string"
+        },
+        "password": {
+          "description": "The password for the replication connection.",
+          "type": "string"
+        },
+        "sslCipher": {
+          "description": "A list of permissible ciphers to use for SSL encryption.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The username for the replication connection.",
+          "type": "string"
+        },
+        "verifyServerCertificate": {
+          "description": "Whether or not to check the primary instance's Common Name value in the certificate that it sends during the SSL handshake.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "OnPremisesConfiguration": {
+      "description": "On-premises instance configuration.",
+      "id": "OnPremisesConfiguration",
+      "properties": {
+        "caCertificate": {
+          "description": "PEM representation of the trusted CA's x509 certificate.",
+          "type": "string"
+        },
+        "clientCertificate": {
+          "description": "PEM representation of the replica's x509 certificate.",
+          "type": "string"
+        },
+        "clientKey": {
+          "description": "PEM representation of the replica's private key. The corresponsing public key is encoded in the client's certificate.",
+          "type": "string"
+        },
+        "dumpFilePath": {
+          "description": "The dump file to create the Cloud SQL replica.",
+          "type": "string"
+        },
+        "hostPort": {
+          "description": "The host and port of the on-premises instance in host:port format",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always *sql#onPremisesConfiguration*.",
+          "type": "string"
+        },
+        "password": {
+          "description": "The password for connecting to on-premises instance.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The username for connecting to on-premises instance.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ReplicaConfiguration": {
+      "description": "Read-replica configuration for connecting to the primary instance.",
+      "id": "ReplicaConfiguration",
+      "properties": {
+        "failoverTarget": {
+          "description": "Specifies if the replica is the failover target. If the field is set to *true* the replica will be designated as a failover replica. In case the primary instance fails, the replica instance will be promoted as the new primary instance. Only one replica can be specified as failover target, and the replica has to be in different zone with the primary instance.",
+          "type": "boolean"
+        },
+        "kind": {
+          "description": "This is always *sql#replicaConfiguration*.",
+          "type": "string"
+        },
+        "mysqlReplicaConfiguration": {
+          "$ref": "MySqlReplicaConfiguration",
+          "description": "MySQL specific configuration when replicating from a MySQL on-premises primary instance. Replication configuration information such as the username, password, certificates, and keys are not stored in the instance metadata.The configuration information is used only to set up the replication connection and is stored by MySQL in a file named *master.info* in the data directory."
+        }
+      },
+      "type": "object"
+    },
+    "Settings": {
+      "description": "Database instance settings.",
+      "id": "Settings",
+      "properties": {
+        "activationPolicy": {
+          "description": "The activation policy specifies when the instance is activated; it is applicable only when the instance state is RUNNABLE. Valid values: **ALWAYS**: The instance is on, and remains so even in the absence of connection requests. **NEVER**: The instance is off; it is not activated, even if a connection request arrives.",
+          "enum": [
+            "SQL_ACTIVATION_POLICY_UNSPECIFIED",
+            "ALWAYS",
+            "NEVER",
+            "ON_DEMAND"
+          ],
+          "enumDescriptions": [
+            "Unknown activation plan.",
+            "The instance is always up and running.",
+            "The instance never starts.",
+            "The instance starts upon receiving requests."
+          ],
+          "type": "string"
+        },
+        "activeDirectoryConfig": {
+          "$ref": "SqlActiveDirectoryConfig",
+          "description": "Active Directory configuration, relevant only for Cloud SQL for SQL Server."
+        },
+        "availabilityType": {
+          "description": "Availability type. Potential values: **ZONAL**: The instance serves data from only one zone. Outages in that zone affect data accessibility. **REGIONAL**: The instance can serve data from more than one zone in a region (it is highly available). For more information, see [Overview of the High Availability Configuration](/sql/docs/postgres/high-availability).",
+          "enum": [
+            "SQL_AVAILABILITY_TYPE_UNSPECIFIED",
+            "ZONAL",
+            "REGIONAL"
+          ],
+          "enumDescriptions": [
+            "This is an unknown Availability type.",
+            "Zonal available instance.",
+            "Regional available instance."
+          ],
+          "type": "string"
+        },
+        "backupConfiguration": {
+          "$ref": "BackupConfiguration",
+          "description": "The daily backup configuration for the instance."
+        },
+        "collation": {
+          "description": "The name of server Instance collation.",
+          "type": "string"
+        },
+        "crashSafeReplicationEnabled": {
+          "description": "Configuration specific to read replica instances. Indicates whether database flags for crash-safe replication are enabled. This property was only applicable to First Generation instances.",
+          "type": "boolean"
+        },
+        "dataDiskSizeGb": {
+          "description": "The size of data disk, in GB. The data disk size minimum is 10GB.",
+          "format": "int64",
+          "type": "string"
+        },
+        "dataDiskType": {
+          "description": "The type of data disk: **PD_SSD** (default) or **PD_HDD**.",
+          "enum": [
+            "SQL_DATA_DISK_TYPE_UNSPECIFIED",
+            "PD_SSD",
+            "PD_HDD",
+            "OBSOLETE_LOCAL_SSD"
+          ],
+          "enumDescriptions": [
+            "This is an unknown data disk type.",
+            "An SSD data disk.",
+            "An HDD data disk.",
+            "This field is deprecated and will be removed from a future version of the API."
+          ],
+          "type": "string"
+        },
+        "databaseFlags": {
+          "description": "The database flags passed to the instance at startup.",
+          "items": {
+            "$ref": "DatabaseFlags"
+          },
+          "type": "array"
+        },
+        "databaseReplicationEnabled": {
+          "description": "Configuration specific to read replica instances. Indicates whether replication is enabled or not.",
+          "type": "boolean"
+        },
+        "denyMaintenancePeriods": {
+          "description": "Deny maintenance periods",
+          "items": {
+            "$ref": "DenyMaintenancePeriod"
+          },
+          "type": "array"
+        },
+        "insightsConfig": {
+          "$ref": "InsightsConfig",
+          "description": "Insights configuration, for now relevant only for Postgres."
+        },
+        "ipConfiguration": {
+          "$ref": "IpConfiguration",
+          "description": "The settings for IP Management. This allows to enable or disable the instance IP and manage which external networks can connect to the instance. The IPv4 address cannot be disabled for Second Generation instances."
+        },
+        "kind": {
+          "description": "This is always **sql#settings**.",
+          "type": "string"
+        },
+        "locationPreference": {
+          "$ref": "LocationPreference",
+          "description": "The location preference settings. This allows the instance to be located as near as possible to Compute Engine zone for better performance."
+        },
+        "maintenanceWindow": {
+          "$ref": "MaintenanceWindow",
+          "description": "The maintenance window for this instance. This specifies when the instance can be restarted for maintenance purposes."
+        },
+        "pricingPlan": {
+          "description": "The pricing plan for this instance. This can be either **PER_USE** or **PACKAGE**. Only **PER_USE** is supported for Second Generation instances.",
+          "enum": [
+            "SQL_PRICING_PLAN_UNSPECIFIED",
+            "PACKAGE",
+            "PER_USE"
+          ],
+          "enumDescriptions": [
+            "This is an unknown pricing plan for this instance.",
+            "The instance is billed at a monthly flat rate.",
+            "The instance is billed per usage."
+          ],
+          "type": "string"
+        },
+        "replicationType": {
+          "description": "The type of replication this instance uses. This can be either **ASYNCHRONOUS** or **SYNCHRONOUS**. (Deprecated) This property was only applicable to First Generation instances.",
+          "enum": [
+            "SQL_REPLICATION_TYPE_UNSPECIFIED",
+            "SYNCHRONOUS",
+            "ASYNCHRONOUS"
+          ],
+          "enumDescriptions": [
+            "This is an unknown replication type for a Cloud SQL instance.",
+            "The synchronous replication mode for First Generation instances. It is the default value.",
+            "The asynchronous replication mode for First Generation instances. It provides a slight performance gain, but if an outage occurs while this option is set to asynchronous, you can lose up to a few seconds of updates to your data."
+          ],
+          "type": "string"
+        },
+        "settingsVersion": {
+          "description": "The version of instance settings. This is a required field for update method to make sure concurrent updates are handled properly. During update, use the most recent settingsVersion value for this instance and do not try to update this value.",
+          "format": "int64",
+          "type": "string"
+        },
+        "storageAutoResize": {
+          "description": "Configuration to increase storage size automatically. The default value is true.",
+          "type": "boolean"
+        },
+        "storageAutoResizeLimit": {
+          "description": "The maximum size to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit.",
+          "format": "int64",
+          "type": "string"
+        },
+        "tier": {
+          "description": "The tier (or machine type) for this instance, for example **db-custom-1-3840**.",
+          "type": "string"
+        },
+        "userLabels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "User-provided labels, represented as a dictionary where each label is a single key value pair.",
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "SqlActiveDirectoryConfig": {
+      "description": "Active Directory configuration, relevant only for Cloud SQL for SQL Server.",
+      "id": "SqlActiveDirectoryConfig",
+      "properties": {
+        "domain": {
+          "description": "The name of the domain (e.g., mydomain.com).",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always sql#activeDirectoryConfig.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SqlOutOfDiskReport": {
+      "description": "This message wraps up the information written by out-of-disk detection job.",
+      "id": "SqlOutOfDiskReport",
+      "properties": {
+        "sqlMinRecommendedIncreaseSizeGb": {
+          "description": "The minimum recommended increase size in GigaBytes This field is consumed by the frontend Writers: -- the proactive database wellness job for OOD. Readers: -- the Pantheon frontend",
+          "format": "int32",
+          "type": "integer"
+        },
+        "sqlOutOfDiskState": {
+          "description": "This field represents the state generated by the proactive database wellness job for OutOfDisk issues. Writers: -- the proactive database wellness job for OOD. Readers: -- the Pantheon frontend -- the proactive database wellness job",
+          "enum": [
+            "SQL_OUT_OF_DISK_STATE_UNSPECIFIED",
+            "NORMAL",
+            "SOFT_SHUTDOWN"
+          ],
+          "enumDescriptions": [
+            "Unspecified state",
+            "The instance has plenty space on data disk",
+            "Data disk is almost used up. It is shutdown to prevent data corruption."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SqlScheduledMaintenance": {
+      "description": "Any scheduled maintenancce for this instance.",
+      "id": "SqlScheduledMaintenance",
+      "properties": {
+        "canDefer": {
+          "type": "boolean"
+        },
+        "canReschedule": {
+          "description": "If the scheduled maintenance can be rescheduled.",
+          "type": "boolean"
+        },
+        "scheduleDeadlineTime": {
+          "description": "Maintenance cannot be rescheduled to start beyond this deadline.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "startTime": {
+          "description": "The start time of any upcoming scheduled maintenance for this instance.",
+          "format": "google-datetime",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SslCert": {
+      "description": "SslCerts Resource",
+      "id": "SslCert",
+      "properties": {
+        "cert": {
+          "description": "PEM representation.",
+          "type": "string"
+        },
+        "certSerialNumber": {
+          "description": "Serial number, as extracted from the certificate.",
+          "type": "string"
+        },
+        "commonName": {
+          "description": "User supplied name. Constrained to [a-zA-Z.-_ ]+.",
+          "type": "string"
+        },
+        "createTime": {
+          "description": "The time when the certificate was created in [RFC 3339](https://tools.ietf.org/html/rfc3339) format, for example **2012-11-15T16:19:00.094Z**",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "expirationTime": {
+          "description": "The time when the certificate expires in [RFC 3339](https://tools.ietf.org/html/rfc3339) format, for example **2012-11-15T16:19:00.094Z**.",
+          "format": "google-datetime",
+          "type": "string"
+        },
+        "instance": {
+          "description": "Name of the database instance.",
+          "type": "string"
+        },
+        "kind": {
+          "description": "This is always sql#sslCert.",
+          "type": "string"
+        },
+        "sha1Fingerprint": {
+          "description": "Sha1 Fingerprint.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SslCertsCreateEphemeralRequest": {
+      "description": "SslCerts create ephemeral certificate request.",
+      "id": "SslCertsCreateEphemeralRequest",
+      "properties": {
+        "access_token": {
+          "description": "Access token to include in the signed certificate.",
+          "type": "string"
+        },
+        "public_key": {
+          "description": "PEM encoded public key to include in the signed certificate.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
   "servicePath": "",
   "title": "Cloud SQL Admin API",
   "version": "v1"

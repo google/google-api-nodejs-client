@@ -1426,6 +1426,19 @@ export namespace cloudsearch_v1 {
     reason?: string | null;
   }
   /**
+   * Default options to interpret user query.
+   */
+  export interface Schema$QueryInterpretationConfig {
+    /**
+     * Set this flag to disable supplemental results retrieval, setting a flag here will not retrieve supplemental results for queries associated with a given search application. If this flag is set to True, it will take precedence over the option set at Query level. For the default value of False, query level flag will set the correct interpretation for supplemental results.
+     */
+    forceDisableSupplementalResults?: boolean | null;
+    /**
+     * Enable this flag to turn off all internal optimizations like natural language (NL) interpretation of queries, supplemental results retrieval, and usage of synonyms including custom ones. If this flag is set to True, it will take precedence over the option set at Query level. For the default value of False, query level flag will set the correct interpretation for verbatim mode.
+     */
+    forceVerbatimMode?: boolean | null;
+  }
+  /**
    * Options to interpret user query.
    */
   export interface Schema$QueryInterpretationOptions {
@@ -1433,6 +1446,10 @@ export namespace cloudsearch_v1 {
      * Flag to disable natural language (NL) interpretation of queries. Default is false, Set to true to disable natural language interpretation. NL interpretation only applies to predefined datasources.
      */
     disableNlInterpretation?: boolean | null;
+    /**
+     * Use this flag to disable supplemental results for a query. Supplemental results setting chosen at SearchApplication level will take precedence if set to True.
+     */
+    disableSupplementalResults?: boolean | null;
     /**
      * Enable this flag to turn off all internal optimizations like natural language (NL) interpretation of queries, supplemental result retrieval, and usage of synonyms including custom ones. Nl interpretation will be disabled if either one of the two flags is true.
      */
@@ -1712,6 +1729,10 @@ export namespace cloudsearch_v1 {
      * Output only. IDs of the Long Running Operations (LROs) currently running for this schema. Output only field.
      */
     operationIds?: string[] | null;
+    /**
+     * The default options for query interpretation
+     */
+    queryInterpretationConfig?: Schema$QueryInterpretationConfig;
     /**
      * Configuration for ranking results.
      */
@@ -7223,6 +7244,7 @@ export namespace cloudsearch_v1 {
      *       //   "enableAuditLog": false,
      *       //   "name": "my_name",
      *       //   "operationIds": [],
+     *       //   "queryInterpretationConfig": {},
      *       //   "scoringConfig": {},
      *       //   "sourceConfig": []
      *       // }
@@ -7517,6 +7539,7 @@ export namespace cloudsearch_v1 {
      *   //   "enableAuditLog": false,
      *   //   "name": "my_name",
      *   //   "operationIds": [],
+     *   //   "queryInterpretationConfig": {},
      *   //   "scoringConfig": {},
      *   //   "sourceConfig": []
      *   // }
@@ -7953,6 +7976,7 @@ export namespace cloudsearch_v1 {
      *       //   "enableAuditLog": false,
      *       //   "name": "my_name",
      *       //   "operationIds": [],
+     *       //   "queryInterpretationConfig": {},
      *       //   "scoringConfig": {},
      *       //   "sourceConfig": []
      *       // }

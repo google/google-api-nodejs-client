@@ -260,6 +260,10 @@
     "package": "@google-cloud/text-to-speech"
   },
   {
+    "api": "transcoder",
+    "package": "@google-cloud/video-transcoder"
+  },
+  {
     "api": "translate",
     "package": "@google-cloud/translate"
   },
@@ -352,6 +356,10 @@
     "package": "@google-cloud/essential-contacts"
   },
   {
+    "api": "eventarc",
+    "package": "@google-cloud/eventarc"
+  },
+  {
     "api": "gkehub",
     "package": "@google-cloud/gke-hub"
   },
@@ -414,10 +422,6 @@
   {
     "api": "tpu",
     "package": "@google-cloud/tpu"
-  },
-  {
-    "api": "transcoder",
-    "package": "@google-cloud/video-transcoder"
   },
   {
     "api": "aiplatform",

@@ -918,7 +918,7 @@
               "type": "string"
             },
             "updateMask": {
-              "description": "Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`.",
+              "description": "Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`, `dynamic_group_metadata`, `posix_groups`.",
               "format": "google-fieldmask",
               "location": "query",
               "type": "string"
@@ -1336,7 +1336,7 @@
       }
     }
   },
-  "revision": "20210629",
+  "revision": "20210713",
   "rootUrl": "https://cloudidentity.googleapis.com/",
   "schemas": {
     "AndroidAttributes": {

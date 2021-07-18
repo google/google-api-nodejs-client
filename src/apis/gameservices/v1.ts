@@ -403,6 +403,10 @@ export namespace gameservices_v1 {
    */
   export interface Schema$GameServerCluster {
     /**
+     * Output only. The state of the Kubernetes cluster, this will be available if 'view' is set to `FULL` in the relevant List/Get/Preview request.
+     */
+    clusterState?: Schema$KubernetesClusterState;
+    /**
      * The game server cluster connection information. This information is used to manage game server clusters.
      */
     connectionInfo?: Schema$GameServerClusterConnectionInfo;
@@ -556,6 +560,35 @@ export namespace gameservices_v1 {
      * The full or partial name of a GKE cluster, using one of the following forms: * `projects/{project\}/locations/{location\}/clusters/{cluster\}` * `locations/{location\}/clusters/{cluster\}` * `{cluster\}` If project and location are not specified, the project and location of the GameServerCluster resource are used to generate the full name of the GKE cluster.
      */
     cluster?: string | null;
+  }
+  /**
+   * The state of the Kubernetes cluster.
+   */
+  export interface Schema$KubernetesClusterState {
+    /**
+     * Output only. The version of Agones currently installed in the registered Kubernetes cluster.
+     */
+    agonesVersionInstalled?: string | null;
+    /**
+     * Output only. The version of Agones that is targeted to be installed in the cluster.
+     */
+    agonesVersionTargeted?: string | null;
+    /**
+     * Output only. The state for the installed versions of Agones/Kubernetes.
+     */
+    installationState?: string | null;
+    /**
+     * Output only. The version of Kubernetes that is currently used in the registered Kubernetes cluster (as detected by the Cloud Game Servers service).
+     */
+    kubernetesVersionInstalled?: string | null;
+    /**
+     * Output only. The cloud provider type reported by the first node's providerID in the list of nodes on the Kubernetes endpoint. On Kubernetes platforms that support zero-node clusters (like GKE-on-GCP), the provider type will be empty.
+     */
+    provider?: string | null;
+    /**
+     * Output only. The detailed error message for the installed versions of Agones/Kubernetes.
+     */
+    versionInstalledErrorMessage?: string | null;
   }
   /**
    * The label selector, used to group labels on the resources.
@@ -812,6 +845,10 @@ export namespace gameservices_v1 {
    * Response message for GameServerClustersService.PreviewCreateGameServerCluster.
    */
   export interface Schema$PreviewCreateGameServerClusterResponse {
+    /**
+     * Output only. The state of the Kubernetes cluster in preview, this will be available if 'view' is set to `FULL` in the relevant List/Get/Preview request.
+     */
+    clusterState?: Schema$KubernetesClusterState;
     /**
      * The ETag of the game server cluster.
      */
@@ -5578,6 +5615,7 @@ export namespace gameservices_v1 {
      *       requestBody: {
      *         // request body parameters
      *         // {
+     *         //   "clusterState": {},
      *         //   "connectionInfo": {},
      *         //   "createTime": "my_createTime",
      *         //   "description": "my_description",
@@ -5854,11 +5892,14 @@ export namespace gameservices_v1 {
      *     await gameservices.projects.locations.realms.gameServerClusters.get({
      *       // Required. The name of the game server cluster to retrieve, in the following form: `projects/{project\}/locations/{location\}/realms/{realm-id\}/gameServerClusters/{cluster\}`.
      *       name: 'projects/my-project/locations/my-location/realms/my-realm/gameServerClusters/my-gameServerCluster',
+     *       // Optional. View for the returned GameServerCluster objects. When `FULL` is specified, the `cluster_state` field is also returned in the GameServerCluster object, which includes the state of the referenced Kubernetes cluster such as versions and provider info. The default/unset value is GAME_SERVER_CLUSTER_VIEW_UNSPECIFIED, same as BASIC, which does not return the `cluster_state` field.
+     *       view: 'placeholder-value',
      *     });
      *   console.log(res.data);
      *
      *   // Example response
      *   // {
+     *   //   "clusterState": {},
      *   //   "connectionInfo": {},
      *   //   "createTime": "my_createTime",
      *   //   "description": "my_description",
@@ -5999,6 +6040,8 @@ export namespace gameservices_v1 {
      *       pageToken: 'placeholder-value',
      *       // Required. The parent resource name, in the following form: "projects/{project\}/locations/{location\}/realms/{realm\}".
      *       parent: 'projects/my-project/locations/my-location/realms/my-realm',
+     *       // Optional. View for the returned GameServerCluster objects. When `FULL` is specified, the `cluster_state` field is also returned in the GameServerCluster object, which includes the state of the referenced Kubernetes cluster such as versions and provider info. The default/unset value is GAME_SERVER_CLUSTER_VIEW_UNSPECIFIED, same as BASIC, which does not return the `cluster_state` field.
+     *       view: 'placeholder-value',
      *     });
      *   console.log(res.data);
      *
@@ -6148,6 +6191,7 @@ export namespace gameservices_v1 {
      *       requestBody: {
      *         // request body parameters
      *         // {
+     *         //   "clusterState": {},
      *         //   "connectionInfo": {},
      *         //   "createTime": "my_createTime",
      *         //   "description": "my_description",
@@ -6294,11 +6338,14 @@ export namespace gameservices_v1 {
      *         parent: 'projects/my-project/locations/my-location/realms/my-realm',
      *         // Optional. The target timestamp to compute the preview.
      *         previewTime: 'placeholder-value',
+     *         // Optional. This field is deprecated, preview will always return KubernetesClusterState.
+     *         view: 'placeholder-value',
      *
      *         // Request body metadata
      *         requestBody: {
      *           // request body parameters
      *           // {
+     *           //   "clusterState": {},
      *           //   "connectionInfo": {},
      *           //   "createTime": "my_createTime",
      *           //   "description": "my_description",
@@ -6314,6 +6361,7 @@ export namespace gameservices_v1 {
      *
      *   // Example response
      *   // {
+     *   //   "clusterState": {},
      *   //   "etag": "my_etag",
      *   //   "targetState": {}
      *   // }
@@ -6604,6 +6652,7 @@ export namespace gameservices_v1 {
      *         requestBody: {
      *           // request body parameters
      *           // {
+     *           //   "clusterState": {},
      *           //   "connectionInfo": {},
      *           //   "createTime": "my_createTime",
      *           //   "description": "my_description",
@@ -6755,6 +6804,10 @@ export namespace gameservices_v1 {
      * Required. The name of the game server cluster to retrieve, in the following form: `projects/{project\}/locations/{location\}/realms/{realm-id\}/gameServerClusters/{cluster\}`.
      */
     name?: string;
+    /**
+     * Optional. View for the returned GameServerCluster objects. When `FULL` is specified, the `cluster_state` field is also returned in the GameServerCluster object, which includes the state of the referenced Kubernetes cluster such as versions and provider info. The default/unset value is GAME_SERVER_CLUSTER_VIEW_UNSPECIFIED, same as BASIC, which does not return the `cluster_state` field.
+     */
+    view?: string;
   }
   export interface Params$Resource$Projects$Locations$Realms$Gameserverclusters$List
     extends StandardParameters {
@@ -6778,6 +6831,10 @@ export namespace gameservices_v1 {
      * Required. The parent resource name, in the following form: "projects/{project\}/locations/{location\}/realms/{realm\}".
      */
     parent?: string;
+    /**
+     * Optional. View for the returned GameServerCluster objects. When `FULL` is specified, the `cluster_state` field is also returned in the GameServerCluster object, which includes the state of the referenced Kubernetes cluster such as versions and provider info. The default/unset value is GAME_SERVER_CLUSTER_VIEW_UNSPECIFIED, same as BASIC, which does not return the `cluster_state` field.
+     */
+    view?: string;
   }
   export interface Params$Resource$Projects$Locations$Realms$Gameserverclusters$Patch
     extends StandardParameters {
@@ -6809,6 +6866,10 @@ export namespace gameservices_v1 {
      * Optional. The target timestamp to compute the preview.
      */
     previewTime?: string;
+    /**
+     * Optional. This field is deprecated, preview will always return KubernetesClusterState.
+     */
+    view?: string;
 
     /**
      * Request body metadata

@@ -1841,7 +1841,7 @@
       }
     }
   },
-  "revision": "20210702",
+  "revision": "20210712",
   "rootUrl": "https://datacatalog.googleapis.com/",
   "schemas": {
     "Binding": {
@@ -2323,14 +2323,16 @@
             "DOUBLE",
             "STRING",
             "BOOL",
-            "TIMESTAMP"
+            "TIMESTAMP",
+            "RICHTEXT"
           ],
           "enumDescriptions": [
             "The default invalid value for a type.",
             "A double precision number.",
             "An UTF-8 string.",
             "A boolean value.",
-            "A timestamp."
+            "A timestamp.",
+            "A Richtext description."
           ],
           "type": "string"
         }
@@ -3001,6 +3003,10 @@
           "format": "int32",
           "readOnly": true,
           "type": "integer"
+        },
+        "richtextValue": {
+          "description": "The value of a tag field with a rich text type. The maximum length is 10 MiB as this value holds HTML descriptions including encoded images. The maximum length of the text without images is 100 KiB.",
+          "type": "string"
         },
         "stringValue": {
           "description": "The value of a tag field with a string type. The maximum length is 2000 UTF-8 characters.",

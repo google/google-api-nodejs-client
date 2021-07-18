@@ -375,6 +375,10 @@ export namespace memcache_v1beta2 {
      * The id of the node. This should be equal to SaasInstanceNode.node_id.
      */
     nodeId?: string | null;
+    /**
+     * If present, this will override eligibility for the node coming from instance or exclusions for specified SLIs.
+     */
+    perSliEligibility?: Schema$GoogleCloudSaasacceleratorManagementProvidersV1PerSliSloEligibility;
   }
   /**
    * PerSliSloEligibility is a mapping from an SLI name to eligibility.

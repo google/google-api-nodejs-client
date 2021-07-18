@@ -1578,6 +1578,10 @@ export namespace slides_v1 {
      */
     updateShapeProperties?: Schema$UpdateShapePropertiesRequest;
     /**
+     * Updates the properties of a Slide
+     */
+    updateSlideProperties?: Schema$UpdateSlidePropertiesRequest;
+    /**
      * Updates the position of a set of slides in the presentation.
      */
     updateSlidesPosition?: Schema$UpdateSlidesPositionRequest;
@@ -2389,6 +2393,23 @@ export namespace slides_v1 {
      * The shape properties to update.
      */
     shapeProperties?: Schema$ShapeProperties;
+  }
+  /**
+   * Updates the properties of a Slide.
+   */
+  export interface Schema$UpdateSlidePropertiesRequest {
+    /**
+     * The fields that should be updated. At least one field must be specified. The root 'slideProperties' is implied and should not be specified. A single `"*"` can be used as short-hand for listing every field. For example to update whether a slide is skipped, set `fields` to `"isSkipped"`. To reset a property to its default value, include its field name in the field mask but leave the field itself unset.
+     */
+    fields?: string | null;
+    /**
+     * The object ID of the slide the update is applied to.
+     */
+    objectId?: string | null;
+    /**
+     * The slide properties to update.
+     */
+    slideProperties?: Schema$SlideProperties;
   }
   /**
    * Updates the position of slides in the presentation.

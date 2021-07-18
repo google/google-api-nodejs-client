@@ -349,6 +349,10 @@ export namespace testing_v1 {
      */
     roboDirectives?: Schema$RoboDirective[];
     /**
+     * The mode in which Robo should run. Most clients should allow the server to populate this field automatically.
+     */
+    roboMode?: string | null;
+    /**
      * A JSON file with a sequence of actions Robo should perform as a prologue for the crawl.
      */
     roboScript?: Schema$FileReference;
@@ -1279,7 +1283,7 @@ export namespace testing_v1 {
      */
     networkProfile?: string | null;
     /**
-     * Systrace configuration for the run. If set a systrace will be taken, starting on test start and lasting for the configured duration. The systrace file thus obtained is put in the results bucket together with the other artifacts from the run.
+     * Deprecated: Systrace uses Python 2 which has been sunset 2020-01-01. Support of Systrace may stop at any time, at which point no Systrace file will be provided in the results. Systrace configuration for the run. If set a systrace will be taken, starting on test start and lasting for the configured duration. The systrace file thus obtained is put in the results bucket together with the other artifacts from the run.
      */
     systrace?: Schema$SystraceSetup;
   }

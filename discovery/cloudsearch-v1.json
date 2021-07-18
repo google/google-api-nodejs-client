@@ -1916,7 +1916,7 @@
       }
     }
   },
-  "revision": "20210614",
+  "revision": "20210706",
   "rootUrl": "https://cloudsearch.googleapis.com/",
   "schemas": {
     "AuditLoggingSettings": {
@@ -4008,12 +4008,31 @@
       },
       "type": "object"
     },
+    "QueryInterpretationConfig": {
+      "description": "Default options to interpret user query.",
+      "id": "QueryInterpretationConfig",
+      "properties": {
+        "forceDisableSupplementalResults": {
+          "description": "Set this flag to disable supplemental results retrieval, setting a flag here will not retrieve supplemental results for queries associated with a given search application. If this flag is set to True, it will take precedence over the option set at Query level. For the default value of False, query level flag will set the correct interpretation for supplemental results.",
+          "type": "boolean"
+        },
+        "forceVerbatimMode": {
+          "description": "Enable this flag to turn off all internal optimizations like natural language (NL) interpretation of queries, supplemental results retrieval, and usage of synonyms including custom ones. If this flag is set to True, it will take precedence over the option set at Query level. For the default value of False, query level flag will set the correct interpretation for verbatim mode.",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
     "QueryInterpretationOptions": {
       "description": "Options to interpret user query.",
       "id": "QueryInterpretationOptions",
       "properties": {
         "disableNlInterpretation": {
           "description": "Flag to disable natural language (NL) interpretation of queries. Default is false, Set to true to disable natural language interpretation. NL interpretation only applies to predefined datasources.",
+          "type": "boolean"
+        },
+        "disableSupplementalResults": {
+          "description": "Use this flag to disable supplemental results for a query. Supplemental results setting chosen at SearchApplication level will take precedence if set to True.",
           "type": "boolean"
         },
         "enableVerbatimMode": {
@@ -4434,6 +4453,10 @@
           },
           "readOnly": true,
           "type": "array"
+        },
+        "queryInterpretationConfig": {
+          "$ref": "QueryInterpretationConfig",
+          "description": "The default options for query interpretation"
         },
         "scoringConfig": {
           "$ref": "ScoringConfig",

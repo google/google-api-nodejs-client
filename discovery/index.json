@@ -2336,6 +2336,21 @@
     },
     {
       "kind": "discovery#directoryItem",
+      "id": "fcmdata:v1beta1",
+      "name": "fcmdata",
+      "version": "v1beta1",
+      "title": "Firebase Cloud Messaging Data API",
+      "description": "Provides additional information about Firebase Cloud Messaging (FCM) message sends and deliveries.",
+      "discoveryRestUrl": "https://fcmdata.googleapis.com/$discovery/rest?version=v1beta1",
+      "icons": {
+        "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+        "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+      },
+      "documentationLink": "https://firebase.google.com/docs/cloud-messaging",
+      "preferred": true
+    },
+    {
+      "kind": "discovery#directoryItem",
       "id": "file:v1beta1",
       "name": "file",
       "version": "v1beta1",
@@ -2430,7 +2445,7 @@
       "name": "firebasehosting",
       "version": "v1beta1",
       "title": "Firebase Hosting API",
-      "description": "The Firebase Hosting REST API enables programmatic and customizable deployments to your Firebase-hosted sites. Use this REST API to deploy new or updated hosting configurations and content files.",
+      "description": "The Firebase Hosting REST API enables programmatic and customizable management and deployments to your Firebase-hosted sites. Use this REST API to create and manage channels and sites as well as to deploy new or updated hosting configurations and content files.",
       "discoveryRestUrl": "https://firebasehosting.googleapis.com/$discovery/rest?version=v1beta1",
       "icons": {
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -2445,7 +2460,7 @@
       "name": "firebasehosting",
       "version": "v1",
       "title": "Firebase Hosting API",
-      "description": "The Firebase Hosting REST API enables programmatic and customizable deployments to your Firebase-hosted sites. Use this REST API to deploy new or updated hosting configurations and content files.",
+      "description": "The Firebase Hosting REST API enables programmatic and customizable management and deployments to your Firebase-hosted sites. Use this REST API to create and manage channels and sites as well as to deploy new or updated hosting configurations and content files.",
       "discoveryRestUrl": "https://firebasehosting.googleapis.com/$discovery/rest?version=v1",
       "icons": {
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -3300,7 +3315,7 @@
       "name": "monitoring",
       "version": "v1",
       "title": "Cloud Monitoring API",
-      "description": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages. The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](/monitoring/docs).",
+      "description": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages. The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](https://cloud.google.com/monitoring/docs).",
       "discoveryRestUrl": "https://monitoring.googleapis.com/$discovery/rest?version=v1",
       "icons": {
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -3315,7 +3330,7 @@
       "name": "monitoring",
       "version": "v3",
       "title": "Cloud Monitoring API",
-      "description": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages. The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](/monitoring/docs).",
+      "description": "Manages your Cloud Monitoring data and configurations. Most projects must be associated with a Workspace, with a few exceptions as noted on the individual method pages. The table entries below are presented in alphabetical order, not in order of common use. For explanations of the concepts found in the table entries, read the [Cloud Monitoring documentation](https://cloud.google.com/monitoring/docs).",
       "discoveryRestUrl": "https://monitoring.googleapis.com/$discovery/rest?version=v3",
       "icons": {
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -3347,6 +3362,21 @@
       "title": "My Business Lodging API",
       "description": "The My Business Lodging API enables managing lodging business information on Google.",
       "discoveryRestUrl": "https://mybusinesslodging.googleapis.com/$discovery/rest?version=v1",
+      "icons": {
+        "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+        "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+      },
+      "documentationLink": "https://developers.google.com/my-business/",
+      "preferred": true
+    },
+    {
+      "kind": "discovery#directoryItem",
+      "id": "mybusinessnotifications:v1",
+      "name": "mybusinessnotifications",
+      "version": "v1",
+      "title": "My Business Notifications API",
+      "description": "The My Business Notification Settings API enables managing notification settings for business accounts.",
+      "discoveryRestUrl": "https://mybusinessnotifications.googleapis.com/$discovery/rest?version=v1",
       "icons": {
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
         "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
@@ -4747,6 +4777,7 @@
         "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
         "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
       },
+      "documentationLink": "https://developers.google.com/tasks/",
       "preferred": true
     },
     {

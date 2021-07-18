@@ -1037,7 +1037,7 @@
       }
     }
   },
-  "revision": "20210624",
+  "revision": "20210709",
   "rootUrl": "https://networksecurity.googleapis.com/",
   "schemas": {
     "AuthorizationPolicy": {
@@ -1538,7 +1538,7 @@
       "id": "MTLSPolicy",
       "properties": {
         "clientValidationCa": {
-          "description": "Required. Defines the mechanism to obtain the Certificate Authority certificate to validate the client certificate.",
+          "description": " Defines the mechanism to obtain the Certificate Authority certificate to validate the client certificate.",
           "items": {
             "$ref": "ValidationCA"
           },
@@ -1648,11 +1648,11 @@
       "type": "object"
     },
     "ServerTlsPolicy": {
-      "description": "ServerTlsPolicy is a resource that specifies how a server should authenticate incoming requests. This resource itself does not affect configuration unless it is attached to a target https proxy or endpoint config selector resource.",
+      "description": "ServerTlsPolicy is a resource that specifies how a server should authenticate incoming requests. This resource itself does not affect configuration unless it is attached to a target https proxy or endpoint config selector resource. ",
       "id": "ServerTlsPolicy",
       "properties": {
         "allowOpen": {
-          "description": "Optional. Determines if server allows plaintext connections. If set to true, server allows plain text connections. By default, it is set to false. This setting is not exclusive of other encryption modes. For example, if allow_open and mtls_policy are set, server allows both plain text and mTLS connections. See documentation of other encryption modes to confirm compatibility.",
+          "description": " Determines if server allows plaintext connections. If set to true, server allows plain text connections. By default, it is set to false. This setting is not exclusive of other encryption modes. For example, if `allow_open` and `mtls_policy` are set, server allows both plain text and mTLS connections. See documentation of other encryption modes to confirm compatibility.",
           "type": "boolean"
         },
         "createTime": {
@@ -1662,19 +1662,19 @@
           "type": "string"
         },
         "description": {
-          "description": "Optional. Free-text description of the resource.",
+          "description": "Free-text description of the resource.",
           "type": "string"
         },
         "labels": {
           "additionalProperties": {
             "type": "string"
           },
-          "description": "Optional. Set of label tags associated with the resource.",
+          "description": "Set of label tags associated with the resource.",
           "type": "object"
         },
         "mtlsPolicy": {
           "$ref": "MTLSPolicy",
-          "description": "Optional. Defines a mechanism to provision peer validation certificates for peer to peer authentication (Mutual TLS - mTLS). If not specified, client certificate will not be requested. The connection is treated as TLS and not mTLS. If allow_open and mtls_policy are set, server allows both plain text and mTLS connections."
+          "description": " Defines a mechanism to provision peer validation certificates for peer to peer authentication (Mutual TLS - mTLS). If not specified, client certificate will not be requested. The connection is treated as TLS and not mTLS. If `allow_open` and `mtls_policy` are set, server allows both plain text and mTLS connections."
         },
         "name": {
           "description": "Required. Name of the ServerTlsPolicy resource. It matches the pattern `projects/*/locations/{location}/serverTlsPolicies/{server_tls_policy}`",
@@ -1682,7 +1682,7 @@
         },
         "serverCertificate": {
           "$ref": "GoogleCloudNetworksecurityV1beta1CertificateProvider",
-          "description": "Optional. Defines a mechanism to provision server identity (public and private keys). Cannot be combined with allow_open as a permissive mode that allows both plain text and TLS is not supported."
+          "description": " Defines a mechanism to provision server identity (public and private keys). Cannot be combined with `allow_open` as a permissive mode that allows both plain text and TLS is not supported."
         },
         "updateTime": {
           "description": "Output only. The timestamp when the resource was updated.",

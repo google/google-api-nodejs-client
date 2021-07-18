@@ -17,7 +17,7 @@
   "canonicalName": "Tasks",
   "description": "The Google Tasks API lets you manage your tasks and task lists.",
   "discoveryVersion": "v1",
-  "documentationLink": "",
+  "documentationLink": "https://developers.google.com/tasks/",
   "fullyEncodeReservedExpansion": true,
   "icons": {
     "x16": "http://www.google.com/images/icons/product/search-16.gif",
@@ -566,7 +566,7 @@
       }
     }
   },
-  "revision": "20210306",
+  "revision": "20210712",
   "rootUrl": "https://tasks.googleapis.com/",
   "schemas": {
     "Task": {
