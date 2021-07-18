@@ -839,7 +839,7 @@
       }
     }
   },
-  "revision": "20210615",
+  "revision": "20210701",
   "rootUrl": "https://managedidentities.googleapis.com/",
   "schemas": {
     "AttachTrustRequest": {
@@ -987,6 +987,10 @@
         "admin": {
           "description": "Optional. The name of delegated administrator account used to perform Active Directory operations. If not specified, `setupadmin` will be used.",
           "type": "string"
+        },
+        "auditLogsEnabled": {
+          "description": "Optional. Configuration for audit logs. True if audit logs are enabled, else false. Default is audit logs disabled.",
+          "type": "boolean"
         },
         "authorizedNetworks": {
           "description": "Optional. The full names of the Google Compute Engine [networks](/compute/docs/networks-and-firewalls#networks) the domain instance is connected to. Networks can be added using UpdateDomain. The domain is only available on networks listed in `authorized_networks`. If CIDR subnets overlap between networks, domain creation will fail.",
@@ -1518,7 +1522,7 @@
           "readOnly": true
         },
         "certificatePassword": {
-          "description": "Input only. The password used to encrypt the uploaded pfx certificate.",
+          "description": "Input only. The password used to encrypt the uploaded PFX certificate.",
           "type": "string"
         },
         "certificatePfx": {
@@ -1781,33 +1785,40 @@
       "id": "OperationMetadata",
       "properties": {
         "apiVersion": {
-          "description": "[Output only] API version used to start the operation.",
+          "description": "Output only. API version used to start the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "cancelRequested": {
-          "description": "[Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "description": "Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "readOnly": true,
           "type": "boolean"
         },
         "createTime": {
-          "description": "[Output only] The time the operation was created.",
+          "description": "Output only. The time the operation was created.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "endTime": {
-          "description": "[Output only] The time the operation finished running.",
+          "description": "Output only. The time the operation finished running.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "statusDetail": {
-          "description": "[Output only] Human-readable status of the operation, if any.",
+          "description": "Output only. Human-readable status of the operation, if any.",
+          "readOnly": true,
           "type": "string"
         },
         "target": {
-          "description": "[Output only] Server-defined resource path for the target of the operation.",
+          "description": "Output only. Server-defined resource path for the target of the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "verb": {
-          "description": "[Output only] Name of the verb executed by the operation.",
+          "description": "Output only. Name of the verb executed by the operation.",
+          "readOnly": true,
           "type": "string"
         }
       },
@@ -1924,25 +1935,25 @@
       "type": "object"
     },
     "SqlIntegration": {
-      "description": "Represents the Sql instance integrated with AD.",
+      "description": "Represents the SQL instance integrated with Managed AD.",
       "id": "SqlIntegration",
       "properties": {
         "createTime": {
-          "description": "Output only. The time sql integration was created. Synthetic field is populated automatically by CCFE.",
+          "description": "Output only. The time the SQL integration was created.",
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"
         },
         "name": {
-          "description": "The unique name of the sql integration in the form of `projects/{project_id}/locations/global/domains/{domain_name}/sqlIntegrations/{sql_integration}`",
+          "description": "The unique name of the SQL integration in the form of `projects/{project_id}/locations/global/domains/{domain_name}/sqlIntegrations/{sql_integration}`",
           "type": "string"
         },
         "sqlInstance": {
-          "description": "The full resource name of an integrated sql instance",
+          "description": "The full resource name of an integrated SQL instance",
           "type": "string"
         },
         "state": {
-          "description": "Output only. The current state of the sql integration.",
+          "description": "Output only. The current state of the SQL integration.",
           "enum": [
             "STATE_UNSPECIFIED",
             "CREATING",
@@ -1951,15 +1962,15 @@
           ],
           "enumDescriptions": [
             "Not Set",
-            "The sqlIntegration is being created.",
-            "The sqlIntegration is being deleted.",
-            "The sqlIntegration is ready."
+            "The SQL integration is being created.",
+            "The SQL integration is being deleted.",
+            "The SQL integration is ready."
           ],
           "readOnly": true,
           "type": "string"
         },
         "updateTime": {
-          "description": "Output only. The time sql integration was updated. Synthetic field is populated automatically by CCFE.",
+          "description": "Output only. The time the SQL integration was updated.",
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"

@@ -1184,7 +1184,7 @@
       }
     }
   },
-  "revision": "20210615",
+  "revision": "20210701",
   "rootUrl": "https://managedidentities.googleapis.com/",
   "schemas": {
     "AttachTrustRequest": {
@@ -2146,33 +2146,40 @@
       "id": "OperationMetadata",
       "properties": {
         "apiVersion": {
-          "description": "[Output only] API version used to start the operation.",
+          "description": "Output only. API version used to start the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "cancelRequested": {
-          "description": "[Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "description": "Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.",
+          "readOnly": true,
           "type": "boolean"
         },
         "createTime": {
-          "description": "[Output only] The time the operation was created.",
+          "description": "Output only. The time the operation was created.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "endTime": {
-          "description": "[Output only] The time the operation finished running.",
+          "description": "Output only. The time the operation finished running.",
           "format": "google-datetime",
+          "readOnly": true,
           "type": "string"
         },
         "statusDetail": {
-          "description": "[Output only] Human-readable status of the operation, if any.",
+          "description": "Output only. Human-readable status of the operation, if any.",
+          "readOnly": true,
           "type": "string"
         },
         "target": {
-          "description": "[Output only] Server-defined resource path for the target of the operation.",
+          "description": "Output only. Server-defined resource path for the target of the operation.",
+          "readOnly": true,
           "type": "string"
         },
         "verb": {
-          "description": "[Output only] Name of the verb executed by the operation.",
+          "description": "Output only. Name of the verb executed by the operation.",
+          "readOnly": true,
           "type": "string"
         }
       },
@@ -2295,7 +2302,7 @@
       "id": "SQLIntegration",
       "properties": {
         "createTime": {
-          "description": "Output only. The time the instance was created. Synthetic field is populated automatically by CCFE. go/ccfe-synthetic-field-user-guide",
+          "description": "Output only. The time the instance was created.",
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"
@@ -2326,7 +2333,7 @@
           "type": "string"
         },
         "updateTime": {
-          "description": "Output only. Last update time. Synthetic field is populated automatically by CCFE.",
+          "description": "Output only. Last update time for this SQL instance.",
           "format": "google-datetime",
           "readOnly": true,
           "type": "string"

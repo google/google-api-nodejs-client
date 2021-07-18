@@ -813,31 +813,31 @@ export namespace managedidentities_v1alpha1 {
    */
   export interface Schema$OperationMetadata {
     /**
-     * [Output only] API version used to start the operation.
+     * Output only. API version used to start the operation.
      */
     apiVersion?: string | null;
     /**
-     * [Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+     * Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
      */
     cancelRequested?: boolean | null;
     /**
-     * [Output only] The time the operation was created.
+     * Output only. The time the operation was created.
      */
     createTime?: string | null;
     /**
-     * [Output only] The time the operation finished running.
+     * Output only. The time the operation finished running.
      */
     endTime?: string | null;
     /**
-     * [Output only] Human-readable status of the operation, if any.
+     * Output only. Human-readable status of the operation, if any.
      */
     statusDetail?: string | null;
     /**
-     * [Output only] Server-defined resource path for the target of the operation.
+     * Output only. Server-defined resource path for the target of the operation.
      */
     target?: string | null;
     /**
-     * [Output only] Name of the verb executed by the operation.
+     * Output only. Name of the verb executed by the operation.
      */
     verb?: string | null;
   }
@@ -939,7 +939,7 @@ export namespace managedidentities_v1alpha1 {
    */
   export interface Schema$SQLIntegration {
     /**
-     * Output only. The time the instance was created. Synthetic field is populated automatically by CCFE. go/ccfe-synthetic-field-user-guide
+     * Output only. The time the instance was created.
      */
     createTime?: string | null;
     /**
@@ -955,7 +955,7 @@ export namespace managedidentities_v1alpha1 {
      */
     state?: string | null;
     /**
-     * Output only. Last update time. Synthetic field is populated automatically by CCFE.
+     * Output only. Last update time for this SQL instance.
      */
     updateTime?: string | null;
   }

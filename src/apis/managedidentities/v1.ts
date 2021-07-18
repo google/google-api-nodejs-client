@@ -245,6 +245,10 @@ export namespace managedidentities_v1 {
      */
     admin?: string | null;
     /**
+     * Optional. Configuration for audit logs. True if audit logs are enabled, else false. Default is audit logs disabled.
+     */
+    auditLogsEnabled?: boolean | null;
+    /**
      * Optional. The full names of the Google Compute Engine [networks](/compute/docs/networks-and-firewalls#networks) the domain instance is connected to. Networks can be added using UpdateDomain. The domain is only available on networks listed in `authorized_networks`. If CIDR subnets overlap between networks, domain creation will fail.
      */
     authorizedNetworks?: string[] | null;
@@ -620,7 +624,7 @@ export namespace managedidentities_v1 {
      */
     certificate?: Schema$Certificate;
     /**
-     * Input only. The password used to encrypt the uploaded pfx certificate.
+     * Input only. The password used to encrypt the uploaded PFX certificate.
      */
     certificatePassword?: string | null;
     /**
@@ -801,31 +805,31 @@ export namespace managedidentities_v1 {
    */
   export interface Schema$OperationMetadata {
     /**
-     * [Output only] API version used to start the operation.
+     * Output only. API version used to start the operation.
      */
     apiVersion?: string | null;
     /**
-     * [Output only] Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
+     * Output only. Identifies whether the user has requested cancellation of the operation. Operations that have successfully been cancelled have Operation.error value with a google.rpc.Status.code of 1, corresponding to `Code.CANCELLED`.
      */
     cancelRequested?: boolean | null;
     /**
-     * [Output only] The time the operation was created.
+     * Output only. The time the operation was created.
      */
     createTime?: string | null;
     /**
-     * [Output only] The time the operation finished running.
+     * Output only. The time the operation finished running.
      */
     endTime?: string | null;
     /**
-     * [Output only] Human-readable status of the operation, if any.
+     * Output only. Human-readable status of the operation, if any.
      */
     statusDetail?: string | null;
     /**
-     * [Output only] Server-defined resource path for the target of the operation.
+     * Output only. Server-defined resource path for the target of the operation.
      */
     target?: string | null;
     /**
-     * [Output only] Name of the verb executed by the operation.
+     * Output only. Name of the verb executed by the operation.
      */
     verb?: string | null;
   }
@@ -899,27 +903,27 @@ export namespace managedidentities_v1 {
     policy?: Schema$Policy;
   }
   /**
-   * Represents the Sql instance integrated with AD.
+   * Represents the SQL instance integrated with Managed AD.
    */
   export interface Schema$SqlIntegration {
     /**
-     * Output only. The time sql integration was created. Synthetic field is populated automatically by CCFE.
+     * Output only. The time the SQL integration was created.
      */
     createTime?: string | null;
     /**
-     * The unique name of the sql integration in the form of `projects/{project_id\}/locations/global/domains/{domain_name\}/sqlIntegrations/{sql_integration\}`
+     * The unique name of the SQL integration in the form of `projects/{project_id\}/locations/global/domains/{domain_name\}/sqlIntegrations/{sql_integration\}`
      */
     name?: string | null;
     /**
-     * The full resource name of an integrated sql instance
+     * The full resource name of an integrated SQL instance
      */
     sqlInstance?: string | null;
     /**
-     * Output only. The current state of the sql integration.
+     * Output only. The current state of the SQL integration.
      */
     state?: string | null;
     /**
-     * Output only. The time sql integration was updated. Synthetic field is populated automatically by CCFE.
+     * Output only. The time the SQL integration was updated.
      */
     updateTime?: string | null;
   }
@@ -1589,6 +1593,7 @@ export namespace managedidentities_v1 {
      *       // request body parameters
      *       // {
      *       //   "admin": "my_admin",
+     *       //   "auditLogsEnabled": false,
      *       //   "authorizedNetworks": [],
      *       //   "createTime": "my_createTime",
      *       //   "fqdn": "my_fqdn",
@@ -2017,6 +2022,7 @@ export namespace managedidentities_v1 {
      *   // Example response
      *   // {
      *   //   "admin": "my_admin",
+     *   //   "auditLogsEnabled": false,
      *   //   "authorizedNetworks": [],
      *   //   "createTime": "my_createTime",
      *   //   "fqdn": "my_fqdn",
@@ -2575,6 +2581,7 @@ export namespace managedidentities_v1 {
      *       // request body parameters
      *       // {
      *       //   "admin": "my_admin",
+     *       //   "auditLogsEnabled": false,
      *       //   "authorizedNetworks": [],
      *       //   "createTime": "my_createTime",
      *       //   "fqdn": "my_fqdn",
