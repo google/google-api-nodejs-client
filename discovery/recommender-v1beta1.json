@@ -1178,7 +1178,7 @@
       }
     }
   },
-  "revision": "20210613",
+  "revision": "20210709",
   "rootUrl": "https://recommender.googleapis.com/",
   "schemas": {
     "GoogleCloudRecommenderV1beta1CostProjection": {
@@ -1623,6 +1623,14 @@
             "$ref": "GoogleCloudRecommenderV1beta1OperationGroup"
           },
           "type": "array"
+        },
+        "overview": {
+          "additionalProperties": {
+            "description": "Properties of the object.",
+            "type": "any"
+          },
+          "description": "Condensed overview information about the recommendation.",
+          "type": "object"
         }
       },
       "type": "object"
