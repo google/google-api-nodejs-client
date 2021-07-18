@@ -226,7 +226,7 @@
           ]
         },
         "list": {
-          "description": "Lists all backup runs associated with a given instance and configuration in the reverse chronological order of the backup initiation time.",
+          "description": "Lists all backup runs associated with the project or a given instance and configuration in the reverse chronological order of the backup initiation time.",
           "flatPath": "sql/v1beta4/projects/{project}/instances/{instance}/backupRuns",
           "httpMethod": "GET",
           "id": "sql.backupRuns.list",
@@ -236,7 +236,7 @@
           ],
           "parameters": {
             "instance": {
-              "description": "Cloud SQL instance ID. This does not include the project ID.",
+              "description": "Cloud SQL instance ID, or \"-\" for all instances. This does not include the project ID.",
               "location": "path",
               "required": true,
               "type": "string"
@@ -262,6 +262,83 @@
           "path": "sql/v1beta4/projects/{project}/instances/{instance}/backupRuns",
           "response": {
             "$ref": "BackupRunsListResponse"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/cloud-platform",
+            "https://www.googleapis.com/auth/sqlservice.admin"
+          ]
+        }
+      }
+    },
+    "connect": {
+      "methods": {
+        "generateEphemeralCert": {
+          "description": "Generates a short-lived X509 certificate containing the provided public key and signed by a private key specific to the target instance. Users may use the certificate to authenticate as themselves when connecting to the database.",
+          "flatPath": "sql/v1beta4/projects/{project}/instances/{instance}:generateEphemeralCert",
+          "httpMethod": "POST",
+          "id": "sql.connect.generateEphemeral",
+          "parameterOrder": [
+            "project",
+            "instance"
+          ],
+          "parameters": {
+            "instance": {
+              "description": "Cloud SQL instance ID. This does not include the project ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "project": {
+              "description": "Project ID of the project that contains the instance.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "path": "sql/v1beta4/projects/{project}/instances/{instance}:generateEphemeralCert",
+          "request": {
+            "$ref": "GenerateEphemeralCertRequest"
+          },
+          "response": {
+            "$ref": "GenerateEphemeralCertResponse"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/cloud-platform",
+            "https://www.googleapis.com/auth/sqlservice.admin"
+          ]
+        },
+        "get": {
+          "description": "Retrieves connect settings about a Cloud SQL instance.",
+          "flatPath": "sql/v1beta4/projects/{project}/instances/{instance}/connectSettings",
+          "httpMethod": "GET",
+          "id": "sql.connect.get",
+          "parameterOrder": [
+            "project",
+            "instance"
+          ],
+          "parameters": {
+            "instance": {
+              "description": "Cloud SQL instance ID. This does not include the project ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "project": {
+              "description": "Project ID of the project that contains the instance.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "readTime": {
+              "description": "Optional. Optional snapshot read timestamp to trade freshness for performance.",
+              "format": "google-datetime",
+              "location": "query",
+              "type": "string"
+            }
+          },
+          "path": "sql/v1beta4/projects/{project}/instances/{instance}/connectSettings",
+          "response": {
+            "$ref": "ConnectSettings"
           },
           "scopes": [
             "https://www.googleapis.com/auth/cloud-platform",
@@ -1834,7 +1911,7 @@
       }
     }
   },
-  "revision": "20210608",
+  "revision": "20210627",
   "rootUrl": "https://sqladmin.googleapis.com/",
   "schemas": {
     "AclEntry": {
@@ -1913,7 +1990,7 @@
           "type": "string"
         },
         "pointInTimeRecoveryEnabled": {
-          "description": "Reserved for future use.",
+          "description": "(Postgres only) Whether point in time recovery is enabled.",
           "type": "boolean"
         },
         "replicationLogArchivingEnabled": {
@@ -2156,9 +2233,93 @@
           "type": "string"
         },
         "pointInTime": {
-          "description": "Reserved for future use.",
+          "description": "Timestamp, if specified, identifies the time to which the source instance is cloned.",
           "format": "google-datetime",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ConnectSettings": {
+      "description": "Connect settings retrieval response.",
+      "id": "ConnectSettings",
+      "properties": {
+        "backendType": {
+          "description": "**SECOND_GEN**: Cloud SQL database instance. **EXTERNAL**: A database server that is not managed by Google. This property is read-only; use the **tier** property in the **settings** object to determine the database type.",
+          "enum": [
+            "SQL_BACKEND_TYPE_UNSPECIFIED",
+            "FIRST_GEN",
+            "SECOND_GEN",
+            "EXTERNAL"
+          ],
+          "enumDescriptions": [
+            "This is an unknown backend type for instance.",
+            "V1 speckle instance.",
+            "V2 speckle instance.",
+            "On premises instance."
+          ],
+          "type": "string"
+        },
+        "databaseVersion": {
+          "description": "The database engine type and version. The **databaseVersion** field cannot be changed after instance creation. MySQL instances: **MYSQL_8_0**, **MYSQL_5_7** (default), or **MYSQL_5_6**. PostgreSQL instances: **POSTGRES_9_6**, **POSTGRES_10**, **POSTGRES_11** or **POSTGRES_12** (default). SQL Server instances: **SQLSERVER_2017_STANDARD** (default), **SQLSERVER_2017_ENTERPRISE**, **SQLSERVER_2017_EXPRESS**, or **SQLSERVER_2017_WEB**.",
+          "enum": [
+            "SQL_DATABASE_VERSION_UNSPECIFIED",
+            "MYSQL_5_1",
+            "MYSQL_5_5",
+            "MYSQL_5_6",
+            "MYSQL_5_7",
+            "POSTGRES_9_6",
+            "POSTGRES_11",
+            "SQLSERVER_2017_STANDARD",
+            "SQLSERVER_2017_ENTERPRISE",
+            "SQLSERVER_2017_EXPRESS",
+            "SQLSERVER_2017_WEB",
+            "POSTGRES_10",
+            "POSTGRES_12",
+            "MYSQL_8_0",
+            "POSTGRES_13",
+            "SQLSERVER_2019_STANDARD",
+            "SQLSERVER_2019_ENTERPRISE",
+            "SQLSERVER_2019_EXPRESS",
+            "SQLSERVER_2019_WEB"
+          ],
+          "enumDescriptions": [
+            "This is an unknown database version.",
+            "The database version is MySQL 5.1.",
+            "The database version is MySQL 5.5.",
+            "The database version is MySQL 5.6.",
+            "The database version is MySQL 5.7.",
+            "The database version is PostgreSQL 9.6.",
+            "The database version is PostgreSQL 11.",
+            "The database version is SQL Server 2017 Standard.",
+            "The database version is SQL Server 2017 Enterprise.",
+            "The database version is SQL Server 2017 Express.",
+            "The database version is SQL Server 2017 Web.",
+            "The database version is PostgreSQL 10.",
+            "The database version is PostgreSQL 12.",
+            "The database version is MySQL 8.",
+            "The database version is PostgreSQL 13.",
+            "The database version is SQL Server 2019 Standard.",
+            "The database version is SQL Server 2019 Enterprise.",
+            "The database version is SQL Server 2019 Express.",
+            "The database version is SQL Server 2019 Web."
+          ],
+          "type": "string"
+        },
+        "ipAddresses": {
+          "description": "The assigned IP addresses for the instance.",
+          "items": {
+            "$ref": "IpMapping"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "description": "This is always `sql#connectSettings`.",
+          "type": "string"
+        },
+        "serverCaCert": {
+          "$ref": "SslCert",
+          "description": "SSL configuration."
         }
       },
       "type": "object"
@@ -2841,6 +3002,37 @@
         "kind": {
           "description": "This is always *sql#flagsList*.",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenerateEphemeralCertRequest": {
+      "description": "Ephemeral certificate creation request.",
+      "id": "GenerateEphemeralCertRequest",
+      "properties": {
+        "access_token": {
+          "description": "Optional. Access token to include in the signed certificate.",
+          "type": "string"
+        },
+        "public_key": {
+          "description": "PEM encoded public key to include in the signed certificate.",
+          "type": "string"
+        },
+        "readTime": {
+          "description": "Optional. Optional snapshot read timestamp to trade freshness for performance.",
+          "format": "google-datetime",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "GenerateEphemeralCertResponse": {
+      "description": "Ephemeral certificate creation request.",
+      "id": "GenerateEphemeralCertResponse",
+      "properties": {
+        "ephemeralCert": {
+          "$ref": "SslCert",
+          "description": "Generated cert"
         }
       },
       "type": "object"
@@ -3934,6 +4126,11 @@
         "canReschedule": {
           "description": "If the scheduled maintenance can be rescheduled.",
           "type": "boolean"
+        },
+        "scheduleDeadlineTime": {
+          "description": "Maintenance cannot be rescheduled to start beyond this deadline.",
+          "format": "google-datetime",
+          "type": "string"
         },
         "startTime": {
           "description": "The start time of any upcoming scheduled maintenance for this instance.",
