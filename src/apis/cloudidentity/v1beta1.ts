@@ -5330,7 +5330,7 @@ export namespace cloudidentity_v1beta1 {
      *   const res = await cloudidentity.groups.patch({
      *     // Output only. The [resource name](https://cloud.google.com/apis/design/resource_names) of the `Group`. Shall be of the form `groups/{group_id\}`.
      *     name: 'groups/my-group',
-     *     // Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`.
+     *     // Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`, `dynamic_group_metadata`, `posix_groups`.
      *     updateMask: 'placeholder-value',
      *
      *     // Request body metadata
@@ -5654,7 +5654,7 @@ export namespace cloudidentity_v1beta1 {
      */
     name?: string;
     /**
-     * Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`.
+     * Required. The names of fields to update. May only contain the following fields: `display_name`, `description`, `labels`, `dynamic_group_metadata`, `posix_groups`.
      */
     updateMask?: string;
 
