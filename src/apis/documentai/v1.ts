@@ -255,7 +255,12 @@ export namespace documentai_v1 {
   /**
    * Response message associated with the ExportProcessorVersion operation.
    */
-  export interface Schema$GoogleCloudDocumentaiUiv1beta3ExportProcessorVersionResponse {}
+  export interface Schema$GoogleCloudDocumentaiUiv1beta3ExportProcessorVersionResponse {
+    /**
+     * The Cloud Storage URI containing the output artifacts.
+     */
+    gcsUri?: string | null;
+  }
   /**
    * The long running operation metadata for set default processor version method.
    */
