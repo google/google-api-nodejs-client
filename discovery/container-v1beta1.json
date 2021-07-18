@@ -2484,7 +2484,7 @@
       }
     }
   },
-  "revision": "20210617",
+  "revision": "20210628",
   "rootUrl": "https://container.googleapis.com/",
   "schemas": {
     "AcceleratorConfig": {
@@ -3259,6 +3259,10 @@
         "desiredResourceUsageExportConfig": {
           "$ref": "ResourceUsageExportConfig",
           "description": "The desired configuration for exporting resource usage."
+        },
+        "desiredServiceExternalIpsConfig": {
+          "$ref": "ServiceExternalIPsConfig",
+          "description": "ServiceExternalIPsConfig specifies the config for the use of Services with ExternalIPs field."
         },
         "desiredShieldedNodes": {
           "$ref": "ShieldedNodes",
